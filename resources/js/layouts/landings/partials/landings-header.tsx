@@ -24,7 +24,7 @@ export default function LandingHeader() {
   return (
     <div className="mx-auto max-w-7xl">
       {/* Mobile menu slider*/}
-      <Dialog open={open} onClose={setOpen} className="relative z-40 lg:hidden">
+      <Dialog open={open} onClose={setOpen} className="relative z-40">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-black/25 transition-opacity duration-300 ease-linear data-closed:opacity-0"
@@ -55,17 +55,11 @@ export default function LandingHeader() {
               </a>
             </div>
 
-            <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-              <div className="flow-root">
-                <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                  Create an account
-                </a>
-              </div>
-              <div className="flow-root">
-                <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                  Sign in
-                </a>
-              </div>
+            <div className="flex flex-col space-y-2 border-t border-gray-200 px-4 py-6 lg:hidden">
+              <Button onClick={() => router.get(route('register'))}>Create an account</Button>
+              <Button onClick={() => router.get(route('login'))} variant="secondary">
+                Sign in
+              </Button>
             </div>
 
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
@@ -95,37 +89,37 @@ export default function LandingHeader() {
 
       {/* Menu and Full nav lg+ */}
       <nav className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Link href={route('home')} className="text-xl font-bold lg:text-2xl">
+        <div className="mr-2 flex items-center gap-2">
+          <Link href={route('home')} className="shrink-0 text-xl font-bold lg:text-2xl">
             <img src="/assets/images/logo.png" alt="Logo" className="h-8 w-auto lg:h-9" />
           </Link>
 
-          <Button variant="ghost" size="icon" className="group h-9 w-9 cursor-pointer lg:hidden">
+          <Button variant="ghost" size="icon" className="group h-9 w-9 cursor-pointer md:hidden">
             <SearchIcon className="!size-5 opacity-80 group-hover:opacity-100" />
           </Button>
         </div>
 
-        <div className="relative hidden w-full lg:flex lg:max-w-md xl:max-w-lg">
+        <div className="relative hidden w-full md:flex md:max-w-sm lg:max-w-md xl:max-w-lg">
           <Input type="text" placeholder="Search products" className="p-2 pr-9" />
           <SearchIcon className="absolute top-2.5 right-3 size-4 cursor-pointer font-bold text-primary/80 hover:text-primary" />
         </div>
 
         <div className="flex items-center lg:ml-8">
-          <div className="flex items-center space-x-4 lg:space-x-8">
+          <div className="flex items-center space-x-2 lg:space-x-8">
             <AppearanceToggleDropdown />
 
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" onClick={() => setOpen(true)} className="lg:hidden">
+            <div className="flex items-center lg:space-x-2">
+              <Button variant="ghost" onClick={() => setOpen(true)}>
                 <SlidersHorizontalIcon aria-hidden="true" className="size-5" />
               </Button>
 
               {!auth.user && (
-                <>
+                <div className="hidden items-center space-x-2 lg:flex">
                   <Button onClick={() => router.get(route('register'))}>Register</Button>
                   <Button onClick={() => router.get(route('login'))} variant="secondary">
                     Login
                   </Button>
-                </>
+                </div>
               )}
             </div>
 
@@ -148,7 +142,7 @@ export default function LandingHeader() {
             )}
           </div>
 
-          <span aria-hidden="true" className="mx-4 h-6 w-px bg-gray-400 lg:mx-6" />
+          <span aria-hidden="true" className="mx-2 h-6 w-px bg-gray-400 lg:mx-6" />
 
           <a href="#" className="group relative -m-2 flex items-center p-2">
             <ShoppingCartIcon aria-hidden="true" className="size-6 shrink-0 group-hover:text-gray-800" />
