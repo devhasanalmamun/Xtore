@@ -1,11 +1,22 @@
-import { ChevronDownIcon, SearchIcon, ShoppingCartIcon, SlidersHorizontalIcon, UserIcon, XIcon } from 'lucide-react'
+import { ChevronDownIcon, SearchIcon, ShoppingCartIcon, SlidersHorizontalIcon, XIcon } from 'lucide-react'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import { useState } from 'react'
+
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { UserMenuContent } from '@/components/user-menu-content'
+import { useInitials } from '@/hooks/use-initials'
+import { Button } from '@/components/ui/button'
+import { SharedData } from '@/types'
+import { Badge } from '@/components/ui/badge'
 
 const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 
 export default function LandingHeader() {
+  const page = usePage<SharedData>()
+  const { auth } = page.props
+  const getInitials = useInitials()
   const [open, setOpen] = useState(false)
 
   return (
@@ -87,22 +98,16 @@ export default function LandingHeader() {
         </Link>
 
         {/* Mobile menu and search (lg-) */}
-        <div className="flex flex-1 items-center lg:hidden">
-          <a href="#" className="ml-4 p-2 text-gray-400 hover:text-gray-500">
-            <span className="sr-only">Search</span>
-            <SearchIcon aria-hidden="true" className="size-6" />
-          </a>
-        </div>
+        <Button variant="ghost" size="icon" className="group h-9 w-9 cursor-pointer lg:hidden">
+          <SearchIcon className="!size-5 opacity-80 group-hover:opacity-100" />
+        </Button>
 
         <div className="flex flex-1 items-center justify-end">
           <div className="flex items-center lg:ml-8">
             <div className="flex items-center space-x-8">
-              <div className="hidden lg:flex">
-                <a href="#" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                  <span className="sr-only">Search</span>
-                  <SearchIcon aria-hidden="true" className="size-6" />
-                </a>
-              </div>
+              <Button variant="ghost" size="icon" className="group hidden h-9 w-9 cursor-pointer lg:flex">
+                <SearchIcon className="!size-5 opacity-80 group-hover:opacity-100" />
+              </Button>
 
               <button
                 type="button"
@@ -113,26 +118,31 @@ export default function LandingHeader() {
                 <SlidersHorizontalIcon aria-hidden="true" className="size-6" />
               </button>
 
-              <div className="flex">
-                <a href="#" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                  <span className="sr-only">Account</span>
-                  <UserIcon aria-hidden="true" className="size-6" />
-                </a>
-              </div>
+              {auth.user && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="size-10 rounded-full p-1">
+                      <Avatar className="size-8 overflow-hidden rounded-full">
+                        <AvatarImage src={auth.user?.avatar} alt={auth.user?.name} />
+                        <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                          {getInitials(auth.user?.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end">
+                    <UserMenuContent user={auth.user} />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
 
-            <span aria-hidden="true" className="mx-4 h-6 w-px bg-gray-200 lg:mx-6" />
+            <span aria-hidden="true" className="mx-4 h-6 w-px bg-gray-400 lg:mx-6" />
 
-            <div>
-              <a href="#" className="group -m-2 flex items-center p-2">
-                <ShoppingCartIcon
-                  aria-hidden="true"
-                  className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
-                />
-                <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                <span className="sr-only">items in cart, view bag</span>
-              </a>
-            </div>
+            <a href="#" className="group relative -m-2 flex items-center p-2">
+              <ShoppingCartIcon aria-hidden="true" className="size-6 shrink-0 group-hover:text-gray-800" />
+              <Badge className="absolute top-0 right-0 rounded-full px-1 py-0 text-[10px] font-bold">0</Badge>
+            </a>
           </div>
         </div>
       </nav>

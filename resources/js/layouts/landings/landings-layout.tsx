@@ -1,5 +1,5 @@
-import { Head } from '@inertiajs/react'
 import { type PropsWithChildren } from 'react'
+import { Head } from '@inertiajs/react'
 
 import LandingHeader from '@/layouts/landings/partials/landings-header'
 
