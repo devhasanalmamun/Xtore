@@ -1,9 +1,9 @@
-import js from '@eslint/js';
-import prettier from 'eslint-config-prettier';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import globals from 'globals';
-import typescript from 'typescript-eslint';
+import reactHooks from 'eslint-plugin-react-hooks'
+import prettier from 'eslint-config-prettier'
+import typescript from 'typescript-eslint'
+import react from 'eslint-plugin-react'
+import globals from 'globals'
+import js from '@eslint/js'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -41,4 +41,4 @@ export default [
     ignores: ['vendor', 'node_modules', 'public', 'bootstrap/ssr', 'tailwind.config.js'],
   },
   prettier, // Turn off all rules that might conflict with Prettier
-];
+]

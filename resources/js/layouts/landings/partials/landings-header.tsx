@@ -1,15 +1,17 @@
 import { ChevronDownIcon, SearchIcon, ShoppingCartIcon, SlidersHorizontalIcon, XIcon } from 'lucide-react'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
-import { Link, usePage } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
 import { useState } from 'react'
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import AppearanceToggleDropdown from '@/components/appearance-dropdown'
 import { UserMenuContent } from '@/components/user-menu-content'
 import { useInitials } from '@/hooks/use-initials'
 import { Button } from '@/components/ui/button'
-import { SharedData } from '@/types'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { SharedData } from '@/types'
 
 const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
 
@@ -93,57 +95,65 @@ export default function LandingHeader() {
 
       {/* Menu and Full nav lg+ */}
       <nav className="flex items-center justify-between">
-        <Link href={route('home')} className="text-xl font-bold lg:text-2xl">
-          Xtore
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link href={route('home')} className="text-xl font-bold lg:text-2xl">
+            Xtore
+          </Link>
 
-        {/* Mobile menu and search (lg-) */}
-        <Button variant="ghost" size="icon" className="group h-9 w-9 cursor-pointer lg:hidden">
-          <SearchIcon className="!size-5 opacity-80 group-hover:opacity-100" />
-        </Button>
+          <Button variant="ghost" size="icon" className="group h-9 w-9 cursor-pointer lg:hidden">
+            <SearchIcon className="!size-5 opacity-80 group-hover:opacity-100" />
+          </Button>
+        </div>
 
-        <div className="flex flex-1 items-center justify-end">
-          <div className="flex items-center lg:ml-8">
-            <div className="flex items-center space-x-8">
-              <Button variant="ghost" size="icon" className="group hidden h-9 w-9 cursor-pointer lg:flex">
-                <SearchIcon className="!size-5 opacity-80 group-hover:opacity-100" />
+        <div className="relative hidden w-full lg:flex lg:max-w-md xl:max-w-lg">
+          <Input type="text" placeholder="Search products" className="p-2 pr-9" />
+          <SearchIcon className="absolute top-2.5 right-3 size-4 cursor-pointer font-bold text-primary/80 hover:text-primary" />
+        </div>
+
+        <div className="flex items-center lg:ml-8">
+          <div className="flex items-center space-x-4 lg:space-x-8">
+            <AppearanceToggleDropdown />
+
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" onClick={() => setOpen(true)} className="lg:hidden">
+                <SlidersHorizontalIcon aria-hidden="true" className="size-5" />
               </Button>
 
-              <button
-                type="button"
-                onClick={() => setOpen(true)}
-                className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
-              >
-                <span className="sr-only">Open menu</span>
-                <SlidersHorizontalIcon aria-hidden="true" className="size-6" />
-              </button>
-
-              {auth.user && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="size-10 rounded-full p-1">
-                      <Avatar className="size-8 overflow-hidden rounded-full">
-                        <AvatarImage src={auth.user?.avatar} alt={auth.user?.name} />
-                        <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                          {getInitials(auth.user?.name)}
-                        </AvatarFallback>
-                      </Avatar>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56" align="end">
-                    <UserMenuContent user={auth.user} />
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              {!auth.user && (
+                <>
+                  <Button onClick={() => router.get(route('register'))}>Register</Button>
+                  <Button onClick={() => router.get(route('login'))} variant="secondary">
+                    Login
+                  </Button>
+                </>
               )}
             </div>
 
-            <span aria-hidden="true" className="mx-4 h-6 w-px bg-gray-400 lg:mx-6" />
-
-            <a href="#" className="group relative -m-2 flex items-center p-2">
-              <ShoppingCartIcon aria-hidden="true" className="size-6 shrink-0 group-hover:text-gray-800" />
-              <Badge className="absolute top-0 right-0 rounded-full px-1 py-0 text-[10px] font-bold">0</Badge>
-            </a>
+            {auth.user && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="size-10 rounded-full p-1">
+                    <Avatar className="size-8 overflow-hidden rounded-full">
+                      <AvatarImage src={auth.user?.avatar} alt={auth.user?.name} />
+                      <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                        {getInitials(auth.user?.name)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end">
+                  <UserMenuContent user={auth.user} />
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
+
+          <span aria-hidden="true" className="mx-4 h-6 w-px bg-gray-400 lg:mx-6" />
+
+          <a href="#" className="group relative -m-2 flex items-center p-2">
+            <ShoppingCartIcon aria-hidden="true" className="size-6 shrink-0 group-hover:text-gray-800" />
+            <Badge className="absolute top-0 right-0 rounded-full px-1 py-0 text-[10px] font-bold">0</Badge>
+          </a>
         </div>
       </nav>
     </div>
