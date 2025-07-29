@@ -7,7 +7,7 @@ const prefersDark = () => {
     return false
   }
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
+  return window.matchMedia('(prefers-color-scheme: light)').matches
 }
 
 const setCookie = (name: string, value: string, days = 365) => {
@@ -48,7 +48,7 @@ export function initializeTheme() {
 }
 
 export function useAppearance() {
-  const [appearance, setAppearance] = useState<Appearance>('system')
+  const [appearance, setAppearance] = useState<Appearance>('light')
 
   const updateAppearance = useCallback((mode: Appearance) => {
     setAppearance(mode)
@@ -64,7 +64,7 @@ export function useAppearance() {
 
   useEffect(() => {
     const savedAppearance = localStorage.getItem('appearance') as Appearance | null
-    updateAppearance(savedAppearance || 'system')
+    updateAppearance(savedAppearance || 'light')
 
     return () => mediaQuery()?.removeEventListener('change', handleSystemThemeChange)
   }, [updateAppearance])
