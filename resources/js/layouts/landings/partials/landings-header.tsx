@@ -97,7 +97,7 @@ export default function LandingHeader() {
       <nav className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href={route('home')} className="text-xl font-bold lg:text-2xl">
-            Xtore
+            <img src="/assets/images/logo.png" alt="Logo" className="h-8 w-auto lg:h-9" />
           </Link>
 
           <Button variant="ghost" size="icon" className="group h-9 w-9 cursor-pointer lg:hidden">
