@@ -24,17 +24,15 @@ export default function LandingHeader() {
   return (
     <>
       <nav className="mx-auto flex max-w-7xl items-center justify-between">
-        <div className="mr-2 flex items-center gap-2">
+        <div className="mr-2 flex items-center gap-4">
           <Link href={route('home')} className="shrink-0 text-xl font-bold lg:text-2xl">
-            <img src="/assets/images/logo.png" loading="lazy" alt="Logo" className="h-8 w-auto lg:h-9" />
+            <img src="/assets/images/logo.png" loading="lazy" className="h-8 w-auto lg:h-9" alt="Logo" />
           </Link>
 
-          <Button variant="ghost" size="icon" className="p-0 md:hidden">
-            <SearchIcon className="size-5" />
-          </Button>
+          <SearchIcon className="mt-1 size-5 shrink-0 md:hidden" />
         </div>
 
-        <div className="relative hidden w-full md:flex md:max-w-sm lg:max-w-md xl:max-w-lg">
+        <div className="relative hidden w-full md:block md:max-w-sm lg:max-w-md xl:max-w-lg">
           <Input type="text" placeholder="Search products" className="p-2 pr-9" />
           <SearchIcon className="absolute top-2.5 right-3 size-4 cursor-pointer font-bold text-primary/80 hover:text-primary" />
         </div>
@@ -61,7 +59,7 @@ export default function LandingHeader() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="size-10 rounded-full p-1">
-                  <Avatar className="size-8 overflow-hidden rounded-full">
+                  <Avatar>
                     <AvatarImage src={auth.user?.avatar} alt={auth.user?.name} />
                     <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
                       {getInitials(auth.user?.name)}
@@ -77,8 +75,8 @@ export default function LandingHeader() {
 
           <span aria-hidden="true" className="mx-2 h-6 w-px bg-gray-400 lg:mx-3" />
 
-          <a href="#" className="group relative -m-2 flex items-center p-2">
-            <ShoppingCartIcon aria-hidden="true" className="size-6 shrink-0 group-hover:text-gray-800" />
+          <a href="#" className="relative flex items-center p-2">
+            <ShoppingCartIcon aria-hidden="true" className="size-6 shrink-0 text-gray-700 hover:text-gray-800" />
             <Badge className="absolute top-0 right-0 rounded-full px-1 py-0 text-[10px] font-bold">0</Badge>
           </a>
         </div>
