@@ -15,17 +15,20 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->createMany([
             [
-                'name' => 'User',
-                'email' => 'user@example.com',
-                'role' => UserRoleEnum::USER
+                'first_name'=> 'Customer',
+                'last_name' => 'User',
+                'email' => 'customer@example.com',
+                'role' => UserRoleEnum::CUSTOMER
             ],
             [
-                'name' => 'Vendor',
+                'first_name' => 'Vendor',
+                'last_name'=> 'User',
                 'email' => 'vendor@example.com',
                 'role' => UserRoleEnum::VENDOR
             ],
             [
-                'name' => 'Admin',
+                'first_name' => 'Admin',
+                'last_name'=> 'User',
                 'email' => 'admin@example.com',
                 'role' => UserRoleEnum::ADMIN
             ],

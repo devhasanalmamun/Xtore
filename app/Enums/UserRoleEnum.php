@@ -6,14 +6,14 @@ enum UserRoleEnum: string
 {
     case ADMIN = 'admin';
     case VENDOR = 'vendor';
-    case USER = 'user';
+    case CUSTOMER = 'customer';
 
     public function label(): string
     {
         return match ($this) {
             self::ADMIN => 'Admin',
             self::VENDOR => 'Vendor',
-            self::USER => 'User',
+            self::CUSTOMER => 'User',
         };
     }
 

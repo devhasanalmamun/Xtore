@@ -8,7 +8,7 @@ trait HasRoles
 {
   	public function isUser(): bool
 	{
-		return $this->roleIs(UserRoleEnum::USER);
+		return $this->roleIs(UserRoleEnum::CUSTOMER);
 	}
 
 	public function isVendor(): bool
