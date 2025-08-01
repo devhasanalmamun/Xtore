@@ -21,6 +21,8 @@ export default function LandingHeader() {
   const getInitials = useInitials()
   const [open, setOpen] = useState(false)
 
+  console.log('LandingHeader', { auth })
+
   return (
     <>
       <nav className="mx-auto flex max-w-7xl items-center justify-between">
@@ -60,9 +62,9 @@ export default function LandingHeader() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="size-10 rounded-full p-1">
                   <Avatar>
-                    <AvatarImage src={auth.user?.avatar} alt={auth.user?.name} />
+                    <AvatarImage src={auth.user?.avatar} alt={auth.user?.first_name} />
                     <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                      {getInitials(auth.user?.name)}
+                      {getInitials(auth.user?.first_name, auth.user?.last_name)}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
