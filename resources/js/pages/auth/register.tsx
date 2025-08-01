@@ -32,7 +32,7 @@ export default function Register() {
   }
 
   return (
-    <LandingsLayout title="Create an account" description="Enter your details below to create your account">
+    <>
       <Head title="Register" />
       <div className="mx-auto my-16 max-w-lg bg-gray-50">
         <form className="flex flex-col gap-6 p-6" onSubmit={submit}>
@@ -116,6 +116,12 @@ export default function Register() {
           </div>
         </form>
       </div>
-    </LandingsLayout>
+    </>
   )
 }
+
+Register.layout = (page: React.ReactNode) => (
+  <LandingsLayout title="Create an account" description="Enter your details below to create your account">
+    {page}
+  </LandingsLayout>
+)
