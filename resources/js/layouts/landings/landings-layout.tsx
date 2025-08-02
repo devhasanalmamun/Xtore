@@ -36,7 +36,9 @@ export default function LandingsLayout({ children, ...props }: PropsWithChildren
         </Link>
       </footer>
 
-      <LandingsFooter />
+      <section className="bg-gray-900 px-4 py-4 sm:px-6 sm:py-8 lg:px-8 lg:py-16">
+        <LandingsFooter />
+      </section>
     </>
   )
 }

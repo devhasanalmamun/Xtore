@@ -25,82 +25,80 @@ const socials = [
 
 export default function LandingsFooter() {
   return (
-    <footer className="bg-gray-900 px-10 pt-12 pb-8 tracking-wide">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:flex lg:items-center">
-            <Link href={route('home')}>
-              <img src="/assets/images/logo.png" alt="logo" className="w-48" />
-            </Link>
-          </div>
-
-          <div className="lg:flex lg:items-center">
-            <ul className="flex space-x-4">
-              {socials.map((social) => (
-                <li key={social.id}>
-                  <Link href={social.href} target="_blank">
-                    {React.createElement(social.icon)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-4 text-base text-white">Useful links</h4>
-            <ul className="space-y-4">
-              <li>
-                <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
-                  Featured
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
-                  New Arrivals
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
-                  New Arrivals
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-4 text-base text-white">Information</h4>
-            <ul className="space-y-4">
-              <li>
-                <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
-                  Terms &amp; Conditions
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
-                  Sale
-                </a>
-              </li>
-              <li>
-                <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
-                  Documentation
-                </a>
-              </li>
-            </ul>
-          </div>
+    <footer className="mx-auto max-w-7xl">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="lg:flex lg:items-center">
+          <Link href={route('home')}>
+            <img src="/assets/images/logo.png" alt="logo" className="w-48" />
+          </Link>
         </div>
 
-        <p className="mt-10 text-sm text-slate-400">© Xtore. All rights reserved.</p>
+        <div className="lg:flex lg:items-center">
+          <ul className="flex space-x-4">
+            {socials.map((social) => (
+              <li key={social.id}>
+                <Link href={social.href} target="_blank">
+                  {React.createElement(social.icon)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="mb-4 text-base text-white">Useful links</h4>
+          <ul className="space-y-4">
+            <li>
+              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+                Featured
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+                New Arrivals
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+                New Arrivals
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="mb-4 text-base text-white">Information</h4>
+          <ul className="space-y-4">
+            <li>
+              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+                About Us
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+                Terms &amp; Conditions
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+                Sale
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+                Documentation
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
+
+      <p className="mt-10 text-sm text-slate-400">© Xtore. All rights reserved.</p>
     </footer>
   )
 }
