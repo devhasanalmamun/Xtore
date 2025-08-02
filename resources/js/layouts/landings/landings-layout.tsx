@@ -2,6 +2,7 @@ import { type PropsWithChildren } from 'react'
 import { Head, Link } from '@inertiajs/react'
 
 import LandingHeader from '@/layouts/landings/partials/landings-header'
+import LandingsFooter from './partials/landings-footer'
 
 interface ILandingLayoutProps {
   title?: string
@@ -34,6 +35,8 @@ export default function LandingsLayout({ children, ...props }: PropsWithChildren
           Contact us
         </Link>
       </footer>
+
+      <LandingsFooter />
     </>
   )
 }
