@@ -15,7 +15,10 @@ use App\Models\User;
 final class RegisteredUserData extends Data {
   public function __construct(
     #[Required, Max(255)]
-    public readonly string $name,
+    public readonly string $first_name,
+
+    #[Required, Max(255)]
+    public readonly string $last_name,
 
     #[Required, Max(255), Email(Email::NoRfcWarningsValidation), Unique(User::class, 'email')]
     public readonly string $email,
