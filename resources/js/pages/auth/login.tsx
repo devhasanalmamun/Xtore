@@ -36,7 +36,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
   }
 
   return (
-    <LandingsLayout title="Log in to your account" description="Enter your email and password below to log in">
+    <>
       <Head title="Log in" />
 
       <div className="mx-auto my-16 max-w-lg rounded-lg bg-gray-50">
@@ -107,6 +107,12 @@ export default function Login({ status, canResetPassword }: LoginProps) {
       </div>
 
       {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
-    </LandingsLayout>
+    </>
   )
 }
+
+Login.layout = (page: React.ReactNode) => (
+  <LandingsLayout title="Log in to your account" description="Enter your email and password below to log in">
+    {page}
+  </LandingsLayout>
+)
