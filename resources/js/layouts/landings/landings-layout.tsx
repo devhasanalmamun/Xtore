@@ -1,8 +1,8 @@
 import { type PropsWithChildren } from 'react'
-import { Head, Link } from '@inertiajs/react'
+import { Head } from '@inertiajs/react'
 
+import LandingsFooter from '@/layouts/landings/partials/landings-footer'
 import LandingHeader from '@/layouts/landings/partials/landings-header'
-import LandingsFooter from './partials/landings-footer'
 
 interface ILandingLayoutProps {
   title?: string
@@ -28,13 +28,6 @@ export default function LandingsLayout({ children, ...props }: PropsWithChildren
       </section>
 
       <main>{children}</main>
-
-      <footer>
-        This is the footer content.
-        <Link href={route('contact-us.index')} className="text-blue-500 hover:underline">
-          Contact us
-        </Link>
-      </footer>
 
       <section className="bg-gray-900 px-4 py-4 sm:px-6 sm:py-8 lg:px-8 lg:py-16">
         <LandingsFooter />
