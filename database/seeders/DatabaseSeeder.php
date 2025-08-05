@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Seeder;
 use App\Enums\UserRoleEnum;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,6 +31,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@example.com',
                 'role' => UserRoleEnum::ADMIN
             ],
+        ]);
+
+        $this->call([
+            DepartmentSeeder::class
         ]);
     }
 }
