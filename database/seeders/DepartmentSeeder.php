@@ -13,7 +13,7 @@ class DepartmentSeeder extends Seeder
         $departments = ['Electronics', 'Clothings', 'Home & Kitchen'];
 
         foreach ($departments as $name){
-            Department::create([
+            Department::factory()->create([
                 'name' => $name,
                 'slug' => Str::slug($name),
                 'meta_title' => "Explore the products in $name",
