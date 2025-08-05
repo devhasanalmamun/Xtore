@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DetermineDashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,10 +17,11 @@ Route::get('/test', function () {
 })->name('test.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('determine-dashboard', DetermineDashboardController::class)->name('determine-dashboard');
 });
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
+require __DIR__.'/admin-dashboard.php';
+require __DIR__.'/vendor-dashboard.php';
+require __DIR__.'/customer-dashboard.php';
