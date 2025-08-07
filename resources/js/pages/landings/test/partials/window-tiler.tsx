@@ -13,7 +13,7 @@ export default function WindowTiler() {
   const heading_color = useGenerateRandomRGB()
 
   const [windows, setWindows] = useState<IWindowTiler[]>([])
-  const viewportRef = useRef(null)
+  const viewportRef = useRef<HTMLDivElement>(null)
 
   // Global consts
   const window_tile_height = 240
