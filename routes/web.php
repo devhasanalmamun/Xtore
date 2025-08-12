@@ -12,10 +12,6 @@ Route::get('/contact-us', function () {
     return Inertia::render('landings/contact-us/contact-us-index');
 })->name('contact-us.index');
 
-Route::get('/test', function () {
-    return Inertia::render('landings/test/test-index');
-})->name('test.index');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('determine-dashboard', DetermineDashboardController::class)->name('determine-dashboard');
 });
