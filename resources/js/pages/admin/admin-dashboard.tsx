@@ -7,7 +7,7 @@ import { BreadcrumbItem } from '@/types'
 const breadcrumbs: BreadcrumbItem[] = [
   {
     title: 'Dashboard',
-    href: '/dashboard',
+    routeName: 'admin.dashboard',
   },
 ]
 
