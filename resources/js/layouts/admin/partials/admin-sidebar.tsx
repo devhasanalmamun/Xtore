@@ -1,4 +1,4 @@
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react'
+import { LayoutGridIcon } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
 import {
@@ -10,41 +10,27 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { NavFooter } from '@/components/nav-footer'
 import { NavMain } from '@/components/nav-main'
+import AppLogo from '@/components/app-logo'
+import { NavItem } from '@/types'
 import { NavUser } from '@/components/nav-user'
-import { type NavItem } from '@/types'
-import AppLogo from './app-logo'
 
 const mainNavItems: NavItem[] = [
   {
     title: 'Dashboard',
-    routeName: '/dashboard',
-    icon: LayoutGrid,
+    routeName: 'admin.dashboard',
+    icon: LayoutGridIcon,
   },
 ]
 
-const footerNavItems: NavItem[] = [
-  {
-    title: 'Repository',
-    routeName: 'https://github.com/laravel/react-starter-kit',
-    icon: Folder,
-  },
-  {
-    title: 'Documentation',
-    routeName: 'https://laravel.com/docs/starter-kits#react',
-    icon: BookOpen,
-  },
-]
-
-export function AppSidebar() {
+export default function AdminSidebar() {
   return (
-    <Sidebar collapsible="icon" variant="inset">
-      <SidebarHeader>
+    <Sidebar>
+      <SidebarHeader className="mb-6 border-b">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href="/dashboard" prefetch>
+              <Link href={route('admin.dashboard')} prefetch>
                 <AppLogo />
               </Link>
             </SidebarMenuButton>
@@ -57,7 +43,6 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter>
-        <NavFooter items={footerNavItems} className="mt-auto" />
         <NavUser />
       </SidebarFooter>
     </Sidebar>

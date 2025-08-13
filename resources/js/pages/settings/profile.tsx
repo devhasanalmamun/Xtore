@@ -1,16 +1,16 @@
-import { type BreadcrumbItem, type SharedData } from '@/types'
-import { Transition } from '@headlessui/react'
 import { Head, Link, useForm, usePage } from '@inertiajs/react'
+import { Transition } from '@headlessui/react'
 import { FormEventHandler } from 'react'
 
-import DeleteUser from '@/components/delete-user'
+import { type BreadcrumbItem, type SharedData } from '@/types'
+import AdminLayout from '@/layouts/admin/admin-layout'
+import SettingsLayout from '@/layouts/settings/layout'
 import HeadingSmall from '@/components/heading-small'
+import InputError from '@/components/ui/input-error'
+import DeleteUser from '@/components/delete-user'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import InputError from '@/components/ui/input-error'
 import { Label } from '@/components/ui/label'
-import AppLayout from '@/layouts/app/app-layout'
-import SettingsLayout from '@/layouts/settings/layout'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -41,7 +41,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
   }
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AdminLayout breadcrumbs={breadcrumbs}>
       <Head title="Profile settings" />
 
       <SettingsLayout>
@@ -122,6 +122,6 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
         <DeleteUser />
       </SettingsLayout>
-    </AppLayout>
+    </AdminLayout>
   )
 }

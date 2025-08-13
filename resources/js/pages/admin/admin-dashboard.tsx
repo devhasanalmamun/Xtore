@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react'
 
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern'
-import AppLayout from '@/layouts/app/app-layout'
+import AdminLayout from '@/layouts/admin/admin-layout'
 import { BreadcrumbItem } from '@/types'
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -13,7 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function AdminDashboard() {
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AdminLayout breadcrumbs={breadcrumbs}>
       <Head title="Dashboard" />
       <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
         <p>This is admin dashboard</p>
@@ -32,6 +32,6 @@ export default function AdminDashboard() {
           <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
         </div>
       </div>
-    </AppLayout>
+    </AdminLayout>
   )
 }
