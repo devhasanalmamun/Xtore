@@ -1,4 +1,4 @@
-import { LayoutGridIcon } from 'lucide-react'
+import { LayoutGridIcon, StoreIcon } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
 import {
@@ -11,15 +11,20 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { NavMain } from '@/components/nav-main'
+import { NavUser } from '@/components/nav-user'
 import AppLogo from '@/components/app-logo'
 import { NavItem } from '@/types'
-import { NavUser } from '@/components/nav-user'
 
 const mainNavItems: NavItem[] = [
   {
     title: 'Dashboard',
     routeName: 'admin.dashboard',
     icon: LayoutGridIcon,
+  },
+  {
+    title: 'Departments',
+    routeName: 'admin.departments',
+    icon: StoreIcon,
   },
 ]
 
