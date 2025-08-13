@@ -1,19 +1,11 @@
 import { Head } from '@inertiajs/react'
 
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern'
-import AppLayout from '@/layouts/app/app-layout'
-import { BreadcrumbItem } from '@/types'
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: '/dashboard',
-  },
-]
+import LandingsLayout from '@/layouts/landings/landings-layout'
 
 export default function CustomerDashboard() {
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <LandingsLayout>
       <Head title="Dashboard" />
       <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
         <p>This is Customer dashboard</p>
@@ -32,6 +24,6 @@ export default function CustomerDashboard() {
           <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
         </div>
       </div>
-    </AppLayout>
+    </LandingsLayout>
   )
 }

@@ -14,7 +14,7 @@ final readonly class DetermineDashboardController
         $path = match ($user->role) {
             UserRoleEnum::ADMIN => route('admin.dashboard'),
             UserRoleEnum::VENDOR => route('vendor.dashboard'),
-            UserRoleEnum::CUSTOMER => route('customer.dashboard'),
+            UserRoleEnum::CUSTOMER => route('home'),
         };
 
         return redirect($path);
