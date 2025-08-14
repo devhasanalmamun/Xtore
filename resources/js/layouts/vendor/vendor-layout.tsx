@@ -1,7 +1,7 @@
 import React from 'react'
 
-import VendorSidebar from '@/layouts/vendor/vendor-sidebar'
 import { AppSidebarHeader } from '@/components/app-sidebar-header'
+import VendorSidebar from '@/layouts/vendor/vendor-sidebar'
 import { AppContent } from '@/components/app-content'
 import { AppShell } from '@/components/app-shell'
 import { BreadcrumbItem } from '@/types'

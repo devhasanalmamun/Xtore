@@ -18,11 +18,13 @@ import { NavItem } from '@/types'
 const mainNavItems: NavItem[] = [
   {
     title: 'Dashboard',
-    routeName: 'admin.dashboard',
+    baseRoute: 'admin.dashboard.',
+    routeName: 'admin.dashboard.index',
     icon: LayoutGridIcon,
   },
   {
     title: 'Departments',
+    baseRoute: 'admin.departments.',
     routeName: 'admin.departments.index',
     icon: StoreIcon,
   },
@@ -35,7 +37,7 @@ export default function AdminSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href={route('admin.dashboard')} prefetch>
+              <Link href={route('admin.dashboard.index')} prefetch>
                 <AppLogo />
               </Link>
             </SidebarMenuButton>

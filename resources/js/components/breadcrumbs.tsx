@@ -26,7 +26,7 @@ export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[]
                       <BreadcrumbPage>{item.title}</BreadcrumbPage>
                     ) : (
                       <BreadcrumbLink asChild>
-                        <Link href={item.routeName}>{item.title}</Link>
+                        <Link href={route(item.routeName)}>{item.title}</Link>
                       </BreadcrumbLink>
                     )}
                   </BreadcrumbItem>

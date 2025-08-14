@@ -9,7 +9,11 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild isActive={route().current(item.routeName)} tooltip={{ children: item.title }}>
+            <SidebarMenuButton
+              asChild
+              isActive={route().current(`${item.baseRoute}*`)}
+              tooltip={{ children: item.title }}
+            >
               <Link href={route(item.routeName)} prefetch>
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
