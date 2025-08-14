@@ -1,8 +1,8 @@
 import { type PropsWithChildren } from 'react'
 import { Head } from '@inertiajs/react'
 
-import LandingsFooter from '@/layouts/landings/partials/landings-footer'
-import LandingHeader from '@/layouts/landings/partials/landings-header'
+import LandingsFooter from '@/layouts/landings/landings-footer'
+import LandingHeader from '@/layouts/landings/landings-header'
 
 interface ILandingLayoutProps {
   title?: string

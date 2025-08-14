@@ -12,6 +12,6 @@ class AdminDashboardController extends Controller
 {
     public function __invoke(#[Authenticated] User $user): Response
     {
-        return Inertia::render('admin/admin-dashboard');
+        return Inertia::render('admin/dashboard/admin-dashboard');
     }
 }

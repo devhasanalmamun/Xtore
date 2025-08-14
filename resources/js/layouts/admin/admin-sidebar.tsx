@@ -23,7 +23,7 @@ const mainNavItems: NavItem[] = [
   },
   {
     title: 'Departments',
-    routeName: 'admin.departments',
+    routeName: 'admin.departments.index',
     icon: StoreIcon,
   },
 ]

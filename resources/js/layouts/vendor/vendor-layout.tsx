@@ -1,6 +1,6 @@
 import React from 'react'
 
-import VendorSidebar from '@/layouts/vendor/partials/vendor-sidebar'
+import VendorSidebar from '@/layouts/vendor/vendor-sidebar'
 import { AppSidebarHeader } from '@/components/app-sidebar-header'
 import { AppContent } from '@/components/app-content'
 import { AppShell } from '@/components/app-shell'

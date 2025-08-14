@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { AppSidebarHeader } from '@/components/app-sidebar-header'
-import AdminSidebar from '@/layouts/admin/partials/admin-sidebar'
+import AdminSidebar from '@/layouts/admin/admin-sidebar'
 import { AppContent } from '@/components/app-content'
 import { AppShell } from '@/components/app-shell'
 import { BreadcrumbItem } from '@/types'

@@ -9,5 +9,5 @@ Route::middleware(['auth', 'verified'])
 		->prefix('admin')
 		->group(function() {
 			Route::get('dashboard', AdminDashboardController::class)->name('dashboard');
-			Route::get('departments', [AdminDepartmentController::class, 'index'])->name('departments');
+			Route::resource('departments', AdminDepartmentController::class);
 	});
