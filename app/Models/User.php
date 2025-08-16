@@ -7,8 +7,8 @@ namespace App\Models;
 use App\Enums\UserRoleEnum;
 use App\Traits\HasRoles;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable

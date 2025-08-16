@@ -6,7 +6,7 @@ use App\Enums\UserRoleEnum;
 
 trait HasRoles 
 {
-  	public function isUser(): bool
+  public function isUser(): bool
 	{
 		return $this->roleIs(UserRoleEnum::CUSTOMER);
 	}
@@ -23,6 +23,6 @@ trait HasRoles
 
 	private function roleIs(UserRoleEnum $role): bool
 	{
-		return $this->role === $role->value;
+		return $this->role === $role;
 	}
 }
