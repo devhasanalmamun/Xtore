@@ -2,6 +2,7 @@ import { useForm } from '@inertiajs/react'
 import { useEffect } from 'react'
 
 import AdminLayout from '@/layouts/admin/admin-layout'
+import InputError from '@/components/ui/input-error'
 import { Checkbox } from '@/components/ui/checkbox'
 import Textarea from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
@@ -22,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function AdmindepartmentCreate() {
-  const { data, setData, processing, post } = useForm({
+  const { data, setData, processing, post, errors } = useForm({
     name: '',
     slug: '',
     meta_title: '',
@@ -36,7 +37,7 @@ export default function AdmindepartmentCreate() {
   }
 
   useEffect(() => {
-    setData('slug', data.name.replaceAll(' ', '-'))
+    setData('slug', data.name.replaceAll(' ', '-').toLocaleLowerCase())
   }, [data.name])
 
   return (
@@ -58,6 +59,7 @@ export default function AdmindepartmentCreate() {
               placeholder="Enter a depertment name ex: Electronics"
               required
             />
+            <InputError message={errors.name} />
           </div>
 
           <div>
@@ -70,6 +72,7 @@ export default function AdmindepartmentCreate() {
               placeholder="Enter slug ex: Electronics"
               required
             />
+            <InputError message={errors.slug} />
           </div>
 
           <div>
@@ -82,6 +85,7 @@ export default function AdmindepartmentCreate() {
               placeholder="Enter Meta title for SEO"
               required
             />
+            <InputError message={errors.meta_title} />
           </div>
 
           <div>
@@ -95,6 +99,7 @@ export default function AdmindepartmentCreate() {
               placeholder="Enter Meta description for SEO"
               required
             />
+            <InputError message={errors.meta_description} />
           </div>
 
           <div className="mt-4 flex items-center gap-2">
@@ -107,6 +112,7 @@ export default function AdmindepartmentCreate() {
             <Label htmlFor="active" className="mb-0 font-normal">
               Uncheck this if you want this department to be inactive
             </Label>
+            <InputError message={errors.active} />
           </div>
 
           <Button type="submit" className="mt-4" disabled={processing}>

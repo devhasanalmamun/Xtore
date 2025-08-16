@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTransferObjects\AdminDepartmentData;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Models\Department;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
+use Inertia\Inertia;
 
 class AdminDepartmentController extends Controller
 {
@@ -19,8 +21,9 @@ class AdminDepartmentController extends Controller
 		return Inertia::render('admin/department/admin-department-create');
 	}
 
-	public function store(Request $request) 
+	public function store(AdminDepartmentData $data) : RedirectResponse
 	{
-		dd($request);
+		Department::create($data->toArray());
+		return redirect(route('admin.departments.index'));
 	}
 }
