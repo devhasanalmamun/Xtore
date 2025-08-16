@@ -1,7 +1,10 @@
-import Heading from '@/components/heading'
+import AdminLayout from '@/layouts/admin/admin-layout'
+import { Checkbox } from '@/components/ui/checkbox'
+import Textarea from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import AdminLayout from '@/layouts/admin/admin-layout'
+import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -24,11 +27,40 @@ export default function AdmindepartmentCreate() {
           description="This department will be shown in vendors dashboard when they create a product"
         />
 
-        <form>
+        <form className="max-w-xl space-y-2">
           <div>
-            <Label>Department Name</Label>
-            <Input placeholder="Enter a depertment name ex: Electronics" />
+            <Label htmlFor="name">Department Name</Label>
+            <Input id="name" name="name" placeholder="Enter a depertment name ex: Electronics" />
           </div>
+
+          <div>
+            <Label htmlFor="slug">Slug</Label>
+            <Input id="slug" name="slug" placeholder="Enter slug ex: Electronics" />
+          </div>
+
+          <div>
+            <Label htmlFor="meta_title">Meta Title</Label>
+            <Input id="meta_title" name="meta_title" placeholder="Enter Meta title for SEO" />
+          </div>
+
+          <div>
+            <Label htmlFor="meta_description">Meta Description</Label>
+            <Textarea
+              id="meta_description"
+              name="meta_description"
+              rows={5}
+              placeholder="Enter Meta description for SEO"
+            />
+          </div>
+
+          <div className="mt-4 flex items-center gap-2">
+            <Checkbox id="active" name="active" defaultChecked />
+            <Label htmlFor="active" className="mb-0 font-normal">
+              Uncheck this if you want this department to be inactive
+            </Label>
+          </div>
+
+          <Button className="mt-4">Submit Department</Button>
         </form>
       </section>
     </AdminLayout>
