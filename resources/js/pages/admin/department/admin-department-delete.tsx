@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/alert-dialog'
 
 import { Button } from '@/components/ui/button'
+import { useState } from 'react'
 
 interface IProps {
   slug: string
@@ -20,10 +21,12 @@ interface IProps {
 
 export default function AdminDepartmentDelete(props: IProps) {
   const { delete: destroy, processing } = useForm()
+  const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false)
 
   function handleDelete(slug: string) {
     destroy(route('admin.departments.destroy', slug), {
       onSuccess: () => {
+        setIsAlertDialogOpen(false)
         console.log('Department Deleted Successfully')
       },
       onError: () => {
@@ -33,7 +36,7 @@ export default function AdminDepartmentDelete(props: IProps) {
   }
 
   return (
-    <AlertDialog>
+    <AlertDialog open={isAlertDialogOpen} onOpenChange={() => setIsAlertDialogOpen(!isAlertDialogOpen)}>
       <AlertDialogTrigger asChild>
         <Button variant="destructive">
           <TrashIcon />

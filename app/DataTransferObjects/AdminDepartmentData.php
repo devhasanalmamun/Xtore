@@ -28,7 +28,7 @@ final class AdminDepartmentData extends Data{
   
   public static function rules(): array 
   {
-    $departmentId = request()->route('department')->id;
+    $departmentId = request()->route('department')?->id;
 
     return [
       'slug' => ['required', 'max:255', Rule::unique('departments', 'slug')->ignore($departmentId)]
