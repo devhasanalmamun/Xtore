@@ -1,4 +1,4 @@
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
@@ -7,11 +7,12 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
-    data: props.data,
-    columns: props.columns,
+    data: data,
+    columns: columns,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   })
 
   return (
@@ -41,7 +42,7 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={props.columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 No data found.
               </TableCell>
             </TableRow>

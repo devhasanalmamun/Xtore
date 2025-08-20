@@ -1,5 +1,5 @@
+import { ArrowUp, EditIcon, PlusIcon } from 'lucide-react'
 import { ColumnDef } from '@tanstack/react-table'
-import { EditIcon, PlusIcon } from 'lucide-react'
 import { router } from '@inertiajs/react'
 import { formatDistance } from 'date-fns'
 
@@ -9,14 +9,43 @@ import { DataTable } from '@/components/ui/data-table'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { Button } from '@/components/ui/button'
 import { BreadcrumbItem } from '@/types'
+import { cn } from '@/lib/utils'
 
 const columns: ColumnDef<IAdminDepartment>[] = [
   {
-    header: 'Department Name',
     accessorKey: 'name',
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        className="has-[>svg]:px-0"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'desc' ? false : true)}
+      >
+        Department Name
+        <ArrowUp
+          className={cn(
+            'transition-transform duration-200',
+            column.getIsSorted() === 'desc' ? 'rotate-180' : 'rotate-0',
+          )}
+        />
+      </Button>
+    ),
   },
   {
-    header: 'Active',
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        className="has-[>svg]:px-0"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'desc' ? false : true)}
+      >
+        Active
+        <ArrowUp
+          className={cn(
+            'transition-transform duration-200',
+            column.getIsSorted() === 'desc' ? 'rotate-180' : 'rotate-0',
+          )}
+        />
+      </Button>
+    ),
     accessorKey: 'active',
     cell: ({ row }) =>
       row.getValue('active') ? <p className="text-green-600">Yes</p> : <p className="text-red-600">No</p>,
