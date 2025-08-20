@@ -1,27 +1,16 @@
-import { EditIcon, PlusIcon, TrashIcon } from 'lucide-react'
 import { ColumnDef } from '@tanstack/react-table'
+import { EditIcon, PlusIcon } from 'lucide-react'
 import { router } from '@inertiajs/react'
 import { formatDistance } from 'date-fns'
 
+import AdminDepartmentDelete from '@/pages/admin/department/admin-department-delete'
+import { IAdminDepartment } from '@/types/admin-department'
 import { DataTable } from '@/components/ui/data-table'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { Button } from '@/components/ui/button'
 import { BreadcrumbItem } from '@/types'
 
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Departments',
-    routeName: 'admin.departments.index',
-  },
-]
-
-type Department = {
-  name: string
-  active: boolean
-  created_at: string
-}
-
-const columns: ColumnDef<Department>[] = [
+const columns: ColumnDef<IAdminDepartment>[] = [
   {
     header: 'Department Name',
     accessorKey: 'name',
@@ -39,23 +28,28 @@ const columns: ColumnDef<Department>[] = [
   },
   {
     header: 'Actions',
-    cell: () => (
+    cell: ({ row }) => (
       <div className="flex items-center gap-2">
         <Button variant="outline">
           <EditIcon />
         </Button>
 
-        <Button variant="destructive">
-          <TrashIcon />
-        </Button>
+        <AdminDepartmentDelete id={row.original.id} />
       </div>
     ),
   },
 ]
 
 interface IProps {
-  departments: Department[]
+  departments: IAdminDepartment[]
 }
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Departments',
+    routeName: 'admin.departments.index',
+  },
+]
 
 export default function AdminDepartmentIndex(props: IProps) {
   return (
