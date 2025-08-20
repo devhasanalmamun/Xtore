@@ -1,3 +1,4 @@
+import { useForm } from '@inertiajs/react'
 import { TrashIcon } from 'lucide-react'
 
 import {
@@ -18,8 +19,17 @@ interface IProps {
 }
 
 export default function AdminDepartmentDelete(props: IProps) {
+  const { delete: destroy, processing } = useForm()
+
   function handleDelete(id: number) {
-    console.log('Deleting department with ID:', id)
+    destroy(route('admin.departments.destroy', id), {
+      onSuccess: () => {
+        console.log('Department Deleted Successfully')
+      },
+      onError: () => {
+        console.error('failed to delete the department')
+      },
+    })
   }
 
   return (
@@ -40,7 +50,7 @@ export default function AdminDepartmentDelete(props: IProps) {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <Button variant="destructive" onClick={() => handleDelete(props.id)}>
+          <Button variant="destructive" onClick={() => handleDelete(props.id)} disabled={processing}>
             Confirm Delete
           </Button>
         </AlertDialogFooter>

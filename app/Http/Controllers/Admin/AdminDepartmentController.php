@@ -28,4 +28,9 @@ class AdminDepartmentController extends Controller
 		Department::create($data->toArray());
 		return redirect(route('admin.departments.index'));
 	}
+
+	public function destroy(Department $department) : RedirectResponse {
+		$department->delete();
+		return back();
+	}
 }
