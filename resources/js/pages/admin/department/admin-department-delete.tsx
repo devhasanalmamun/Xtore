@@ -15,14 +15,14 @@ import {
 import { Button } from '@/components/ui/button'
 
 interface IProps {
-  id: number
+  slug: string
 }
 
 export default function AdminDepartmentDelete(props: IProps) {
   const { delete: destroy, processing } = useForm()
 
-  function handleDelete(id: number) {
-    destroy(route('admin.departments.destroy', id), {
+  function handleDelete(slug: string) {
+    destroy(route('admin.departments.destroy', slug), {
       onSuccess: () => {
         console.log('Department Deleted Successfully')
       },
@@ -50,7 +50,7 @@ export default function AdminDepartmentDelete(props: IProps) {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-          <Button variant="destructive" onClick={() => handleDelete(props.id)} disabled={processing}>
+          <Button variant="destructive" onClick={() => handleDelete(props.slug)} disabled={processing}>
             Confirm Delete
           </Button>
         </AlertDialogFooter>

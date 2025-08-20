@@ -30,11 +30,11 @@ const columns: ColumnDef<IAdminDepartment>[] = [
     header: 'Actions',
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <Button variant="outline" onClick={() => router.get(route('admin.departments.edit', row.original.id))}>
+        <Button variant="outline" onClick={() => router.get(route('admin.departments.edit', row.original.slug))}>
           <EditIcon />
         </Button>
 
-        <AdminDepartmentDelete id={row.original.id} />
+        <AdminDepartmentDelete slug={row.original.slug} />
       </div>
     ),
   },

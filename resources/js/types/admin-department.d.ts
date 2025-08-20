@@ -1,5 +1,5 @@
 export interface IAdminDepartment {
-  id: number
+  slug: string
   name: string
   active: boolean
   created_at: string
