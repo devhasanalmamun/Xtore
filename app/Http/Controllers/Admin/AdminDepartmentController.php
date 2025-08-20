@@ -13,7 +13,9 @@ class AdminDepartmentController extends Controller
 {
     public function index() : Response
 	{
-		return Inertia::render('admin/department/admin-department-index');
+		return Inertia::render('admin/department/admin-department-index', [
+			'departments'=> Department::all()
+		]);
 	}
 
 	public function create() : Response
