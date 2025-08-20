@@ -2,20 +2,18 @@
 
 namespace App\DataTransferObjects;
 
+use Spatie\LaravelData\Attributes\Validation\Rule as ValidationRuleSpatie;
 use Spatie\LaravelData\Attributes\Validation\Required;
-use Spatie\LaravelData\Attributes\Validation\Unique;
-use Spatie\LaravelData\Attributes\Validation\Rule;
 use Spatie\LaravelData\Attributes\Validation\Max;
 use Spatie\LaravelData\Attributes\Validation\Min;
+use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
-use App\Models\Department;
 
 final class AdminDepartmentData extends Data{
   public function __construct(
     #[Required, Min(3), Max(255)]
     public readonly string $name,
 
-    #[Required, Max(255), Unique(Department::class, 'slug')]
     public readonly string $slug,
 
     #[Required, Max(255)]
@@ -24,7 +22,16 @@ final class AdminDepartmentData extends Data{
     #[Required, Max(1024)]
     public readonly string $meta_description,
 
-    #[Required, Rule('boolean')]
+    #[Required, ValidationRuleSpatie('boolean')]
     public readonly bool $active,
   ){}
+  
+  public static function rules(): array 
+  {
+    $departmentId = request()->route('department')->id;
+
+    return [
+      'slug' => ['required', 'max:255', Rule::unique('departments', 'slug')->ignore($departmentId)]
+    ];
+  }
 }

@@ -15,7 +15,7 @@ class AdminDepartmentController extends Controller
   public function index() : Response
 	{
 		return Inertia::render('admin/department/admin-department-index', [
-			'departments'=> Department::all()
+			'departments'=> Department::orderBy('name')->get(),
 		]);
 	}
 
@@ -35,6 +35,12 @@ class AdminDepartmentController extends Controller
 		return Inertia::render('admin/department/admin-department-edit', [
 			'department' => $department
 		]);
+	}
+
+	public function update(Department $department, AdminDepartmentData $data) : RedirectResponse
+	{
+		$department->update($data->toArray());
+		return redirect(route('admin.departments.index'));
 	}
 
 	public function destroy(Department $department) : RedirectResponse 

@@ -1,6 +1,8 @@
 export interface IAdminDepartment {
   slug: string
   name: string
+  meta_title: string
+  meta_description: string
   active: boolean
-  created_at: string
+  created_at?: string
 }
