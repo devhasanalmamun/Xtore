@@ -38,7 +38,7 @@ export default function AdmindepartmentCreate() {
 
   useEffect(() => {
     setData('slug', data.name.replaceAll(' ', '-').toLocaleLowerCase())
-  }, [data.name])
+  }, [data.name, setData])
 
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>

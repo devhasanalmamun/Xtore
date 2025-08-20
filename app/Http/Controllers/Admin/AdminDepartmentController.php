@@ -6,12 +6,13 @@ use App\DataTransferObjects\AdminDepartmentData;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\Inertia;
 
 class AdminDepartmentController extends Controller
 {
-    public function index() : Response
+  public function index() : Response
 	{
 		return Inertia::render('admin/department/admin-department-index', [
 			'departments'=> Department::all()
@@ -29,7 +30,15 @@ class AdminDepartmentController extends Controller
 		return redirect(route('admin.departments.index'));
 	}
 
-	public function destroy(Department $department) : RedirectResponse {
+	public function edit(Department $department) : Response 
+	{
+		return Inertia::render('admin/department/admin-department-edit', [
+			'department' => $department
+		]);
+	}
+
+	public function destroy(Department $department) : RedirectResponse 
+	{
 		$department->delete();
 		return back();
 	}
