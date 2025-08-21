@@ -95,7 +95,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function AdminDepartmentIndex(props: IProps) {
-  console.log(props.meta)
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
       <section className="px-4 py-8 md:px-4 md:py-8">
