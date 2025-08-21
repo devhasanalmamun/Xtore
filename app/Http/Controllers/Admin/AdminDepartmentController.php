@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTransferObjects\AdminDepartmentData;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\Inertia;
 
@@ -14,8 +13,19 @@ class AdminDepartmentController extends Controller
 {
   public function index() : Response
 	{
+		$departments = Department::orderBy('name')->paginate(10);
+
 		return Inertia::render('admin/department/admin-department-index', [
-			'departments'=> Department::orderBy('name')->get(),
+			'departments'=> $departments->items(),
+			'meta' => [
+				'total' => $departments->total(),
+				'per_page'=> $departments->perPage(),
+				'current_page' => $departments->currentPage(),
+				'last_page' => $departments->lastPage(),
+				'next_page_url' => $departments->nextPageUrl(),
+				'prev_page_url'=> $departments->previousPageUrl(),
+				'links' => $departments->linkCollection(),
+			]
 		]);
 	}
 

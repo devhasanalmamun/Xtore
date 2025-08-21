@@ -7,6 +7,7 @@ import AdminDepartmentDelete from '@/pages/admin/department/admin-department-del
 import { IAdminDepartment } from '@/types/admin-department'
 import { DataTable } from '@/components/ui/data-table'
 import AdminLayout from '@/layouts/admin/admin-layout'
+import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
 import { BreadcrumbItem } from '@/types'
 import { cn } from '@/lib/utils'
@@ -71,6 +72,19 @@ const columns: ColumnDef<IAdminDepartment>[] = [
 
 interface IProps {
   departments: IAdminDepartment[]
+  meta: {
+    current_page: number
+    last_page: number
+    total: number
+    per_page: number
+    next_page_url: string
+    prev_page_url: string
+    links: {
+      url: string | null
+      label: string
+      active: boolean
+    }[]
+  }
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -81,6 +95,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function AdminDepartmentIndex(props: IProps) {
+  console.log(props.meta)
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
       <section className="px-4 py-8 md:px-4 md:py-8">
@@ -94,6 +109,7 @@ export default function AdminDepartmentIndex(props: IProps) {
 
         <div className="mt-8">
           <DataTable columns={columns} data={props.departments} />
+          <Pagination meta={props.meta} />
         </div>
       </section>
     </AdminLayout>
