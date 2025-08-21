@@ -33,6 +33,20 @@ export interface SharedData {
   [key: string]: unknown
 }
 
+export interface PaginationMeta {
+  current_page: number
+  last_page: number
+  total: number
+  per_page: number
+  next_page_url: string
+  prev_page_url: string
+  links: {
+    url: string | null
+    label: string
+    active: boolean
+  }[]
+}
+
 export interface User {
   id: number
   first_name: string

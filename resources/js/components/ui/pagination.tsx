@@ -1,22 +1,11 @@
 import { router } from '@inertiajs/react'
 
 import { Button } from '@/components/ui/button'
+import { PaginationMeta } from '@/types'
 import { cn } from '@/lib/utils'
 
 interface IPaginationProps {
-  meta: {
-    current_page: number
-    last_page: number
-    total: number
-    per_page: number
-    next_page_url: string
-    prev_page_url: string
-    links: {
-      url: string | null
-      label: string
-      active: boolean
-    }[]
-  }
+  meta: PaginationMeta
 }
 
 export default function Pagination(props: IPaginationProps) {

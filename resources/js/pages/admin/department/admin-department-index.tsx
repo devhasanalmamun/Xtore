@@ -5,11 +5,11 @@ import { formatDistance } from 'date-fns'
 
 import AdminDepartmentDelete from '@/pages/admin/department/admin-department-delete'
 import { IAdminDepartment } from '@/types/admin-department'
+import { BreadcrumbItem, PaginationMeta } from '@/types'
 import { DataTable } from '@/components/ui/data-table'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
-import { BreadcrumbItem } from '@/types'
 import { cn } from '@/lib/utils'
 
 const columns: ColumnDef<IAdminDepartment>[] = [
@@ -72,19 +72,7 @@ const columns: ColumnDef<IAdminDepartment>[] = [
 
 interface IProps {
   departments: IAdminDepartment[]
-  meta: {
-    current_page: number
-    last_page: number
-    total: number
-    per_page: number
-    next_page_url: string
-    prev_page_url: string
-    links: {
-      url: string | null
-      label: string
-      active: boolean
-    }[]
-  }
+  meta: PaginationMeta
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
