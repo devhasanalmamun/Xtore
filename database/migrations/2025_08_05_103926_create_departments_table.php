@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
+            $table->string('meta_title');
+            $table->string('meta_description');
             $table->boolean('active')->default(true);
             $table->timestamps();
         });
