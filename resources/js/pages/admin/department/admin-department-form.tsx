@@ -12,7 +12,7 @@ interface IProps {
 }
 
 export default function AdminDepartmentForm(props: IProps) {
-  function handleChange(key: string, value: string | number) {
+  function handleChange(key: string, value: string | boolean) {
     props.onDataChange({
       ...props.data,
       [key]: value,
@@ -79,7 +79,7 @@ export default function AdminDepartmentForm(props: IProps) {
           id="active"
           name="active"
           defaultChecked={props.data.active}
-          onCheckedChange={(e) => handleChange('active', e === true ? 1 : 0)}
+          onCheckedChange={(e) => handleChange('active', e)}
         />
         <Label htmlFor="active" className="mb-0 font-normal">
           Uncheck this if you want this department to be inactive
