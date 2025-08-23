@@ -15,7 +15,7 @@ class AdminDepartmentController extends Controller
   public function index() : Response
 	{
 		// Bugs In Pagination with Resource
-		$departments = AdminDepartmentResource::collection(Department::orderBy('name')->paginate(8));
+		$departments = AdminDepartmentResource::collection(Department::orderBy('name')->paginate(18));
 		return Inertia::render('admin/department/admin-department-index', [
 			'departments' => $departments,
 		]);
