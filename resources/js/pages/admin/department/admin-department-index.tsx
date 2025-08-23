@@ -1,7 +1,6 @@
 import { ArrowUp, EditIcon, PlusIcon } from 'lucide-react'
 import { ColumnDef } from '@tanstack/react-table'
 import { router } from '@inertiajs/react'
-import { formatDistance } from 'date-fns'
 
 import AdminDepartmentDelete from '@/pages/admin/department/admin-department-delete'
 import { IAdminDepartment } from '@/types/admin-department'
@@ -54,7 +53,7 @@ const columns: ColumnDef<IAdminDepartment>[] = [
   {
     header: 'Created At',
     accessorKey: 'created_at',
-    cell: ({ row }) => formatDistance(new Date(row.getValue('created_at')), new Date(), { addSuffix: true }),
+    cell: ({ row }) => row.getValue('created_at'),
   },
   {
     header: 'Actions',
@@ -71,8 +70,10 @@ const columns: ColumnDef<IAdminDepartment>[] = [
 ]
 
 interface IProps {
-  departments: IAdminDepartment[]
-  meta: PaginationMeta
+  departments: {
+    data: IAdminDepartment[]
+    meta: PaginationMeta
+  }
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -95,8 +96,8 @@ export default function AdminDepartmentIndex(props: IProps) {
         </div>
 
         <div className="mt-8">
-          <DataTable columns={columns} data={props.departments} />
-          <Pagination meta={props.meta} />
+          <DataTable columns={columns} data={props.departments.data} />
+          <Pagination meta={props.departments.meta} />
         </div>
       </section>
     </AdminLayout>
