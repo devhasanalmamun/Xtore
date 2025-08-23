@@ -3,8 +3,8 @@ import { ColumnDef } from '@tanstack/react-table'
 import { router } from '@inertiajs/react'
 
 import AdminDepartmentDelete from '@/pages/admin/department/admin-department-delete'
+import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
 import { IAdminDepartment } from '@/types/admin-department'
-import { BreadcrumbItem, PaginationMeta } from '@/types'
 import { DataTable } from '@/components/ui/data-table'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import Pagination from '@/components/ui/pagination'
@@ -73,6 +73,7 @@ interface IProps {
   departments: {
     data: IAdminDepartment[]
     meta: PaginationMeta
+    links: PaginationLinks
   }
 }
 
@@ -97,7 +98,11 @@ export default function AdminDepartmentIndex(props: IProps) {
 
         <div className="mt-8">
           <DataTable columns={columns} data={props.departments.data} />
-          <Pagination meta={props.departments.meta} />
+          <Pagination
+            meta={props.departments.meta}
+            pagination_links={props.departments.links}
+            totalRows={props.departments.data.length}
+          />
         </div>
       </section>
     </AdminLayout>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Resources\Admin\AdminDepartmentResource;
 use App\DataTransferObjects\AdminDepartmentData;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Admin\AdminDepartmentResource;
 use App\Models\Department;
 use Inertia\Response;
 use Inertia\Inertia;
@@ -14,8 +14,7 @@ class AdminDepartmentController extends Controller
 {
   public function index() : Response
 	{
-		// Bugs In Pagination with Resource
-		$departments = AdminDepartmentResource::collection(Department::orderBy('name')->paginate(18));
+		$departments = AdminDepartmentResource::collection(Department::orderBy('name')->paginate(10));
 		return Inertia::render('admin/department/admin-department-index', [
 			'departments' => $departments,
 		]);

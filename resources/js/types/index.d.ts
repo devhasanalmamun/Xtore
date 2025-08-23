@@ -38,13 +38,18 @@ export interface PaginationMeta {
   last_page: number
   total: number
   per_page: number
-  next_page_url: string
-  prev_page_url: string
   links: {
     url: string | null
     label: string
     active: boolean
   }[]
+}
+
+export interface PaginationLinks {
+  first: string
+  last: string
+  prev: string | null
+  next: string | null
 }
 
 export interface User {
