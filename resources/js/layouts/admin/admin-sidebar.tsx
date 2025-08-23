@@ -1,4 +1,4 @@
-import { LayoutGridIcon, StoreIcon } from 'lucide-react'
+import { BookOpenIcon, LayoutGridIcon, StoreIcon } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
 import {
@@ -27,6 +27,12 @@ const mainNavItems: NavItem[] = [
     baseRoute: 'admin.departments.',
     routeName: 'admin.departments.index',
     icon: StoreIcon,
+  },
+  {
+    title: 'Categories',
+    baseRoute: 'admin.categories.',
+    routeName: 'admin.categories.index',
+    icon: BookOpenIcon,
   },
 ]
 
