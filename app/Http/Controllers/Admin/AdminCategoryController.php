@@ -14,12 +14,10 @@ class AdminCategoryController extends Controller
         return Inertia::render('admin/category/admin-category-index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    
+    public function create() : Response
     {
-        //
+        return Inertia::render('admin/category/admin-category-create');
     }
 
     /**
