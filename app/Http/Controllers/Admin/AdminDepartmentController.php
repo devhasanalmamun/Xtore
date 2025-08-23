@@ -14,9 +14,12 @@ class AdminDepartmentController extends Controller
 {
   public function index() : Response
 	{
-		$departments = AdminDepartmentResource::collection(Department::orderBy('name')->paginate(10));
+		$departments = Department::select('id', 'name', 'slug', 'meta_title', 'meta_description', 'active', 'created_at')
+			->orderBy('name')
+			->paginate(10);
+
 		return Inertia::render('admin/department/admin-department-index', [
-			'departments' => $departments,
+			'departments' =>AdminDepartmentResource::collection($departments),
 		]);
 	}
 
