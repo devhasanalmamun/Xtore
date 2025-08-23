@@ -10,7 +10,20 @@ class DepartmentSeeder extends Seeder
 {
     public function run(): void
     {
-        $departments = ['Electronics', 'Clothings', 'Home & Kitchen'];
+        $departments = [
+            'Electronics', 
+            'Clothing & Fashion', 
+            'Home & Kitchen', 
+            'Sports & Outdoors', 
+            'Health & Beauty',
+            'Toys & Games',
+            'Automotive',
+            'Books & Stationery',
+            'Grocery & Food',
+            'Jewelry',
+            'Furniture',
+            'Pet Supplies'
+        ];
 
         foreach ($departments as $name){
             Department::factory()->create([
@@ -21,9 +34,5 @@ class DepartmentSeeder extends Seeder
                 'active' => true,
             ]);
         }
-
-        Department::factory()->count(7)->create([
-            'active' => true,
-        ]);
     }
 }
