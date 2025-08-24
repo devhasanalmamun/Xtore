@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\AdminCategoryResource;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Inertia\Response;
@@ -12,8 +13,10 @@ class AdminCategoryController extends Controller
 {
     public function index(): Response
     {
+        $categories = Category::orderBy('name')->paginate(10);
+
         return Inertia::render('admin/category/admin-category-index', [
-            'categories' => Category::paginate(10),
+            'categories' => AdminCategoryResource::collection($categories),
         ]);
     }
 

@@ -1,12 +1,13 @@
+import { EditIcon, PlusIcon } from 'lucide-react'
 import { ColumnDef } from '@tanstack/react-table'
 import { router } from '@inertiajs/react'
-import { EditIcon, PlusIcon } from 'lucide-react'
 
+import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
 import { IAdminCategory } from '@/types/admin-category'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
+import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
-import { BreadcrumbItem } from '@/types'
 
 const columns: ColumnDef<IAdminCategory>[] = [
   {
@@ -45,10 +46,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface IProps {
   categories: {
     data: IAdminCategory[]
+    meta: PaginationMeta
+    links: PaginationLinks
   }
 }
 
 export default function AdminCategoryIndex(props: IProps) {
+  console.log(props.categories.meta)
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
       <section className="px-4 py-8 md:px-4 md:py-8">
@@ -62,11 +66,11 @@ export default function AdminCategoryIndex(props: IProps) {
 
         <div className="mt-8">
           <DataTable columns={columns} data={props.categories.data} />
-          {/* <Pagination
-                    meta={props.departments.meta}
-                    pagination_links={props.departments.links}
-                    totalRows={props.departments.data.length}
-                  /> */}
+          <Pagination
+            meta={props.categories.meta}
+            pagination_links={props.categories.links}
+            totalRows={props.categories.data.length}
+          />
         </div>
       </section>
     </AdminLayout>
