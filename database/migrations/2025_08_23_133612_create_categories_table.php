@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('parent_id')->nullable()->constrained('categories')->nullOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('meta_title');
