@@ -8,6 +8,7 @@ import AdminLayout from '@/layouts/admin/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
+import AdminCategoryDelete from './admin-category-delete'
 
 const columns: ColumnDef<IAdminCategory>[] = [
   {
@@ -29,8 +30,7 @@ const columns: ColumnDef<IAdminCategory>[] = [
         <Button variant="outline" onClick={() => router.get(route('admin.departments.edit', row.original.slug))}>
           <EditIcon />
         </Button>
-        🗑️
-        {/* <AdminDepartmentDelete slug={row.original.slug} /> */}
+        <AdminCategoryDelete slug={row.original.slug} />
       </div>
     ),
   },
