@@ -16,8 +16,10 @@ class CategoryFactory extends Factory
         return [
             'department_id'=> Department::inRandomOrder()->value('id'),
             'parent_id'=> $this->faker->boolean(80) ? Category::inRandomOrder()->value('id') : null,
-            'name'=> ucfirst($name),
             'slug'=> Str::slug($name),
+            'name'=> ucfirst($name),
+            'meta_title' => $this->faker->sentence(2),
+            'meta_description' => $this->faker->sentence(6),
             'active'=> $this->faker->boolean(80)
         ];
     }
