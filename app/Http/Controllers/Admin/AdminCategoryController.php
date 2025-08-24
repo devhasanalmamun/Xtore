@@ -13,7 +13,7 @@ class AdminCategoryController extends Controller
 {
     public function index(): Response
     {
-        $categories = Category::orderBy('name')->paginate(10);
+        $categories = Category::with('department')->orderBy('name')->paginate(10);
 
         return Inertia::render('admin/category/admin-category-index', [
             'categories' => AdminCategoryResource::collection($categories),

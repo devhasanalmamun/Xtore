@@ -16,7 +16,7 @@ const columns: ColumnDef<IAdminCategory>[] = [
   },
   {
     header: 'Related Department',
-    accessorKey: 'department_id',
+    accessorKey: 'department.name',
   },
   {
     header: 'Created At',
