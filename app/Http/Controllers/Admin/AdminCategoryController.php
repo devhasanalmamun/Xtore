@@ -6,6 +6,7 @@ use App\Http\Resources\Admin\AdminCategoryResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Department;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\Inertia;
@@ -24,7 +25,9 @@ class AdminCategoryController extends Controller
     
     public function create() : Response
     {
-        return Inertia::render('admin/category/admin-category-create');
+        return Inertia::render('admin/category/admin-category-create', [
+            'departments' => Department::select('name','slug')->orderBy('name')->get()
+        ]);
     }
 
     /**

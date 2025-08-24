@@ -1,5 +1,5 @@
 export interface IAdminCategory {
-  department_id: number
+  department_id?: number
   parent_id?: number
   meta_title: string
   meta_description: string

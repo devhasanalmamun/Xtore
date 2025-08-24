@@ -1,4 +1,5 @@
 export interface IAdminDepartment {
+  id?: number
   slug: string
   name: string
   meta_title: string
