@@ -20,7 +20,7 @@ class Category extends Model
         'active'
     ];
 
-    public function getRouteKey() : string
+    public function getRouteKeyName() : string
     {
         return 'slug';
     }

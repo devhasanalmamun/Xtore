@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminCategoryResource;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\Inertia;
 
@@ -58,11 +59,9 @@ class AdminCategoryController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Category $category) : RedirectResponse
     {
-        //
+        $category->delete();
+        return back();
     }
 }

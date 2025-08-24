@@ -2,13 +2,13 @@ import { EditIcon, PlusIcon } from 'lucide-react'
 import { ColumnDef } from '@tanstack/react-table'
 import { router } from '@inertiajs/react'
 
+import AdminCategoryDelete from '@/pages/admin/category/admin-category-delete'
 import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
 import { IAdminCategory } from '@/types/admin-category'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
-import AdminCategoryDelete from './admin-category-delete'
 
 const columns: ColumnDef<IAdminCategory>[] = [
   {
@@ -52,7 +52,6 @@ interface IProps {
 }
 
 export default function AdminCategoryIndex(props: IProps) {
-  console.log(props.categories.meta)
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
       <section className="px-4 py-8 md:px-4 md:py-8">
