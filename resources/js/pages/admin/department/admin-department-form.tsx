@@ -9,6 +9,7 @@ interface IProps {
   data: IAdminDepartment
   onDataChange: (data: IAdminDepartment) => void
   errors: Record<string, string>
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
 export default function AdminDepartmentForm(props: IProps) {
@@ -20,7 +21,7 @@ export default function AdminDepartmentForm(props: IProps) {
   }
 
   return (
-    <form className="max-w-xl space-y-2">
+    <form id="admin-department-form" className="max-w-xl space-y-2" onSubmit={props.handleSubmit}>
       <div>
         <Label htmlFor="name">Department Name</Label>
         <Input

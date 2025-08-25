@@ -28,7 +28,7 @@ export default function AdmindepartmentCreate() {
     active: true,
   })
 
-  function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault()
     post(route('admin.departments.store'))
   }
@@ -45,9 +45,9 @@ export default function AdmindepartmentCreate() {
           description="This department will be shown in vendors dashboard when they create a product"
         />
 
-        <AdminDepartmentForm data={data} onDataChange={setData} errors={errors} />
+        <AdminDepartmentForm data={data} onDataChange={setData} errors={errors} handleSubmit={handleSubmit} />
 
-        <Button type="submit" className="mt-4" disabled={processing} onClick={handleSubmit}>
+        <Button type="submit" className="mt-4" disabled={processing} form="admin-department-form">
           Submit Department
         </Button>
       </section>

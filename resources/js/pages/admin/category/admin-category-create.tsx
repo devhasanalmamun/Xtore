@@ -5,6 +5,7 @@ import AdminCategoryForm from '@/pages/admin/category/admin-category-form'
 import { IAdminDepartment } from '@/types/admin-department'
 import { IAdminCategory } from '@/types/admin-category'
 import AdminLayout from '@/layouts/admin/admin-layout'
+import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
 
@@ -58,9 +59,12 @@ export default function AdminCategoryCreate(props: IProps) {
           data={data}
           onDataChange={setData}
           errors={errors}
-          buttonText="Submit Category"
           handleSubmit={handleSubmit}
         />
+
+        <Button type="submit" className="mt-6" form="admin-category-form">
+          Create category
+        </Button>
       </section>
     </AdminLayout>
   )

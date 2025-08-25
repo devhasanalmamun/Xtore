@@ -31,7 +31,8 @@ export default function AdminDepartmentEdit(props: IProps) {
     active: props.department.active,
   })
 
-  function handleEdit(): void {
+  function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
     patch(route('admin.departments.update', props.department.slug), {
       onSuccess: () => {
         console.log('Department updated successfully')
@@ -53,9 +54,9 @@ export default function AdminDepartmentEdit(props: IProps) {
           description="This department will be edited and shown in vendors dashboard when they create a product"
         />
 
-        <AdminDepartmentForm data={data} onDataChange={setData} errors={errors} />
+        <AdminDepartmentForm data={data} onDataChange={setData} errors={errors} handleSubmit={handleEdit} />
 
-        <Button className="mt-4" disabled={processing} onClick={handleEdit}>
+        <Button className="mt-4" disabled={processing} form="admin-department-form">
           Update Department
         </Button>
       </section>

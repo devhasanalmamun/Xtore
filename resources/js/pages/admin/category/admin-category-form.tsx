@@ -24,7 +24,6 @@ interface IProps {
   data: IAdminCategory
   onDataChange: (data: IAdminCategory) => void
   errors: Record<string, string>
-  buttonText: React.ReactNode
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
@@ -37,7 +36,7 @@ export default function AdminCategoryForm(props: IProps) {
   }
 
   return (
-    <form className="max-w-xl space-y-2" onSubmit={props.handleSubmit}>
+    <form id="admin-category-form" className="max-w-xl space-y-2" onSubmit={props.handleSubmit}>
       <div>
         <Label htmlFor="name">Category Name</Label>
         <Input
@@ -163,10 +162,6 @@ export default function AdminCategoryForm(props: IProps) {
           Uncheck this, if you want this category to be inactive.
         </Label>
       </div>
-
-      <Button type="submit" className="mt-6">
-        {props.buttonText}
-      </Button>
     </form>
   )
 }
