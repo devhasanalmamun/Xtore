@@ -26,14 +26,15 @@ class AdminCategoryController extends Controller
     public function create() : Response
     {
         return Inertia::render('admin/category/admin-category-create', [
-            'departments' => Department::select('name','slug')->orderBy('name')->get(),
-            'categories' => Category::select('id', 'parent_id', 'name','slug')->orderBy('name')->get()
+            'departments' => Department::select('id','name')->orderBy('name')->get(),
+            'categories' => Category::select('id', 'name')->orderBy('name')->get()
         ]);
     }
 
     public function store(Request $request)
     {
-        dd($request->input('parent_category_slug'));
+        dd($request->all());
+        // dd($request->input('parent_category_slug'));
         // $parent_category = Category::findOrFail($request->input('parent_category_slug'));
         // dd($parent_category);
     }

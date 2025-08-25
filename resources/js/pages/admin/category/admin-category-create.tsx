@@ -21,16 +21,14 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 interface IProps {
-  departments: Pick<IAdminDepartment, 'name' | 'slug'>[]
-  categories: Pick<IAdminCategory, 'name' | 'slug' | 'parent_id'>[]
+  departments: Pick<IAdminDepartment, 'id' | 'name'>[]
+  categories: Pick<IAdminCategory, 'id' | 'name'>[]
 }
 
 export default function AdminCategoryCreate(props: IProps) {
-  const { data, setData, errors, post } = useForm<
-    IAdminCategory & { department_slug: string; parent_category_slug: string }
-  >({
-    parent_category_slug: '',
-    department_slug: '',
+  const { data, setData, errors, post } = useForm<IAdminCategory>({
+    parent_id: undefined,
+    department_id: undefined,
     name: '',
     slug: '',
     meta_title: '',
@@ -40,6 +38,7 @@ export default function AdminCategoryCreate(props: IProps) {
 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault()
+    console.log(data)
     post(route('admin.categories.store'))
   }
 

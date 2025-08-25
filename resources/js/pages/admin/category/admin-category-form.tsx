@@ -1,3 +1,5 @@
+import { XIcon } from 'lucide-react'
+
 import {
   Select,
   SelectContent,
@@ -10,23 +12,24 @@ import {
 import { IAdminDepartment } from '@/types/admin-department'
 import { IAdminCategory } from '@/types/admin-category'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Button } from '@/components/ui/button'
 import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 interface IProps {
-  departments: Pick<IAdminDepartment, 'name' | 'slug'>[]
-  categories: Pick<IAdminCategory, 'name' | 'slug' | 'parent_id'>[]
-  data: IAdminCategory & { department_slug: string; parent_category_slug: string }
-  onDataChange: (data: IAdminCategory & { department_slug: string; parent_category_slug: string }) => void
+  departments: Pick<IAdminDepartment, 'id' | 'name'>[]
+  categories: Pick<IAdminCategory, 'id' | 'name'>[]
+  data: IAdminCategory
+  onDataChange: (data: IAdminCategory) => void
   errors: Record<string, string>
 }
 
 export default function AdminCategoryForm(props: IProps) {
-  function handleChange(key: string, value: string | boolean) {
+  function handleChange(key: string, value: string | number | boolean | undefined) {
     props.onDataChange({
       ...props.data,
-      [key]: value === 'null' ? null : value,
+      [key]: value,
     })
   }
 
@@ -83,7 +86,7 @@ export default function AdminCategoryForm(props: IProps) {
 
       <div>
         <Label htmlFor="department">Choose Department</Label>
-        <Select name="department" onValueChange={(value) => handleChange('department_slug', value)}>
+        <Select name="department" onValueChange={(value) => handleChange('department_id', parseInt(value, 10))}>
           <SelectTrigger id="department">
             <SelectValue placeholder="Select a department" />
           </SelectTrigger>
@@ -92,8 +95,8 @@ export default function AdminCategoryForm(props: IProps) {
               <SelectLabel>
                 {props.departments.length ? <p>Select a department</p> : <p>No department found</p>}
               </SelectLabel>
-              {props.departments.map((department) => (
-                <SelectItem key={department.slug} value={department.slug}>
+              {props.departments.map((department, i) => (
+                <SelectItem key={i} value={String(department.id)}>
                   {department.name}
                 </SelectItem>
               ))}
@@ -103,23 +106,39 @@ export default function AdminCategoryForm(props: IProps) {
       </div>
 
       <div>
-        <Label htmlFor="category">Choose Category</Label>
-        <Select name="category" onValueChange={(value) => handleChange('parent_category_slug', value)}>
-          <SelectTrigger id="category">
-            <SelectValue placeholder="Select a department" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>{props.categories.length ? <p>Select a category</p> : <p>No category found</p>}</SelectLabel>
-              <SelectItem value="null">Root Category</SelectItem>
-              {props.categories.map((category) => (
-                <SelectItem key={category.slug} value={category.slug}>
-                  {category.name}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <Label htmlFor="category">Choose Parent Category</Label>
+        <div className="relative">
+          <Select
+            name="category"
+            value={props.data.parent_id !== undefined ? String(props.data.parent_id) : ''}
+            onValueChange={(value) => handleChange('parent_id', parseInt(value, 10))}
+          >
+            <SelectTrigger id="category">
+              <SelectValue placeholder="Select a category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>
+                  {props.categories.length ? <p>Select a category</p> : <p>No category found</p>}
+                </SelectLabel>
+                {props.categories.map((category, i) => {
+                  return (
+                    <SelectItem key={i} value={String(category.id)}>
+                      {category.name}
+                    </SelectItem>
+                  )
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
+          <div className="absolute top-0 right-10 flex items-center gap-1">
+            <Button type="button" variant="ghost" size="icon" onClick={() => handleChange('parent_id', undefined)}>
+              <XIcon className="text-gray-600" />
+            </Button>
+            <span className="inline-block h-5 w-0.5 bg-gray-300"></span>
+          </div>
+        </div>
       </div>
 
       <div className="mt-4 flex items-center gap-2">
