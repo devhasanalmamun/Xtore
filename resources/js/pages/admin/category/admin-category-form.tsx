@@ -113,42 +113,44 @@ export default function AdminCategoryForm(props: IProps) {
         <InputError message={props.errors.department_id} />
       </div>
 
-      <div>
-        <Label htmlFor="category">Choose Parent Category</Label>
-        <div className="relative">
-          <Select
-            name="category"
-            value={props.data.parent_id !== undefined ? String(props.data.parent_id) : ''}
-            onValueChange={(value) => handleChange('parent_id', parseInt(value, 10))}
-          >
-            <SelectTrigger id="category">
-              <SelectValue placeholder="Select a category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>
-                  {props.categories.length ? <p>Select a category</p> : <p>No category found</p>}
-                </SelectLabel>
-                {props.categories.map((category, i) => {
-                  return (
-                    <SelectItem key={i} value={String(category.id)}>
-                      {category.name}
-                    </SelectItem>
-                  )
-                })}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+      {props.data.department_id && (
+        <div>
+          <Label htmlFor="category">Choose Parent Category</Label>
+          <div className="relative">
+            <Select
+              name="category"
+              value={props.data.parent_id !== undefined ? String(props.data.parent_id) : ''}
+              onValueChange={(value) => handleChange('parent_id', parseInt(value, 10))}
+            >
+              <SelectTrigger id="category">
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>
+                    {props.categories.length ? <p>Select a category</p> : <p>No category found</p>}
+                  </SelectLabel>
+                  {props.categories.map((category, i) => {
+                    return (
+                      <SelectItem key={i} value={String(category.id)}>
+                        {category.name}
+                      </SelectItem>
+                    )
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
 
-          <div className="absolute top-0 right-10 flex items-center gap-1">
-            <Button type="button" variant="ghost" size="icon" onClick={() => handleChange('parent_id', undefined)}>
-              <XIcon className="text-gray-600" />
-            </Button>
-            <span className="inline-block h-5 w-0.5 bg-gray-300"></span>
+            <div className="absolute top-0 right-10 flex items-center gap-1">
+              <Button type="button" variant="ghost" size="icon" onClick={() => handleChange('parent_id', undefined)}>
+                <XIcon className="text-gray-600" />
+              </Button>
+              <span className="inline-block h-5 w-0.5 bg-gray-300"></span>
+            </div>
           </div>
+          <InputError message={props.errors.parent_id} />
         </div>
-        <InputError message={props.errors.parent_id} />
-      </div>
+      )}
 
       <div className="mt-4 flex items-center gap-2">
         <Checkbox
