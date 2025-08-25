@@ -34,15 +34,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface IProps {
   departments: Pick<IAdminDepartment, 'name' | 'slug'>[]
+  categories: Pick<IAdminCategory, 'name' | 'slug' | 'parent_id'>[]
 }
 
 export default function AdminCategoryCreate(props: IProps) {
-  const { data, setData, post, errors } = useForm<IAdminCategory & { department_slug: string }>({
+  const { data, setData, post, errors } = useForm<
+    IAdminCategory & { department_slug: string; parent_category_slug: string }
+  >({
+    parent_category_slug: '',
+    department_slug: '',
     name: '',
     slug: '',
     meta_title: '',
     meta_description: '',
-    department_slug: '',
     active: true,
   })
 
@@ -115,7 +119,6 @@ export default function AdminCategoryCreate(props: IProps) {
 
           <div>
             <Label htmlFor="department">Choose Department</Label>
-
             <Select name="department" onValueChange={(value) => setData('department_slug', value)}>
               <SelectTrigger id="department">
                 <SelectValue placeholder="Select a department" />
@@ -128,6 +131,29 @@ export default function AdminCategoryCreate(props: IProps) {
                   {props.departments.map((department) => (
                     <SelectItem key={department.slug} value={department.slug}>
                       {department.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* TODO: Needs a parent category too */}
+          <div>
+            <Label htmlFor="category">Choose Category</Label>
+            <Select name="category" onValueChange={(value) => setData('parent_category_slug', value)}>
+              <SelectTrigger id="category">
+                <SelectValue placeholder="Select a department" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>
+                    {props.categories.length ? <p>Select a category</p> : <p>No category found</p>}
+                  </SelectLabel>
+                  <SelectItem value="null">Root Parent</SelectItem>
+                  {props.categories.map((category) => (
+                    <SelectItem key={category.slug} value={category.slug}>
+                      {category.name}
                     </SelectItem>
                   ))}
                 </SelectGroup>
