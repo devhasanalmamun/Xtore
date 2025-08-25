@@ -5,7 +5,6 @@ import AdminCategoryForm from '@/pages/admin/category/admin-category-form'
 import { IAdminDepartment } from '@/types/admin-department'
 import { IAdminCategory } from '@/types/admin-category'
 import AdminLayout from '@/layouts/admin/admin-layout'
-import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
 
@@ -36,14 +35,14 @@ export default function AdminCategoryCreate(props: IProps) {
     active: true,
   })
 
-  function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     post(route('admin.categories.store'))
   }
 
-  // useEffect(() => {
-  //   setData('slug', data.name.replaceAll(' ', '-').toLowerCase())
-  // }, [data.name, setData])
+  useEffect(() => {
+    setData('slug', data.name.replaceAll(' ', '-').toLowerCase())
+  }, [data.name, setData])
 
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
@@ -59,11 +58,9 @@ export default function AdminCategoryCreate(props: IProps) {
           data={data}
           onDataChange={setData}
           errors={errors}
+          buttonText="Submit Category"
+          handleSubmit={handleSubmit}
         />
-
-        <Button className="mt-6" onClick={handleSubmit}>
-          Submit Category
-        </Button>
       </section>
     </AdminLayout>
   )
