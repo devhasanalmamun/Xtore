@@ -26,7 +26,7 @@ export default function AdminCategoryForm(props: IProps) {
   function handleChange(key: string, value: string | boolean) {
     props.onDataChange({
       ...props.data,
-      [key]: value,
+      [key]: value === 'null' ? null : value,
     })
   }
 

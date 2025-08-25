@@ -33,7 +33,9 @@ class AdminCategoryController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        dd($request->input('parent_category_slug'));
+        // $parent_category = Category::findOrFail($request->input('parent_category_slug'));
+        // dd($parent_category);
     }
 
     /**
