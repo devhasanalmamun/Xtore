@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Resources\Admin\AdminCategoryResource;
+use App\DataTransferObjects\AdminCategoryData;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Models\Department;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Category;
 use Inertia\Response;
 use Inertia\Inertia;
 
@@ -31,9 +32,9 @@ class AdminCategoryController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(AdminCategoryData $data)
     {
-        dd($request->all());
+        dd($data);
         // dd($request->input('parent_category_slug'));
         // $parent_category = Category::findOrFail($request->input('parent_category_slug'));
         // dd($parent_category);

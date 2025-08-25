@@ -9,29 +9,33 @@ use Spatie\LaravelData\Attributes\Validation\Min;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
-final class AdminDepartmentData extends Data{
+final class AdminCategoryData extends Data{
   public function __construct(
-    #[Required, Min(3), Max(255)]
+    public readonly ?int $parent_id,
+
+    #[Required]
+    public readonly int $department_id,
+
+    #[Required, Min(2), Max(255)]
     public readonly string $name,
 
     public readonly string $slug,
 
-    #[Required, Min(32), Max(255)]
+    #[Required, Min(8), Max(255)]
     public readonly string $meta_title,
 
-    #[Required, Min(32), Max(1024)]
+    #[Required, Min(8), Max(1024)]
     public readonly string $meta_description,
 
     #[Required, ValidationRuleSpatie('boolean')]
     public readonly bool $active,
-  ){}
-  
-  public static function rules(): array 
-  {
-    $departmentId = request()->route('department')?->id;
+  )
+  {}
 
+  public static function rules(): array
+  {
     return [
-      'slug' => ['required', 'max:255', Rule::unique('departments', 'slug')->ignore($departmentId)]
+      'slug' => ['required', 'max:255', Rule::unique('categories', 'slug')]
     ];
   }
 }

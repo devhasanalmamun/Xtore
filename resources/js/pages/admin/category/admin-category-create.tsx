@@ -38,7 +38,6 @@ export default function AdminCategoryCreate(props: IProps) {
 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault()
-    console.log(data)
     post(route('admin.categories.store'))
   }
 

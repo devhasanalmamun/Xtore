@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select'
 import { IAdminDepartment } from '@/types/admin-department'
 import { IAdminCategory } from '@/types/admin-category'
+import InputError from '@/components/ui/input-error'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import Textarea from '@/components/ui/textarea'
@@ -45,6 +46,7 @@ export default function AdminCategoryForm(props: IProps) {
           placeholder="Enter the category name. ex: Hard disk"
           required
         />
+        <InputError message={props.errors.name} />
       </div>
 
       <div>
@@ -57,6 +59,7 @@ export default function AdminCategoryForm(props: IProps) {
           placeholder="Enter the slug for category. ex: hard-disk"
           required
         />
+        <InputError message={props.errors.slug} />
       </div>
 
       <div>
@@ -69,6 +72,7 @@ export default function AdminCategoryForm(props: IProps) {
           placeholder="Enter Meta title for SEO"
           required
         />
+        <InputError message={props.errors.meta_title} />
       </div>
 
       <div>
@@ -82,6 +86,7 @@ export default function AdminCategoryForm(props: IProps) {
           placeholder="Enter Meta description for SEO"
           required
         />
+        <InputError message={props.errors.meta_description} />
       </div>
 
       <div>
@@ -103,6 +108,8 @@ export default function AdminCategoryForm(props: IProps) {
             </SelectGroup>
           </SelectContent>
         </Select>
+
+        <InputError message={props.errors.department_id} />
       </div>
 
       <div>
@@ -139,6 +146,7 @@ export default function AdminCategoryForm(props: IProps) {
             <span className="inline-block h-5 w-0.5 bg-gray-300"></span>
           </div>
         </div>
+        <InputError message={props.errors.parent_id} />
       </div>
 
       <div className="mt-4 flex items-center gap-2">
@@ -147,6 +155,7 @@ export default function AdminCategoryForm(props: IProps) {
           name="active"
           defaultChecked={props.data.active}
           onCheckedChange={(e) => handleChange('active', e)}
+          required
         />
         <Label htmlFor="active" className="mb-0 font-normal">
           Uncheck this, if you want this category to be inactive.
