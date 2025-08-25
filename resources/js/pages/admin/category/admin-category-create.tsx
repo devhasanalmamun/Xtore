@@ -41,9 +41,9 @@ export default function AdminCategoryCreate(props: IProps) {
     post(route('admin.categories.store'))
   }
 
-  useEffect(() => {
-    setData('slug', data.name.replaceAll(' ', '-').toLowerCase())
-  }, [data.name, setData])
+  // useEffect(() => {
+  //   setData('slug', data.name.replaceAll(' ', '-').toLowerCase())
+  // }, [data.name, setData])
 
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
