@@ -26,7 +26,7 @@ interface IProps {
 }
 
 export default function AdminCategoryCreate(props: IProps) {
-  const { data, setData, errors, post } = useForm<IAdminCategory>({
+  const { data, setData, errors, post, processing } = useForm<IAdminCategory>({
     parent_id: undefined,
     department_id: undefined,
     name: '',
@@ -62,7 +62,7 @@ export default function AdminCategoryCreate(props: IProps) {
           handleSubmit={handleSubmit}
         />
 
-        <Button type="submit" className="mt-6" form="admin-category-form">
+        <Button type="submit" className="mt-6" form="admin-category-form" disabled={processing}>
           Create category
         </Button>
       </section>
