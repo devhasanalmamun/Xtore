@@ -32,25 +32,17 @@ class AdminCategoryController extends Controller
         ]);
     }
 
-    public function store(AdminCategoryData $data)
+    public function store(AdminCategoryData $data) : RedirectResponse
     {
-        dd($data);
-        // dd($request->input('parent_category_slug'));
-        // $parent_category = Category::findOrFail($request->input('parent_category_slug'));
-        // dd($parent_category);
+        Category::create($data->toArray());
+        return redirect(route('admin.categories.index'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //

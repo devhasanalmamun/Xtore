@@ -156,7 +156,6 @@ export default function AdminCategoryForm(props: IProps) {
           name="active"
           defaultChecked={props.data.active}
           onCheckedChange={(e) => handleChange('active', e)}
-          required
         />
         <Label htmlFor="active" className="mb-0 font-normal">
           Uncheck this, if you want this category to be inactive.
