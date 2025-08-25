@@ -1,23 +1,11 @@
 import { useForm } from '@inertiajs/react'
 import { useEffect } from 'react'
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import AdminCategoryForm from '@/pages/admin/category/admin-category-form'
 import { IAdminDepartment } from '@/types/admin-department'
 import { IAdminCategory } from '@/types/admin-category'
 import AdminLayout from '@/layouts/admin/admin-layout'
-import { Checkbox } from '@/components/ui/checkbox'
-import Textarea from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
 import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
 
@@ -38,7 +26,7 @@ interface IProps {
 }
 
 export default function AdminCategoryCreate(props: IProps) {
-  const { data, setData, post, errors } = useForm<
+  const { data, setData, errors, post } = useForm<
     IAdminCategory & { department_slug: string; parent_category_slug: string }
   >({
     parent_category_slug: '',
@@ -52,7 +40,7 @@ export default function AdminCategoryCreate(props: IProps) {
 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault()
-    console.log(data)
+    post(route('admin.categories.store'))
   }
 
   useEffect(() => {
@@ -67,112 +55,13 @@ export default function AdminCategoryCreate(props: IProps) {
           description="This category will be shown in vendors dashboard when they create a product"
         />
 
-        <form className="max-w-xl space-y-2">
-          <div>
-            <Label htmlFor="name">Category Name</Label>
-            <Input
-              id="name"
-              name="name"
-              value={data.name}
-              onChange={(e) => setData('name', e.target.value)}
-              placeholder="Enter the category name. ex: Hard disk"
-              required
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="slug">Slug</Label>
-            <Input
-              id="slug"
-              name="slug"
-              value={data.slug}
-              onChange={(e) => setData('slug', e.target.value)}
-              placeholder="Enter the slug for category. ex: hard-disk"
-              required
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="meta_title">Meta Title</Label>
-            <Input
-              id="meta_title"
-              name="meta_title"
-              value={data.meta_title}
-              onChange={(e) => setData('meta_title', e.target.value)}
-              placeholder="Enter Meta title for SEO"
-              required
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="meta_description">Meta Description</Label>
-            <Textarea
-              id="meta_description"
-              name="meta_description"
-              value={data.meta_description}
-              onChange={(e) => setData('meta_description', e.target.value)}
-              rows={5}
-              placeholder="Enter Meta description for SEO"
-              required
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="department">Choose Department</Label>
-            <Select name="department" onValueChange={(value) => setData('department_slug', value)}>
-              <SelectTrigger id="department">
-                <SelectValue placeholder="Select a department" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>
-                    {props.departments.length ? <p>Select a department</p> : <p>No department found</p>}
-                  </SelectLabel>
-                  {props.departments.map((department) => (
-                    <SelectItem key={department.slug} value={department.slug}>
-                      {department.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* TODO: Needs a parent category too */}
-          <div>
-            <Label htmlFor="category">Choose Category</Label>
-            <Select name="category" onValueChange={(value) => setData('parent_category_slug', value)}>
-              <SelectTrigger id="category">
-                <SelectValue placeholder="Select a department" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>
-                    {props.categories.length ? <p>Select a category</p> : <p>No category found</p>}
-                  </SelectLabel>
-                  <SelectItem value="null">Root Parent</SelectItem>
-                  {props.categories.map((category) => (
-                    <SelectItem key={category.slug} value={category.slug}>
-                      {category.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="mt-4 flex items-center gap-2">
-            <Checkbox
-              id="active"
-              name="active"
-              defaultChecked={data.active}
-              onCheckedChange={(e) => setData('active', e)}
-            />
-            <Label htmlFor="active" className="mb-0 font-normal">
-              Uncheck this, if you want this category to be inactive.
-            </Label>
-          </div>
-        </form>
+        <AdminCategoryForm
+          departments={props.departments}
+          categories={props.categories}
+          data={data}
+          onDataChange={setData}
+          errors={errors}
+        />
 
         <Button className="mt-6" onClick={handleSubmit}>
           Submit Category
