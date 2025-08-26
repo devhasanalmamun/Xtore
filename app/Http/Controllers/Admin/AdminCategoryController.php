@@ -6,7 +6,6 @@ use App\Http\Resources\Admin\AdminCategoryResource;
 use App\DataTransferObjects\AdminCategoryData;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\Category;
 use Inertia\Response;
@@ -47,9 +46,10 @@ class AdminCategoryController extends Controller
         ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(AdminCategoryData $data, Category $category) : RedirectResponse
     {
-        //
+        $category->update($data->toArray());
+        return redirect(route('admin.categories.index'));
     }
 
     public function destroy(Category $category) : RedirectResponse

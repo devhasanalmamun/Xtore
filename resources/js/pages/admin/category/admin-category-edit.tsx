@@ -26,7 +26,7 @@ interface IProps {
 }
 
 export default function AdminCategoryEdit(props: IProps) {
-  const { data, setData, errors, processing } = useForm<IAdminCategory>({
+  const { data, setData, errors, patch, processing } = useForm<IAdminCategory>({
     parent_id: props.category.parent_id ?? undefined,
     department_id: props.category.department_id,
     name: props.category.name,
@@ -38,7 +38,14 @@ export default function AdminCategoryEdit(props: IProps) {
 
   function handleEdit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log(data)
+    patch(route('admin.categories.update', props.category.slug), {
+      onSuccess: () => {
+        console.log('Updated category')
+      },
+      onError: () => {
+        console.log('Failed to update the category')
+      },
+    })
   }
 
   return (

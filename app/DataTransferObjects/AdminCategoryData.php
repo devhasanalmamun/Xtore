@@ -34,8 +34,10 @@ final class AdminCategoryData extends Data{
 
   public static function rules(): array
   {
+    $category_id = request()->route('category')?->id;
+    
     return [
-      'slug' => ['required', 'max:255', Rule::unique('categories', 'slug')]
+      'slug' => ['required', 'max:255', Rule::unique('categories', 'slug')->ignore($category_id)]
     ];
   }
 }
