@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { XIcon } from 'lucide-react'
 
 import {
@@ -18,9 +19,11 @@ import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
+type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>[]
+
 interface IProps {
   departments: Pick<IAdminDepartment, 'id' | 'name'>[]
-  categories: Pick<IAdminCategory, 'id' | 'name'>[]
+  categories: PartialCategory
   data: IAdminCategory
   onDataChange: (data: IAdminCategory) => void
   errors: Record<string, string>
@@ -28,12 +31,24 @@ interface IProps {
 }
 
 export default function AdminCategoryForm(props: IProps) {
+  const [relatedCategories, setRelatedCategories] = useState<PartialCategory>([])
+
   function handleChange(key: string, value: string | number | boolean | undefined) {
     props.onDataChange({
       ...props.data,
       [key]: value,
     })
   }
+
+  useEffect(() => {
+    if (!props.data.department_id) return
+
+    const newRelatedCategories = props.categories.filter(
+      (category) => category.department_id === props.data.department_id,
+    )
+
+    setRelatedCategories(newRelatedCategories)
+  }, [props.data.department_id, props.categories])
 
   return (
     <form id="admin-category-form" className="max-w-xl space-y-2" onSubmit={props.handleSubmit}>
@@ -128,9 +143,9 @@ export default function AdminCategoryForm(props: IProps) {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>
-                    {props.categories.length ? <p>Select a category</p> : <p>No category found</p>}
+                    {relatedCategories.length > 0 ? <p>Select a category</p> : <p>No category found</p>}
                   </SelectLabel>
-                  {props.categories.map((category, i) => {
+                  {relatedCategories.map((category, i) => {
                     return (
                       <SelectItem key={i} value={String(category.id)}>
                         {category.name}

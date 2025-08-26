@@ -28,7 +28,7 @@ class AdminCategoryController extends Controller
     {
         return Inertia::render('admin/category/admin-category-create', [
             'departments' => Department::select('id','name')->orderBy('name')->get(),
-            'categories' => Category::select('id', 'name')->orderBy('name')->get()
+            'categories' => Category::select('id','department_id', 'name')->orderBy('name')->get()
         ]);
     }
 

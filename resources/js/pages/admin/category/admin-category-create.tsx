@@ -22,7 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface IProps {
   departments: Pick<IAdminDepartment, 'id' | 'name'>[]
-  categories: Pick<IAdminCategory, 'id' | 'name'>[]
+  categories: Pick<IAdminCategory, 'id' | 'department_id' | 'name'>[]
 }
 
 export default function AdminCategoryCreate(props: IProps) {
