@@ -107,7 +107,11 @@ export default function AdminCategoryForm(props: IProps) {
 
       <div>
         <Label htmlFor="department">Choose Department</Label>
-        <Select name="department" onValueChange={(value) => handleChange('department_id', parseInt(value, 10))}>
+        <Select
+          value={props.data.department_id !== undefined ? String(props.data.department_id) : ''}
+          name="department"
+          onValueChange={(value) => handleChange('department_id', parseInt(value, 10))}
+        >
           <SelectTrigger id="department">
             <SelectValue placeholder="Select a department" />
           </SelectTrigger>

@@ -38,9 +38,13 @@ class AdminCategoryController extends Controller
         return redirect(route('admin.categories.index'));
     }
 
-    public function edit() : Response
+    public function edit(Category $category) : Response
     {
-        return Inertia::render('admin/category/admin-category-edit');
+        return Inertia::render('admin/category/admin-category-edit', [
+            'departments' => Department::select('id','name')->orderBy('name')->get(),
+            'categories' => Category::select('id','department_id', 'name')->orderBy('name')->get(),
+            'category'=> $category
+        ]);
     }
 
     public function update(Request $request, string $id)
