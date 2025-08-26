@@ -27,7 +27,7 @@ const columns: ColumnDef<IAdminCategory>[] = [
     header: 'Actions',
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <Button variant="outline" onClick={() => router.get(route('admin.departments.edit', row.original.slug))}>
+        <Button variant="outline" onClick={() => router.get(route('admin.categories.edit', row.original.slug))}>
           <EditIcon />
         </Button>
         <AdminCategoryDelete slug={row.original.slug} />

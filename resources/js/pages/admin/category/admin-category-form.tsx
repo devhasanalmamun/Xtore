@@ -51,7 +51,7 @@ export default function AdminCategoryForm(props: IProps) {
   }, [props.data.department_id, props.categories])
 
   return (
-    <form id="admin-category-form" className="max-w-xl space-y-2" onSubmit={props.handleSubmit}>
+    <form id="admin-category-form" className="max-w-xl space-y-4" onSubmit={props.handleSubmit}>
       <div>
         <Label htmlFor="name">Category Name</Label>
         <Input

@@ -21,7 +21,7 @@ export default function AdminDepartmentForm(props: IProps) {
   }
 
   return (
-    <form id="admin-department-form" className="max-w-xl space-y-2" onSubmit={props.handleSubmit}>
+    <form id="admin-department-form" className="max-w-xl space-y-4" onSubmit={props.handleSubmit}>
       <div>
         <Label htmlFor="name">Department Name</Label>
         <Input

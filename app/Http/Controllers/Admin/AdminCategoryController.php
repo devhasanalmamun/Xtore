@@ -38,9 +38,9 @@ class AdminCategoryController extends Controller
         return redirect(route('admin.categories.index'));
     }
 
-    public function edit(string $id)
+    public function edit() : Response
     {
-        //
+        return Inertia::render('admin/category/admin-category-edit');
     }
 
     public function update(Request $request, string $id)
