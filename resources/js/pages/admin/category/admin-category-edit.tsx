@@ -27,6 +27,7 @@ interface IProps {
 
 export default function AdminCategoryEdit(props: IProps) {
   const { data, setData, errors, patch, processing } = useForm<IAdminCategory>({
+    id: props.category.id,
     parent_id: props.category.parent_id ?? undefined,
     department_id: props.category.department_id,
     name: props.category.name,

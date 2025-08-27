@@ -43,12 +43,12 @@ export default function AdminCategoryForm(props: IProps) {
   useEffect(() => {
     if (!props.data.department_id) return
 
-    const newRelatedCategories = props.categories.filter(
-      (category) => category.department_id === props.data.department_id,
-    )
+    const newRelatedCategories = props.categories
+      .filter((category) => category.department_id === props.data.department_id)
+      .filter((category) => category.id !== props.data.id)
 
     setRelatedCategories(newRelatedCategories)
-  }, [props.data.department_id, props.categories])
+  }, [props.data.department_id, props.categories, props.data.id])
 
   return (
     <form id="admin-category-form" className="max-w-xl space-y-4" onSubmit={props.handleSubmit}>
