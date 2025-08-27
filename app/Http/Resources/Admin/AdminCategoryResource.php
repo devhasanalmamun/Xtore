@@ -15,6 +15,7 @@ class AdminCategoryResource extends JsonResource
             'slug' => $this->slug,
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
+            'active' => $this->active,
             'created_at' => $this->created_at->diffForHumans(),
             'department' => $this->whenLoaded('department', function (){
                 return [

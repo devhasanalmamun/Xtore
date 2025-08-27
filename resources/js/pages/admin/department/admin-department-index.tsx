@@ -1,4 +1,4 @@
-import { ArrowUp, EditIcon, PlusIcon } from 'lucide-react'
+import { ArrowUp, CheckCircleIcon, CircleXIcon, EditIcon, PlusIcon } from 'lucide-react'
 import { ColumnDef } from '@tanstack/react-table'
 import { router } from '@inertiajs/react'
 
@@ -48,7 +48,11 @@ const columns: ColumnDef<IAdminDepartment>[] = [
     ),
     accessorKey: 'active',
     cell: ({ row }) =>
-      row.getValue('active') ? <p className="text-green-600">Yes</p> : <p className="text-red-600">No</p>,
+      row.getValue('active') === true ? (
+        <CheckCircleIcon className="text-primary" />
+      ) : (
+        <CircleXIcon className="text-red-500" />
+      ),
   },
   {
     header: 'Created At',
