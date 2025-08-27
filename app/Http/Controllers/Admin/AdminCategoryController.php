@@ -52,8 +52,12 @@ class AdminCategoryController extends Controller
         return redirect(route('admin.categories.index'));
     }
 
-    public function destroy(Category $category) : RedirectResponse
+    public function destroy(Category $category) 
     {
+        $category->children()->update([
+            'parent_id' => $category->parent_id
+        ]);
+
         $category->delete();
         return back();
     }
