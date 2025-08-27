@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use App\Http\Middleware\DetermineIsUserAdminMiddleware;
+use App\Http\Middleware\DetermineIsUserVendorMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\HandleInertiaRequests;
@@ -24,7 +25,8 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->alias([
-            'admin' => DetermineIsUserAdminMiddleware::class
+            'admin' => DetermineIsUserAdminMiddleware::class,
+            'vendor' => DetermineIsUserVendorMiddleware::class,            
         ]);
 
     })
