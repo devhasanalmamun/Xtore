@@ -1,4 +1,4 @@
-import { LayoutGridIcon } from 'lucide-react'
+import { LayoutGridIcon, PackageIcon } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
 import {
@@ -18,8 +18,15 @@ import { NavItem } from '@/types'
 const mainNavItems: NavItem[] = [
   {
     title: 'Dashboard',
-    routeName: 'vendor.dashboard',
+    baseRoute: 'vendor.dashboard.',
+    routeName: 'vendor.dashboard.index',
     icon: LayoutGridIcon,
+  },
+  {
+    title: 'Products',
+    baseRoute: 'vendor.products.',
+    routeName: 'vendor.products.index',
+    icon: PackageIcon,
   },
 ]
 
@@ -30,7 +37,7 @@ export default function VendorSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href={route('vendor.dashboard')} prefetch>
+              <Link href={route('vendor.dashboard.index')} prefetch>
                 <AppLogo />
               </Link>
             </SidebarMenuButton>
