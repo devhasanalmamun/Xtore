@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Vendor;
 
+use App\Http\Controllers\Controller;
 use Inertia\Response;
 use Inertia\Inertia;
 
-class ProductController extends Controller
+class VendorProductController extends Controller
 {
     public function index(): Response
     {
