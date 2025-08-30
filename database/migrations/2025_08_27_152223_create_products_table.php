@@ -17,9 +17,11 @@ return new class extends Migration
             $table->string('title', 2000);
             $table->string('slug', 2000);
             $table->longText('description');
-            $table->decimal('price', 20, 4);
+            $table->decimal('price', 20, 2);
             $table->integer('quantity')->nullable();
             $table->string('status')->index();
+            $table->string('meta_title');
+            $table->string('meta_description');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
