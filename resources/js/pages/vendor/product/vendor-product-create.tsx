@@ -1,10 +1,11 @@
 import { useForm } from '@inertiajs/react'
 
 import VendorProductForm from '@/pages/vendor/product/vendor-product-form'
+import VendorProductStatusEnum from '@/enums/vendor-product-status-enums'
+import { IVendorProduct, prodectStatus } from '@/types/vendor-product'
 import { IAdminDepartment } from '@/types/admin-department'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
 import { IAdminCategory } from '@/types/admin-category'
-import { prodectStatus } from '@/types/vendor-product'
 import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
@@ -28,7 +29,18 @@ interface IProps {
 }
 
 export default function VendorProductCreate(props: IProps) {
-  const { processing } = useForm({})
+  const { data, setData, errors, post, processing } = useForm<IVendorProduct>({
+    derpartment_id: undefined,
+    category_id: undefined,
+    title: '',
+    slug: '',
+    description: '',
+    price: 100,
+    quantity: 1,
+    status: VendorProductStatusEnum.PUBLISHED,
+    meta_title: '',
+    meta_description: '',
+  })
 
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
