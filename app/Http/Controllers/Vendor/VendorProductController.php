@@ -12,4 +12,9 @@ class VendorProductController extends Controller
     {
         return Inertia::render('vendor/product/vendor-product-index');
     }
+
+    public function create(): Response 
+    {
+        return Inertia::render('vendor/product/vendor-product-create');
+    }
 }

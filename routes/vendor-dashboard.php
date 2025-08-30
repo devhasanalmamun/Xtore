@@ -9,5 +9,5 @@ Route::middleware(['auth', 'verified', 'vendor'])
 	->prefix('vendor')
 	->group(function () {
     Route::get('dashboard', VendorDashboardController::class)->name('dashboard.index');
-		Route::get('products', [VendorProductController::class, 'index'])->name('products.index');
+		Route::resource('products', VendorProductController::class);
 });
