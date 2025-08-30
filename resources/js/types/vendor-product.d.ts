@@ -12,3 +12,8 @@ export interface IVendorProduct {
   quantity: number
   status: VendorProductStatusEnum
 }
+
+export type prodectStatus = {
+  label: string
+  value: string
+}

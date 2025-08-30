@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Enums\ProductStatusEnum;
 use App\Http\Resources\Vendor\VendorProductResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Department;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
@@ -26,6 +29,10 @@ class VendorProductController extends Controller
 
     public function create(): Response 
     {
-        return Inertia::render('vendor/product/vendor-product-create');
+        return Inertia::render('vendor/product/vendor-product-create', [
+            'departments' => Department::select('id', 'name')->orderBy('name')->get(),
+            'categories' => Category::select('id', 'department_id', 'name')->orderBy('name')->get(),
+            'status' => ProductStatusEnum::labels(),
+        ]);
     }
 }
