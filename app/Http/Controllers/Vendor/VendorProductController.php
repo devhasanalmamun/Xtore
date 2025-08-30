@@ -2,19 +2,25 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Http\Resources\Vendor\VendorProductResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\User;
 use Inertia\Response;
+use App\Models\User;
 use Inertia\Inertia;
 
 class VendorProductController extends Controller
 {
     public function index(#[Authenticated] User $user): Response
     {
+        $products = Product::select('title', 'description', 'price', 'quantity', 'status', 'created_at')
+            ->where('created_by', $user->id)
+            ->orderBy('title')
+            ->get();
+
         return Inertia::render('vendor/product/vendor-product-index', [
-            'products' => Product::where('created_by', $user->id)->orderBy('title')->get()
+            'products' => VendorProductResource::collection($products)
         ]);
     }
 
