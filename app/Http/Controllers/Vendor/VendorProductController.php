@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Vendor;
 use App\Http\Resources\Vendor\VendorProductResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Enums\ProductStatusEnum;
-use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\Category;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 
 class VendorProductController extends Controller
