@@ -21,6 +21,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     routeName: 'vendor.products.create',
   },
 ]
+
 type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>
 
 interface IProps {

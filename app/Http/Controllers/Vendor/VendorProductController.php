@@ -45,6 +45,17 @@ class VendorProductController extends Controller
             'created_by' => $user->id,
             'updated_by' => $user->id,
         ]);
+
         return redirect(route('vendor.products.store'));
+    }
+
+    public function edit(Product $product): Response 
+    {
+        return Inertia::render('vendor/product/vendor-product-edit', [
+            'departments' => Department::select('id', 'name')->orderBy('name')->get(),
+            'categories' => Category::select('id', 'department_id', 'name')->orderBy('name')->get(),
+            'status' => ProductStatusEnum::labels(),
+            'product'=> $product
+        ]);    
     }
 }
