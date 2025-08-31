@@ -1,4 +1,5 @@
 import { useForm } from '@inertiajs/react'
+import { useEffect } from 'react'
 
 import VendorProductForm from '@/pages/vendor/product/vendor-product-form'
 import VendorProductStatusEnum from '@/enums/vendor-product-status-enums'
@@ -29,7 +30,7 @@ interface IProps {
 }
 
 export default function VendorProductCreate(props: IProps) {
-  const { data, setData, errors, post, processing } = useForm<IVendorProduct>({
+  const { data, setData, post, errors, processing } = useForm<IVendorProduct>({
     derpartment_id: undefined,
     category_id: undefined,
     title: '',
@@ -42,6 +43,16 @@ export default function VendorProductCreate(props: IProps) {
     meta_description: '',
   })
 
+  function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault()
+    post(route('vendor.products.store'))
+  }
+
+  useEffect(() => {
+    setData('slug', data.title.replaceAll(' ', '-').toLowerCase())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.title])
+
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
       <section className="px-4 py-8 md:px-4 md:py-8">
@@ -50,9 +61,16 @@ export default function VendorProductCreate(props: IProps) {
           description="This product will be shown in website under the selected department and category"
         />
 
-        <VendorProductForm status={props.status} departments={props.departments} categories={props.categories} />
+        <VendorProductForm
+          status={props.status}
+          departments={props.departments}
+          categories={props.categories}
+          data={data}
+          onDataChange={setData}
+          errors={errors}
+        />
 
-        <Button type="submit" className="mt-6" disabled={processing} form="vendor-product-form">
+        <Button type="submit" className="mt-6" disabled={processing} form="vendor-product-form" onClick={handleSubmit}>
           Upload Product
         </Button>
       </section>

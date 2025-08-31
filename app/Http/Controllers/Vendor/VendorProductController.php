@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use App\Enums\ProductStatusEnum;
 use App\Http\Resources\Vendor\VendorProductResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Enums\ProductStatusEnum;
+use Illuminate\Http\Request;
 use App\Models\Department;
+use App\Models\Category;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
@@ -34,5 +35,10 @@ class VendorProductController extends Controller
             'categories' => Category::select('id', 'department_id', 'name')->orderBy('name')->get(),
             'status' => ProductStatusEnum::labels(),
         ]);
+    }
+
+    public function store(Request $request) 
+    {
+        dd($request->all());
     }
 }
