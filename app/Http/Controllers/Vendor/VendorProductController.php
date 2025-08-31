@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Resources\Vendor\VendorProductResource;
 use Illuminate\Container\Attributes\Authenticated;
+use App\DataTransferObjects\VendorProductData;
 use App\Http\Controllers\Controller;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 
 class VendorProductController extends Controller
@@ -37,8 +39,13 @@ class VendorProductController extends Controller
         ]);
     }
 
-    public function store(Request $request) 
+    public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
     {
-        dd($request->all());
+        Product::create([
+            ...$data->toArray(),
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+        ]);
+        return redirect(route('vendor.products.store'));
     }
 }

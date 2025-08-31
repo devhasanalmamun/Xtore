@@ -2,7 +2,7 @@ import VendorProductStatusEnum from '@/enums/vendor-product-status-enums'
 
 export interface IVendorProduct {
   id?: number
-  derpartment_id?: number
+  department_id?: number
   category_id?: number
   created_by?: number
   title: string

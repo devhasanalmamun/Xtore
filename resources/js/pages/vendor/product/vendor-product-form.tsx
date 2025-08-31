@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import {
   Select,
   SelectContent,
@@ -10,10 +12,10 @@ import {
 import { IVendorProduct, prodectStatus } from '@/types/vendor-product'
 import { IAdminDepartment } from '@/types/admin-department'
 import { IAdminCategory } from '@/types/admin-category'
+import InputError from '@/components/ui/input-error'
 import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useEffect, useState } from 'react'
 
 type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>
 
@@ -37,13 +39,13 @@ export default function VendorProductForm(props: IProps) {
   }
 
   useEffect(() => {
-    if (!props.data.derpartment_id) return
+    if (!props.data.department_id) return
 
     const newRelatedCategories = props.categories.filter(
-      (category) => category.department_id === props.data.derpartment_id,
+      (category) => category.department_id === props.data.department_id,
     )
     setRelatedCategories(newRelatedCategories)
-  }, [props.data.derpartment_id, props.categories])
+  }, [props.data.department_id, props.categories])
 
   return (
     <form id="vendor-product-form" className="max-w-xl space-y-4">
@@ -56,6 +58,7 @@ export default function VendorProductForm(props: IProps) {
           onChange={(e) => handleChange('title', e.target.value)}
           placeholder="Enter the product title"
         />
+        <InputError message={props.errors.title} />
       </div>
 
       <div>
@@ -67,6 +70,7 @@ export default function VendorProductForm(props: IProps) {
           onChange={(e) => handleChange('slug', e.target.value)}
           placeholder="Enter the product slug"
         />
+        <InputError message={props.errors.slug} />
       </div>
 
       <div>
@@ -79,6 +83,7 @@ export default function VendorProductForm(props: IProps) {
           placeholder="Enter the product description"
           rows={5}
         />
+        <InputError message={props.errors.description} />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -89,8 +94,9 @@ export default function VendorProductForm(props: IProps) {
             id="quantity"
             name="quantity"
             value={props.data.quantity}
-            onChange={(e) => handleChange('quantity', e.target.value)}
+            onChange={(e) => handleChange('quantity', parseInt(e.target.value, 10))}
           />
+          <InputError message={props.errors.quantity} />
         </div>
 
         <div>
@@ -100,8 +106,9 @@ export default function VendorProductForm(props: IProps) {
             id="price"
             name="price"
             value={props.data.price}
-            onChange={(e) => handleChange('price', e.target.value)}
+            onChange={(e) => handleChange('price', parseInt(e.target.value, 10))}
           />
+          <InputError message={props.errors.price} />
         </div>
       </div>
 
@@ -110,8 +117,8 @@ export default function VendorProductForm(props: IProps) {
           <Label htmlFor="department">Department</Label>
           <Select
             name="department"
-            value={props.data.derpartment_id !== undefined ? String(props.data.derpartment_id) : ''}
-            onValueChange={(e) => handleChange('derpartment_id', parseInt(e, 10))}
+            value={props.data.department_id !== undefined ? String(props.data.department_id) : ''}
+            onValueChange={(e) => handleChange('department_id', parseInt(e, 10))}
           >
             <SelectTrigger id="department">
               <SelectValue placeholder="Select a department for product" />
@@ -125,9 +132,10 @@ export default function VendorProductForm(props: IProps) {
               ))}
             </SelectContent>
           </Select>
+          <InputError message={props.errors.department_id} />
         </div>
 
-        {props.data.derpartment_id && (
+        {props.data.department_id && (
           <div>
             <Label htmlFor="category">Category</Label>
             <Select
@@ -150,6 +158,7 @@ export default function VendorProductForm(props: IProps) {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            <InputError message={props.errors.category_id} />
           </div>
         )}
       </div>
@@ -163,6 +172,7 @@ export default function VendorProductForm(props: IProps) {
           onChange={(e) => handleChange('meta_title', e.target.value)}
           placeholder="Enter the product meta title for SEO"
         />
+        <InputError message={props.errors.meta_title} />
       </div>
 
       <div>
@@ -175,6 +185,7 @@ export default function VendorProductForm(props: IProps) {
           onChange={(e) => handleChange('meta_description', e.target.value)}
           placeholder="Enter the product meta description for SEO"
         />
+        <InputError message={props.errors.meta_description} />
       </div>
 
       <div>

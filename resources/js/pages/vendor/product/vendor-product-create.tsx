@@ -31,7 +31,7 @@ interface IProps {
 
 export default function VendorProductCreate(props: IProps) {
   const { data, setData, post, errors, processing } = useForm<IVendorProduct>({
-    derpartment_id: undefined,
+    department_id: undefined,
     category_id: undefined,
     title: '',
     slug: '',
@@ -45,6 +45,7 @@ export default function VendorProductCreate(props: IProps) {
 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault()
+    console.log(data)
     post(route('vendor.products.store'))
   }
 
