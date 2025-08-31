@@ -1,4 +1,5 @@
 import { Head, useForm } from '@inertiajs/react'
+import { useEffect } from 'react'
 
 import VendorProductForm from '@/pages/vendor/product/vendor-product-form'
 import { IVendorProduct, prodectStatus } from '@/types/vendor-product'
@@ -30,7 +31,7 @@ interface IProps {
 }
 
 export default function VendorProductEdit(props: IProps) {
-  const { data, setData, processing, errors } = useForm<IVendorProduct>({
+  const { data, setData, processing, patch, errors } = useForm<IVendorProduct>({
     department_id: props.product.department_id,
     category_id: props.product.category_id,
     title: props.product.title,
@@ -43,10 +44,15 @@ export default function VendorProductEdit(props: IProps) {
     meta_description: props.product.meta_description,
   })
 
-  function handleEdit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function handleEdit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log(data)
+    patch(route('vendor.products.update', props.product.slug))
   }
+
+  useEffect(() => {
+    setData('slug', data.title.replaceAll(' ', '-').toLowerCase())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.title])
 
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
@@ -63,11 +69,12 @@ export default function VendorProductEdit(props: IProps) {
           categories={props.categories}
           data={data}
           onDataChange={setData}
+          handleSubmit={handleEdit}
           status={props.status}
           errors={errors}
         />
 
-        <Button type="submit" className="mt-6" form="vendor-product-form" disabled={processing} onClick={handleEdit}>
+        <Button type="submit" className="mt-6" form="vendor-product-form" disabled={processing}>
           Update product
         </Button>
       </section>

@@ -58,4 +58,10 @@ class VendorProductController extends Controller
             'product'=> $product
         ]);    
     }
+
+    public function update(VendorProductData $data, Product $product): RedirectResponse 
+    {
+        $product->update($data->toArray());
+        return redirect(route('vendor.products.index'));
+    }
 }

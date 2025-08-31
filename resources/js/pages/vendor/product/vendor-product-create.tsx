@@ -44,7 +44,7 @@ export default function VendorProductCreate(props: IProps) {
     meta_description: '',
   })
 
-  function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     post(route('vendor.products.store'))
   }
@@ -67,11 +67,12 @@ export default function VendorProductCreate(props: IProps) {
           departments={props.departments}
           categories={props.categories}
           data={data}
+          handleSubmit={handleSubmit}
           onDataChange={setData}
           errors={errors}
         />
 
-        <Button type="submit" className="mt-6" disabled={processing} form="vendor-product-form" onClick={handleSubmit}>
+        <Button type="submit" className="mt-6" disabled={processing} form="vendor-product-form">
           Upload Product
         </Button>
       </section>

@@ -43,8 +43,10 @@ final class VendorProductData extends Data {
 
   public static function rules(): array
   {
+    $product_id = request()->route('product')?->id;
+
     return [
-      'slug' => ['required', 'min:3', 'max:255', Rule::unique('products', 'slug')]
+      'slug' => ['required', 'min:3', 'max:255', Rule::unique('products', 'slug')->ignore($product_id)]
     ];
   }
 }

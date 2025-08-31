@@ -25,6 +25,7 @@ interface IProps {
   categories: PartialCategory[]
   data: IVendorProduct
   onDataChange: (data: IVendorProduct) => void
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   errors: Record<string, string>
 }
 
@@ -48,7 +49,7 @@ export default function VendorProductForm(props: IProps) {
   }, [props.data.department_id, props.categories])
 
   return (
-    <form id="vendor-product-form" className="max-w-xl space-y-4">
+    <form id="vendor-product-form" className="max-w-xl space-y-4" onSubmit={props.handleSubmit}>
       <div>
         <Label htmlFor="title">Title</Label>
         <Input
@@ -57,6 +58,7 @@ export default function VendorProductForm(props: IProps) {
           value={props.data.title}
           onChange={(e) => handleChange('title', e.target.value)}
           placeholder="Enter the product title"
+          required
         />
         <InputError message={props.errors.title} />
       </div>
@@ -69,6 +71,7 @@ export default function VendorProductForm(props: IProps) {
           value={props.data.slug}
           onChange={(e) => handleChange('slug', e.target.value)}
           placeholder="Enter the product slug"
+          required
         />
         <InputError message={props.errors.slug} />
       </div>
@@ -82,6 +85,7 @@ export default function VendorProductForm(props: IProps) {
           onChange={(e) => handleChange('description', e.target.value)}
           placeholder="Enter the product description"
           rows={5}
+          required
         />
         <InputError message={props.errors.description} />
       </div>
@@ -95,6 +99,7 @@ export default function VendorProductForm(props: IProps) {
             name="quantity"
             value={props.data.quantity}
             onChange={(e) => handleChange('quantity', parseInt(e.target.value, 10))}
+            required
           />
           <InputError message={props.errors.quantity} />
         </div>
@@ -107,6 +112,7 @@ export default function VendorProductForm(props: IProps) {
             name="price"
             value={props.data.price}
             onChange={(e) => handleChange('price', parseInt(e.target.value, 10))}
+            required
           />
           <InputError message={props.errors.price} />
         </div>
@@ -177,6 +183,7 @@ export default function VendorProductForm(props: IProps) {
           value={props.data.meta_title}
           onChange={(e) => handleChange('meta_title', e.target.value)}
           placeholder="Enter the product meta title for SEO"
+          required
         />
         <InputError message={props.errors.meta_title} />
       </div>
@@ -190,6 +197,7 @@ export default function VendorProductForm(props: IProps) {
           value={props.data.meta_description}
           onChange={(e) => handleChange('meta_description', e.target.value)}
           placeholder="Enter the product meta description for SEO"
+          required
         />
         <InputError message={props.errors.meta_description} />
       </div>
