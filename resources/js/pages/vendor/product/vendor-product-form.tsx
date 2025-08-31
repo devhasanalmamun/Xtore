@@ -31,7 +31,7 @@ interface IProps {
 export default function VendorProductForm(props: IProps) {
   const [relatedCategories, setRelatedCategories] = useState<PartialCategory[]>([])
 
-  function handleChange(key: keyof IVendorProduct, value: string | number) {
+  function handleChange(key: keyof IVendorProduct, value: string | number | undefined) {
     props.onDataChange({
       ...props.data,
       [key]: value,
@@ -118,7 +118,13 @@ export default function VendorProductForm(props: IProps) {
           <Select
             name="department"
             value={props.data.department_id !== undefined ? String(props.data.department_id) : ''}
-            onValueChange={(e) => handleChange('department_id', parseInt(e, 10))}
+            onValueChange={(e) => {
+              props.onDataChange({
+                ...props.data,
+                department_id: parseInt(e, 10),
+                category_id: undefined,
+              })
+            }}
           >
             <SelectTrigger id="department">
               <SelectValue placeholder="Select a department for product" />
