@@ -64,4 +64,10 @@ class VendorProductController extends Controller
         $product->update($data->toArray());
         return redirect(route('vendor.products.index'));
     }
+
+    public function destroy(Product $product): RedirectResponse
+    {
+        $product->delete();
+        return redirect(route('vendor.products.index'));
+    }
 }

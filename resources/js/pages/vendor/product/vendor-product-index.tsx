@@ -1,13 +1,13 @@
-import { router } from '@inertiajs/react'
 import { EditIcon, PlusIcon } from 'lucide-react'
+import { router } from '@inertiajs/react'
 
+import VendorProductDelete from '@/pages/vendor/product/vendor-product-delete'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
+import { IVendorProduct } from '@/types/vendor-product'
+import { DataTable } from '@/components/ui/data-table'
+import { ColumnDef } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import { BreadcrumbItem } from '@/types'
-import { IVendorProduct } from '@/types/vendor-product'
-import { ColumnDef } from '@tanstack/react-table'
-import { DataTable } from '@/components/ui/data-table'
-import AdminDepartmentDelete from '@/pages/admin/department/admin-department-delete'
 
 const columns: ColumnDef<IVendorProduct>[] = [
   {
@@ -47,7 +47,7 @@ const columns: ColumnDef<IVendorProduct>[] = [
           <EditIcon />
         </Button>
 
-        <AdminDepartmentDelete slug={row.original.slug} />
+        <VendorProductDelete slug={row.original.slug} />
       </div>
     ),
   },
