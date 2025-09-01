@@ -9,6 +9,7 @@ import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
 import { ColumnDef } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 const columns: ColumnDef<IVendorProduct>[] = [
   {
@@ -34,6 +35,10 @@ const columns: ColumnDef<IVendorProduct>[] = [
   {
     header: 'Status',
     accessorKey: 'status',
+    cell: ({ row }) => {
+      const status: string = row.getValue('status')
+      return <p className={cn(status === 'Published' && 'text-primary')}>{status}</p>
+    },
   },
   {
     header: 'Created At',
