@@ -22,7 +22,7 @@ class VendorProductController extends Controller
         $products = Product::select('title','slug', 'description', 'price', 'quantity', 'status', 'created_at')
             ->where('created_by', $user->id)
             ->orderBy('title')
-            ->get();
+            ->paginate(10);
 
         return Inertia::render('vendor/product/vendor-product-index', [
             'products' => VendorProductResource::collection($products)

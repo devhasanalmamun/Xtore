@@ -2,12 +2,13 @@ import { EditIcon, PlusIcon } from 'lucide-react'
 import { router } from '@inertiajs/react'
 
 import VendorProductDelete from '@/pages/vendor/product/vendor-product-delete'
+import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
 import { IVendorProduct } from '@/types/vendor-product'
 import { DataTable } from '@/components/ui/data-table'
+import Pagination from '@/components/ui/pagination'
 import { ColumnDef } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
-import { BreadcrumbItem } from '@/types'
 
 const columns: ColumnDef<IVendorProduct>[] = [
   {
@@ -61,7 +62,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 interface IProps {
-  products: IVendorProduct[]
+  products: {
+    data: IVendorProduct[]
+    meta: PaginationMeta
+    links: PaginationLinks
+  }
 }
 
 export default function VendorProductIndex(props: IProps) {
@@ -77,7 +82,12 @@ export default function VendorProductIndex(props: IProps) {
         </div>
 
         <div className="mt-8">
-          <DataTable columns={columns} data={props.products} />
+          <DataTable columns={columns} data={props.products.data} />
+          <Pagination
+            meta={props.products.meta}
+            pagination_links={props.products.links}
+            totalRows={props.products.data.length}
+          />
         </div>
       </section>
     </VendorLayout>
