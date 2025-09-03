@@ -11,12 +11,12 @@ import {
 } from '@/components/ui/select'
 import { IVendorProduct, prodectStatus } from '@/types/vendor-product'
 import { IAdminDepartment } from '@/types/admin-department'
+import PlateEditor from '@/components/editor/plate-editor'
 import { IAdminCategory } from '@/types/admin-category'
 import InputError from '@/components/ui/input-error'
 import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import TextareaEditor from '@/components/ui/textarea-editor'
 
 type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>
 
@@ -221,7 +221,7 @@ export default function VendorProductForm(props: IProps) {
 
       <div>
         <Label>Product Description</Label>
-        <TextareaEditor />
+        <PlateEditor />
       </div>
     </form>
   )

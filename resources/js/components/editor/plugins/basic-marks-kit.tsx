@@ -1,3 +1,5 @@
+'use client';
+
 import {
   BoldPlugin,
   CodePlugin,
@@ -8,11 +10,11 @@ import {
   SubscriptPlugin,
   SuperscriptPlugin,
   UnderlinePlugin,
-} from '@platejs/basic-nodes/react'
+} from '@platejs/basic-nodes/react';
 
-import { HighlightLeaf } from '@/components/ui/highlight-node'
-import { CodeLeaf } from '@/components/ui/code-node'
-import { KbdLeaf } from '@/components/ui/kbd-node'
+import { CodeLeaf } from '@/components/ui/code-node';
+import { HighlightLeaf } from '@/components/ui/highlight-node';
+import { KbdLeaf } from '@/components/ui/kbd-node';
 
 export const BasicMarksKit = [
   BoldPlugin,
@@ -36,4 +38,4 @@ export const BasicMarksKit = [
     shortcuts: { toggle: { keys: 'mod+shift+h' } },
   }),
   KbdPlugin.withComponent(KbdLeaf),
-]
+];
