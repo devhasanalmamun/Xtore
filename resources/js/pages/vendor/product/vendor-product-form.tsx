@@ -16,6 +16,7 @@ import InputError from '@/components/ui/input-error'
 import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import TextareaEditor from '@/components/ui/textarea-editor'
 
 type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>
 
@@ -49,7 +50,7 @@ export default function VendorProductForm(props: IProps) {
   }, [props.data.department_id, props.categories])
 
   return (
-    <form id="vendor-product-form" className="max-w-xl space-y-4" onSubmit={props.handleSubmit}>
+    <form id="vendor-product-form" className="max-w-4xl space-y-4" onSubmit={props.handleSubmit}>
       <div>
         <Label htmlFor="title">Title</Label>
         <Input
@@ -216,6 +217,11 @@ export default function VendorProductForm(props: IProps) {
             ))}
           </SelectContent>
         </Select>
+      </div>
+
+      <div>
+        <Label>Product Description</Label>
+        <TextareaEditor />
       </div>
     </form>
   )
