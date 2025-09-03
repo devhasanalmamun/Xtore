@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 import { Editor, EditorContainer } from '@/components/ui/editor'
 import { EditorKit } from '@/components/editor/editor-kit'
+import { FixedToolbar } from './toolbar/fixed-toolbar'
+import { FixedToolbarButtons } from './toolbar/fixed-toolbar-buttons'
 
 const initialValue: Value = [
   {
@@ -27,6 +29,10 @@ export default function PlateEditor() {
 
   return (
     <Plate editor={editor} onChange={(e) => setValue(e.value)}>
+      <FixedToolbar>
+        <FixedToolbarButtons />
+      </FixedToolbar>
+
       <EditorContainer>
         <Editor />
       </EditorContainer>
