@@ -17,6 +17,7 @@ import { MediaKit } from '@/components/editor/plugins/media-kit'
 import { TableKit } from '@/components/editor/plugins/table-kit'
 import { FontKit } from '@/components/editor/plugins/font-kit'
 import { ListKit } from '@/components/editor/plugins/list-kit'
+import { LinkKit } from '@/components/editor/plugins/link-kit'
 import { TocKit } from '@/components/editor/plugins/toc-kit'
 
 // import { BlockMenuKit } from './plugins/block-menu-kit'
@@ -29,7 +30,6 @@ import { TocKit } from '@/components/editor/plugins/toc-kit'
 // import { ExitBreakKit } from './plugins/exit-break-kit'
 // import { FixedToolbarKit } from './plugins/fixed-toolbar-kit'
 // import { FloatingToolbarKit } from './plugins/floating-toolbar-kit'
-// import { LinkKit } from './plugins/link-kit'
 // import { SlashKit } from './plugins/slash-kit'
 
 export const EditorKit = [
@@ -45,7 +45,7 @@ export const EditorKit = [
   ...ColumnKit,
   // ...DateKit,
   ...IndentKit,
-  // ...LinkKit,
+  ...LinkKit,
 
   // Marks
   ...BasicMarksKit,
