@@ -3,6 +3,7 @@
 import { type TPlateEditor, useEditorRef } from 'platejs/react'
 import { type Value, TrailingBlockPlugin } from 'platejs'
 
+import { BlockSelectionKit } from '@/components/editor/plugins/block-selection-kit'
 import { BasicBlocksKit } from '@/components/editor/plugins/basic-blocks-kit'
 import { BasicMarksKit } from '@/components/editor/plugins/basic-marks-kit'
 import { LineHeightKit } from '@/components/editor/plugins/line-height-kit'
@@ -19,12 +20,12 @@ import { FontKit } from '@/components/editor/plugins/font-kit'
 import { ListKit } from '@/components/editor/plugins/list-kit'
 import { LinkKit } from '@/components/editor/plugins/link-kit'
 import { TocKit } from '@/components/editor/plugins/toc-kit'
+import { DndKit } from '@/components/editor/plugins/dnd-kit'
 
 // import { BlockMenuKit } from './plugins/block-menu-kit'
 // import { BlockPlaceholderKit } from './plugins/block-placeholder-kit'
 // import { CursorOverlayKit } from './plugins/cursor-overlay-kit'
 // import { DateKit } from './plugins/date-kit'
-// import { DndKit } from './plugins/dnd-kit'
 // import { DocxKit } from './plugins/docx-kit'
 // import { EmojiKit } from './plugins/emoji-kit'
 // import { ExitBreakKit } from './plugins/exit-break-kit'
@@ -34,6 +35,7 @@ import { TocKit } from '@/components/editor/plugins/toc-kit'
 
 export const EditorKit = [
   // ...BlockMenuKit,
+  ...BlockSelectionKit,
 
   // Elements
   ...BasicBlocksKit,
@@ -64,7 +66,8 @@ export const EditorKit = [
   // ...SlashKit,
   ...AutoformatKit,
   // ...CursorOverlayKit,
-  // ...DndKit,
+  ...DndKit,
+
   // ...EmojiKit,
   // ...ExitBreakKit,
   TrailingBlockPlugin,
