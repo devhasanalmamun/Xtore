@@ -13,7 +13,6 @@ import { AlignKit } from '@/components/editor/plugins/align-kit'
 import { CalloutKit } from '@/components/editor/plugins/callout-kit'
 // import { CodeBlockKit } from './plugins/code-block-kit'
 // import { ColumnKit } from './plugins/column-kit'
-// import { CommentKit } from './plugins/comment-kit'
 // import { CursorOverlayKit } from './plugins/cursor-overlay-kit'
 // import { DateKit } from './plugins/date-kit'
 // import { DiscussionKit } from './plugins/discussion-kit'
@@ -28,11 +27,8 @@ import { CalloutKit } from '@/components/editor/plugins/callout-kit'
 // import { LinkKit } from './plugins/link-kit'
 // import { ListKit } from './plugins/list-kit'
 import { MarkdownKit } from './plugins/markdown-kit'
-// import { MathKit } from './plugins/math-kit'
-// import { MediaKit } from './plugins/media-kit'
-// import { MentionKit } from './plugins/mention-kit'
+import { MediaKit } from '@/components/editor/plugins/media-kit'
 // import { SlashKit } from './plugins/slash-kit'
-import { SuggestionKit } from './plugins/suggestion-kit'
 // import { TableKit } from './plugins/table-kit'
 // import { TocKit } from './plugins/toc-kit'
 // import { ToggleKit } from './plugins/toggle-kit'
@@ -46,13 +42,11 @@ export const EditorKit = [
   // ...TableKit,
   // ...ToggleKit,
   // ...TocKit,
-  // ...MediaKit,
+  ...MediaKit,
   ...CalloutKit,
   // ...ColumnKit,
-  // ...MathKit,
   // ...DateKit,
   // ...LinkKit,
-  // ...MentionKit,
 
   // Marks
   ...BasicMarksKit,
@@ -66,7 +60,6 @@ export const EditorKit = [
   // Collaboration
   // ...DiscussionKit,
   // ...CommentKit,
-  ...SuggestionKit,
 
   // Editing
   // ...SlashKit,

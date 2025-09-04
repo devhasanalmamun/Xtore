@@ -12,7 +12,6 @@ import { BaseDateKit } from '@/components/editor/plugins/date-base-kit'
 import { BaseFontKit } from '@/components/editor/plugins/font-base-kit'
 import { BaseLinkKit } from '@/components/editor/plugins/link-base-kit'
 import { BaseListKit } from '@/components/editor/plugins/list-base-kit'
-import { BaseMathKit } from '@/components/editor/plugins/math-base-kit'
 import { MarkdownKit } from '@/components/editor/plugins/markdown-kit'
 import { BaseTocKit } from '@/components/editor/plugins/toc-base-kit'
 
@@ -25,7 +24,6 @@ export const BaseEditorKit = [
   ...BaseMediaKit,
   ...BaseCalloutKit,
   ...BaseColumnKit,
-  ...BaseMathKit,
   ...BaseDateKit,
   ...BaseLinkKit,
   ...BaseBasicMarksKit,

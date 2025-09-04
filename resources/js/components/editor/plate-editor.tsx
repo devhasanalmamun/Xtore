@@ -2,7 +2,7 @@ import { Plate, usePlateEditor } from 'platejs/react'
 import type { Value } from 'platejs'
 import { useState } from 'react'
 
-import { Editor, EditorContainer } from '@/components/ui/editor'
+import { Editor, EditorContainer } from '@/components/editor/ui/editor'
 import { EditorKit } from '@/components/editor/editor-kit'
 import { FixedToolbar } from './toolbar/fixed-toolbar'
 import { FixedToolbarButtons } from './toolbar/fixed-toolbar-buttons'

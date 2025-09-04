@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { BaseEditorKit } from '@/components/editor/editor-base-kit'
 
-import { EditorStatic } from '../../ui/editor-static'
+import { EditorStatic } from '../ui/editor-static'
 import { ToolbarButton } from '../../ui/toolbar'
 
 const siteUrl = 'https://platejs.org'

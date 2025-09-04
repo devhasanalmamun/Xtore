@@ -70,9 +70,9 @@ import {
 import { Popover, PopoverContent } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 
-import { blockSelectionVariants } from './block-selection'
-import { ColorDropdownMenuItems, DEFAULT_COLORS } from '../editor/toolbar/font-color-toolbar-button'
-import { ResizeHandle } from './resize-handle'
+import { blockSelectionVariants } from '../../ui/block-selection'
+import { ColorDropdownMenuItems, DEFAULT_COLORS } from '../toolbar/font-color-toolbar-button'
+import { ResizeHandle } from '../../ui/resize-handle'
 import {
   BorderAllIcon,
   BorderBottomIcon,
@@ -80,8 +80,8 @@ import {
   BorderNoneIcon,
   BorderRightIcon,
   BorderTopIcon,
-} from './table-icons'
-import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarMenuGroup } from './toolbar'
+} from '../../ui/table-icons'
+import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarMenuGroup } from '../../ui/toolbar'
 export const TableElement = withHOC(
   TableProvider,
   function TableElement({ children, ...props }: PlateElementProps<TTableElement>) {

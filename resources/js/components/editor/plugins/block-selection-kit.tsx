@@ -1,7 +1,7 @@
 import { BlockSelectionPlugin } from '@platejs/selection/react'
 import { getPluginTypes, KEYS } from 'platejs'
 
-import { BlockSelection } from '@/components/ui/block-selection'
+import { BlockSelection } from '@/components/editor/ui/block-selection'
 
 export const BlockSelectionKit = [
   BlockSelectionPlugin.configure(({ editor }) => ({
@@ -15,6 +15,7 @@ export const BlockSelectionKit = [
       belowRootNodes: (props) => {
         if (!props.attributes.className?.includes('slate-selectable')) return null
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return <BlockSelection {...(props as any)} />
       },
     },
