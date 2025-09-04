@@ -3,6 +3,7 @@
 import { type TPlateEditor, useEditorRef } from 'platejs/react'
 import { type Value, TrailingBlockPlugin } from 'platejs'
 
+import { BlockPlaceholderKit } from '@/components/editor/plugins/block-placeholder-kit'
 import { BlockSelectionKit } from '@/components/editor/plugins/block-selection-kit'
 import { BasicBlocksKit } from '@/components/editor/plugins/basic-blocks-kit'
 import { BasicMarksKit } from '@/components/editor/plugins/basic-marks-kit'
@@ -24,7 +25,6 @@ import { LinkKit } from '@/components/editor/plugins/link-kit'
 import { TocKit } from '@/components/editor/plugins/toc-kit'
 import { DndKit } from '@/components/editor/plugins/dnd-kit'
 
-// import { BlockPlaceholderKit } from './plugins/block-placeholder-kit'
 // import { CursorOverlayKit } from './plugins/cursor-overlay-kit'
 // import { DateKit } from './plugins/date-kit'
 // import { DocxKit } from './plugins/docx-kit'
@@ -34,6 +34,7 @@ import { DndKit } from '@/components/editor/plugins/dnd-kit'
 
 export const EditorKit = [
   ...BlockMenuKit,
+  ...BlockPlaceholderKit,
   ...BlockSelectionKit,
 
   // Elements
