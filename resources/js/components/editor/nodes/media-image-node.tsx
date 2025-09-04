@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils'
 
 import { Caption, CaptionTextarea } from '../../ui/caption'
 import { MediaToolbar } from '../ui/media-toolbar'
-import { mediaResizeHandleVariants, Resizable, ResizeHandle } from '../../ui/resize-handle'
+import { mediaResizeHandleVariants, Resizable, ResizeHandle } from '../ui/resize-handle'
 
 export const ImageElement = withHOC(ResizableProvider, function ImageElement(props: PlateElementProps<TImageElement>) {
   const { align = 'center', focused, readOnly, selected } = useMediaState()

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import * as React from 'react'
@@ -70,9 +71,9 @@ import {
 import { Popover, PopoverContent } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 
-import { blockSelectionVariants } from '../../ui/block-selection'
-import { ColorDropdownMenuItems, DEFAULT_COLORS } from '../toolbar/font-color-toolbar-button'
-import { ResizeHandle } from '../../ui/resize-handle'
+import { blockSelectionVariants } from '../ui/block-selection'
+import { ColorDropdownMenuItems, DEFAULT_COLORS } from '@/components/editor/toolbar/font-color-toolbar-button'
+import { ResizeHandle } from '../ui/resize-handle'
 import {
   BorderAllIcon,
   BorderBottomIcon,
@@ -404,6 +405,7 @@ function RowDragHandle({ dragRef }: { dragRef: React.Ref<any> }) {
 
   return (
     <Button
+      type="button"
       ref={dragRef}
       variant="outline"
       className={cn(

@@ -24,7 +24,6 @@ import { FontColorToolbarButton } from '@/components/editor/toolbar/font-color-t
 import { FontSizeToolbarButton } from '@/components/editor/toolbar/font-size-toolbar-button'
 import { TurnIntoToolbarButton } from '@/components/editor/toolbar/turn-into-toolbar-button'
 import { ExportToolbarButton } from '@/components/editor/toolbar/export-toolbar-button'
-import { ImportToolbarButton } from '@/components/editor/toolbar/import-toolbar-button'
 import { InsertToolbarButton } from '@/components/editor/toolbar/insert-toolbar-button'
 import { ToggleToolbarButton } from '@/components/editor/toolbar/toggle-toolbar-button'
 import { AlignToolbarButton } from '@/components/editor/toolbar/align-toolbar-button'
@@ -45,14 +44,9 @@ export function FixedToolbarButtons() {
           <ToolbarGroup>
             <UndoToolbarButton />
             <RedoToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup>
             <ExportToolbarButton>
               <ArrowUpToLineIcon />
             </ExportToolbarButton>
-
-            <ImportToolbarButton />
           </ToolbarGroup>
 
           <ToolbarGroup>

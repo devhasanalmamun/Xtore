@@ -6,11 +6,16 @@ import { type Value, TrailingBlockPlugin } from 'platejs'
 import { BasicBlocksKit } from '@/components/editor/plugins/basic-blocks-kit'
 import { BasicMarksKit } from '@/components/editor/plugins/basic-marks-kit'
 import { AutoformatKit } from '@/components/editor/plugins/autoformat-kit'
+import { MarkdownKit } from '@/components/editor/plugins/markdown-kit'
+import { CalloutKit } from '@/components/editor/plugins/callout-kit'
 import { AlignKit } from '@/components/editor/plugins/align-kit'
+import { MediaKit } from '@/components/editor/plugins/media-kit'
+import { TableKit } from '@/components/editor/plugins/table-kit'
+import { FontKit } from '@/components/editor/plugins/font-kit'
+import { ListKit } from '@/components/editor/plugins/list-kit'
 // import { BlockMenuKit } from './plugins/block-menu-kit'
 
 // import { BlockPlaceholderKit } from './plugins/block-placeholder-kit'
-import { CalloutKit } from '@/components/editor/plugins/callout-kit'
 // import { CodeBlockKit } from './plugins/code-block-kit'
 // import { ColumnKit } from './plugins/column-kit'
 // import { CursorOverlayKit } from './plugins/cursor-overlay-kit'
@@ -21,14 +26,9 @@ import { CalloutKit } from '@/components/editor/plugins/callout-kit'
 // import { ExitBreakKit } from './plugins/exit-break-kit'
 // import { FixedToolbarKit } from './plugins/fixed-toolbar-kit'
 // import { FloatingToolbarKit } from './plugins/floating-toolbar-kit'
-// import { FontKit } from './plugins/font-kit'
 // import { LineHeightKit } from './plugins/line-height-kit'
 // import { LinkKit } from './plugins/link-kit'
-// import { ListKit } from './plugins/list-kit'
-import { MarkdownKit } from './plugins/markdown-kit'
-import { MediaKit } from '@/components/editor/plugins/media-kit'
 // import { SlashKit } from './plugins/slash-kit'
-// import { TableKit } from './plugins/table-kit'
 // import { TocKit } from './plugins/toc-kit'
 // import { ToggleKit } from './plugins/toggle-kit'
 
@@ -38,7 +38,7 @@ export const EditorKit = [
   // Elements
   ...BasicBlocksKit,
   // ...CodeBlockKit,
-  // ...TableKit,
+  ...TableKit,
   // ...ToggleKit,
   // ...TocKit,
   ...MediaKit,
@@ -49,10 +49,10 @@ export const EditorKit = [
 
   // Marks
   ...BasicMarksKit,
-  // ...FontKit,
+  ...FontKit,
 
   // Block Style
-  // ...ListKit,
+  ...ListKit,
   ...AlignKit,
   // ...LineHeightKit,
 

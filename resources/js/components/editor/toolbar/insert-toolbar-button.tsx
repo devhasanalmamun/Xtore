@@ -21,7 +21,6 @@ import {
   PilcrowIcon,
   PlusIcon,
   QuoteIcon,
-  RadicalIcon,
   SquareIcon,
   TableIcon,
   TableOfContentsIcon,
@@ -161,12 +160,6 @@ const groups: Group[] = [
         label: '3 columns',
         value: 'action_three_columns',
       },
-      {
-        focusEditor: false,
-        icon: <RadicalIcon />,
-        label: 'Equation',
-        value: KEYS.equation,
-      },
     ].map((item) => ({
       ...item,
       onSelect: (editor, value) => {
@@ -187,12 +180,6 @@ const groups: Group[] = [
         icon: <CalendarIcon />,
         label: 'Date',
         value: KEYS.date,
-      },
-      {
-        focusEditor: false,
-        icon: <RadicalIcon />,
-        label: 'Inline Equation',
-        value: KEYS.inlineEquation,
       },
     ].map((item) => ({
       ...item,
