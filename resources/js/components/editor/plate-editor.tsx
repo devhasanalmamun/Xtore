@@ -34,7 +34,7 @@ export default function PlateEditor() {
       </FixedToolbar>
 
       <EditorContainer>
-        <Editor />
+        <Editor className="h-[550px]" />
       </EditorContainer>
     </Plate>
   )

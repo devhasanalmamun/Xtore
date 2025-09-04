@@ -8,16 +8,18 @@ import { BasicMarksKit } from '@/components/editor/plugins/basic-marks-kit'
 import { AutoformatKit } from '@/components/editor/plugins/autoformat-kit'
 import { MarkdownKit } from '@/components/editor/plugins/markdown-kit'
 import { CalloutKit } from '@/components/editor/plugins/callout-kit'
+import { ToggleKit } from '@/components/editor/plugins/toggle-kit'
+import { IndentKit } from '@/components/editor/plugins/indent-kit'
+import { ColumnKit } from '@/components/editor/plugins/column-kit'
 import { AlignKit } from '@/components/editor/plugins/align-kit'
 import { MediaKit } from '@/components/editor/plugins/media-kit'
 import { TableKit } from '@/components/editor/plugins/table-kit'
 import { FontKit } from '@/components/editor/plugins/font-kit'
 import { ListKit } from '@/components/editor/plugins/list-kit'
-// import { BlockMenuKit } from './plugins/block-menu-kit'
+import { TocKit } from '@/components/editor/plugins/toc-kit'
 
+// import { BlockMenuKit } from './plugins/block-menu-kit'
 // import { BlockPlaceholderKit } from './plugins/block-placeholder-kit'
-// import { CodeBlockKit } from './plugins/code-block-kit'
-// import { ColumnKit } from './plugins/column-kit'
 // import { CursorOverlayKit } from './plugins/cursor-overlay-kit'
 // import { DateKit } from './plugins/date-kit'
 // import { DndKit } from './plugins/dnd-kit'
@@ -29,22 +31,20 @@ import { ListKit } from '@/components/editor/plugins/list-kit'
 // import { LineHeightKit } from './plugins/line-height-kit'
 // import { LinkKit } from './plugins/link-kit'
 // import { SlashKit } from './plugins/slash-kit'
-// import { TocKit } from './plugins/toc-kit'
-// import { ToggleKit } from './plugins/toggle-kit'
 
 export const EditorKit = [
   // ...BlockMenuKit,
 
   // Elements
   ...BasicBlocksKit,
-  // ...CodeBlockKit,
   ...TableKit,
-  // ...ToggleKit,
-  // ...TocKit,
+  ...ToggleKit,
+  ...TocKit,
   ...MediaKit,
   ...CalloutKit,
-  // ...ColumnKit,
+  ...ColumnKit,
   // ...DateKit,
+  ...IndentKit,
   // ...LinkKit,
 
   // Marks
