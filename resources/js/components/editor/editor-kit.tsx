@@ -16,6 +16,7 @@ import { ColumnKit } from '@/components/editor/plugins/column-kit'
 import { AlignKit } from '@/components/editor/plugins/align-kit'
 import { MediaKit } from '@/components/editor/plugins/media-kit'
 import { TableKit } from '@/components/editor/plugins/table-kit'
+import { EmojiKit } from '@/components/editor/plugins/emoji-kit'
 import { FontKit } from '@/components/editor/plugins/font-kit'
 import { ListKit } from '@/components/editor/plugins/list-kit'
 import { LinkKit } from '@/components/editor/plugins/link-kit'
@@ -27,7 +28,6 @@ import { DndKit } from '@/components/editor/plugins/dnd-kit'
 // import { CursorOverlayKit } from './plugins/cursor-overlay-kit'
 // import { DateKit } from './plugins/date-kit'
 // import { DocxKit } from './plugins/docx-kit'
-// import { EmojiKit } from './plugins/emoji-kit'
 // import { ExitBreakKit } from './plugins/exit-break-kit'
 // import { FixedToolbarKit } from './plugins/fixed-toolbar-kit'
 // import { FloatingToolbarKit } from './plugins/floating-toolbar-kit'
@@ -68,7 +68,7 @@ export const EditorKit = [
   // ...CursorOverlayKit,
   ...DndKit,
 
-  // ...EmojiKit,
+  ...EmojiKit,
   // ...ExitBreakKit,
   TrailingBlockPlugin,
 
