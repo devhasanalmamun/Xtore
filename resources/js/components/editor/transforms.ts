@@ -3,7 +3,7 @@
 import type { PlateEditor } from 'platejs/react'
 
 import { insertCallout } from '@platejs/callout'
-import { insertCodeBlock, toggleCodeBlock } from '@platejs/code-block'
+
 import { insertDate } from '@platejs/date'
 import { insertColumnGroup, toggleColumnGroup } from '@platejs/layout'
 import { triggerFloatingLink } from '@platejs/link/react'
@@ -32,7 +32,6 @@ const insertBlockMap: Record<string, (editor: PlateEditor, type: string) => void
   [ACTION_THREE_COLUMNS]: (editor) => insertColumnGroup(editor, { columns: 3, select: true }),
   [KEYS.audio]: (editor) => insertAudioPlaceholder(editor, { select: true }),
   [KEYS.callout]: (editor) => insertCallout(editor, { select: true }),
-  [KEYS.codeBlock]: (editor) => insertCodeBlock(editor, { select: true }),
   [KEYS.equation]: (editor) => insertEquation(editor, { select: true }),
   [KEYS.file]: (editor) => insertFilePlaceholder(editor, { select: true }),
   [KEYS.img]: (editor) =>
@@ -95,7 +94,6 @@ const setBlockMap: Record<string, (editor: PlateEditor, type: string, entry: Nod
   [KEYS.ol]: setList,
   [KEYS.ul]: setList,
   [ACTION_THREE_COLUMNS]: (editor) => toggleColumnGroup(editor, { columns: 3 }),
-  [KEYS.codeBlock]: (editor) => toggleCodeBlock(editor),
 }
 
 export const setBlockType = (editor: PlateEditor, type: string, { at }: { at?: Path } = {}) => {

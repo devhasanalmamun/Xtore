@@ -11,7 +11,6 @@ import {
   autoformatPunctuation,
   autoformatSmartQuotes,
 } from '@platejs/autoformat'
-import { insertEmptyCodeBlock } from '@platejs/code-block'
 import { toggleList } from '@platejs/list'
 import { KEYS } from 'platejs'
 
@@ -123,17 +122,6 @@ const autoformatBlocks: AutoformatRule[] = [
     match: '> ',
     mode: 'block',
     type: KEYS.blockquote,
-  },
-  {
-    match: '```',
-    mode: 'block',
-    type: KEYS.codeBlock,
-    format: (editor) => {
-      insertEmptyCodeBlock(editor, {
-        defaultType: KEYS.p,
-        insertNodesOptions: { select: true },
-      })
-    },
   },
   // {
   //   match: '+ ',
