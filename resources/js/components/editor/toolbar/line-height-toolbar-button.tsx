@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { ToolbarButton } from '../../ui/toolbar'
+import { ToolbarButton } from '@/components/ui/toolbar'
 
 export function LineHeightToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef()

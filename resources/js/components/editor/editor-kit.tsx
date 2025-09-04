@@ -5,6 +5,7 @@ import { type Value, TrailingBlockPlugin } from 'platejs'
 
 import { BasicBlocksKit } from '@/components/editor/plugins/basic-blocks-kit'
 import { BasicMarksKit } from '@/components/editor/plugins/basic-marks-kit'
+import { LineHeightKit } from '@/components/editor/plugins/line-height-kit'
 import { AutoformatKit } from '@/components/editor/plugins/autoformat-kit'
 import { MarkdownKit } from '@/components/editor/plugins/markdown-kit'
 import { CalloutKit } from '@/components/editor/plugins/callout-kit'
@@ -28,7 +29,6 @@ import { TocKit } from '@/components/editor/plugins/toc-kit'
 // import { ExitBreakKit } from './plugins/exit-break-kit'
 // import { FixedToolbarKit } from './plugins/fixed-toolbar-kit'
 // import { FloatingToolbarKit } from './plugins/floating-toolbar-kit'
-// import { LineHeightKit } from './plugins/line-height-kit'
 // import { LinkKit } from './plugins/link-kit'
 // import { SlashKit } from './plugins/slash-kit'
 
@@ -54,7 +54,7 @@ export const EditorKit = [
   // Block Style
   ...ListKit,
   ...AlignKit,
-  // ...LineHeightKit,
+  ...LineHeightKit,
 
   // Collaboration
   // ...DiscussionKit,
