@@ -26,9 +26,6 @@ import { DateKit } from '@/components/editor/plugins/date-kit'
 import { TocKit } from '@/components/editor/plugins/toc-kit'
 import { DndKit } from '@/components/editor/plugins/dnd-kit'
 
-// import { FixedToolbarKit } from './plugins/fixed-toolbar-kit'
-// import { FloatingToolbarKit } from './plugins/floating-toolbar-kit'
-
 export const EditorKit = [
   ...BlockMenuKit,
   ...BlockPlaceholderKit,
@@ -63,11 +60,6 @@ export const EditorKit = [
 
   // Parsers
   ...MarkdownKit,
-
-  // UI
-  // ...BlockPlaceholderKit,
-  // ...FixedToolbarKit,
-  // ...FloatingToolbarKit,
 ]
 
 export type MyEditor = TPlateEditor<Value, (typeof EditorKit)[number]>
