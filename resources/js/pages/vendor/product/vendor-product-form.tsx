@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ImageUpIcon } from 'lucide-react'
 
 import {
   Select,
@@ -33,7 +34,7 @@ interface IProps {
 export default function VendorProductForm(props: IProps) {
   const [relatedCategories, setRelatedCategories] = useState<PartialCategory[]>([])
 
-  function handleChange(key: keyof IVendorProduct, value: string | number | undefined) {
+  function handleChange(key: keyof IVendorProduct, value: string | number | undefined | File) {
     props.onDataChange({
       ...props.data,
       [key]: value,
@@ -206,12 +207,29 @@ export default function VendorProductForm(props: IProps) {
       </div>
 
       <div>
+        <Label htmlFor="thumbnail">Product Thumbnail</Label>
+        <div className="relative flex justify-center rounded-md border border-dashed py-30">
+          <div className="text-center">
+            <p className="mb-2 flex items-center gap-2">
+              <ImageUpIcon /> Drag and drop an image here
+            </p>
+            <p className="text-sm text-gray-400">or click to select file</p>
+            <Input
+              type="file"
+              id="thumbnail"
+              accept="image/*"
+              className="absolute top-0 right-0 h-full cursor-pointer opacity-0"
+              onChange={(e) => handleChange('thumbnail_url', e.target.files?.[0])}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
         <Label>Product Description</Label>
         <PlateEditor value={props.data.description} onChange={(value) => handleChange('description', value)} />
         <InputError message={props.errors.description} />
       </div>
-
-      <div></div>
     </form>
   )
 }
