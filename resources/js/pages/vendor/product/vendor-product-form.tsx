@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { ImageUpIcon } from 'lucide-react'
 
 import {
   Select,
@@ -14,6 +13,7 @@ import { IVendorProduct, productStatus } from '@/types/vendor-product'
 import { IAdminDepartment } from '@/types/admin-department'
 import PlateEditor from '@/components/editor/plate-editor'
 import { IAdminCategory } from '@/types/admin-category'
+import ImageUploader from '@/components/image-uploader'
 import InputError from '@/components/ui/input-error'
 import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
@@ -208,21 +208,7 @@ export default function VendorProductForm(props: IProps) {
 
       <div>
         <Label htmlFor="thumbnail">Product Thumbnail</Label>
-        <div className="relative flex justify-center rounded-md border border-dashed py-30">
-          <div className="text-center">
-            <p className="mb-2 flex items-center gap-2">
-              <ImageUpIcon /> Drag and drop an image here
-            </p>
-            <p className="text-sm text-gray-400">or click to select file</p>
-            <Input
-              type="file"
-              id="thumbnail"
-              accept="image/*"
-              className="absolute top-0 right-0 h-full cursor-pointer opacity-0"
-              onChange={(e) => handleChange('thumbnail_url', e.target.files?.[0])}
-            />
-          </div>
-        </div>
+        <ImageUploader image={props.data.thumbnail_url} onChange={(file) => handleChange('thumbnail_url', file)} />
       </div>
 
       <div>
