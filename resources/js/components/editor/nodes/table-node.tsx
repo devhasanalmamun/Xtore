@@ -73,7 +73,7 @@ import { cn } from '@/lib/utils'
 
 import { blockSelectionVariants } from '../ui/block-selection'
 import { ColorDropdownMenuItems, DEFAULT_COLORS } from '@/components/editor/toolbar/font-color-toolbar-button'
-import { ResizeHandle } from '../ui/resize-handle'
+import { ResizeHandle } from '../../ui/resize-handle'
 import {
   BorderAllIcon,
   BorderBottomIcon,
