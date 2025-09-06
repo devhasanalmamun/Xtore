@@ -15,7 +15,7 @@ export interface IVendorProduct {
   meta_description: string
 }
 
-export type prodectStatus = {
+export type productStatus = {
   label: string
   value: string
 }

@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { IVendorProduct, prodectStatus } from '@/types/vendor-product'
+import { IVendorProduct, productStatus } from '@/types/vendor-product'
 import { IAdminDepartment } from '@/types/admin-department'
 import PlateEditor from '@/components/editor/plate-editor'
 import { IAdminCategory } from '@/types/admin-category'
@@ -21,7 +21,7 @@ import { Label } from '@/components/ui/label'
 type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>
 
 interface IProps {
-  status: prodectStatus[]
+  status: productStatus[]
   departments: Pick<IAdminDepartment, 'id' | 'name'>[]
   categories: PartialCategory[]
   data: IVendorProduct
@@ -210,6 +210,8 @@ export default function VendorProductForm(props: IProps) {
         <PlateEditor value={props.data.description} onChange={(value) => handleChange('description', value)} />
         <InputError message={props.errors.description} />
       </div>
+
+      <div></div>
     </form>
   )
 }

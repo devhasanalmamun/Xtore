@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('price', 20, 2);
             $table->integer('quantity')->nullable();
             $table->string('status')->index();
+            $table->string('thumbnail_url');
             $table->string('meta_title');
             $table->string('meta_description');
             $table->timestamp('deleted_at')->nullable();

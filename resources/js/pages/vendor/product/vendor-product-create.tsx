@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import VendorProductForm from '@/pages/vendor/product/vendor-product-form'
 import VendorProductStatusEnum from '@/enums/vendor-product-status-enums'
-import { IVendorProduct, prodectStatus } from '@/types/vendor-product'
+import { IVendorProduct, productStatus } from '@/types/vendor-product'
 import { IAdminDepartment } from '@/types/admin-department'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
 import { IAdminCategory } from '@/types/admin-category'
@@ -25,7 +25,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>
 
 interface IProps {
-  status: prodectStatus[]
+  status: productStatus[]
   departments: Pick<IAdminDepartment, 'id' | 'name'>[]
   categories: PartialCategory[]
 }

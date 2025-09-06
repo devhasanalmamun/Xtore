@@ -2,7 +2,7 @@ import { Head, useForm } from '@inertiajs/react'
 import { useEffect } from 'react'
 
 import VendorProductForm from '@/pages/vendor/product/vendor-product-form'
-import { IVendorProduct, prodectStatus } from '@/types/vendor-product'
+import { IVendorProduct, productStatus } from '@/types/vendor-product'
 import { IAdminDepartment } from '@/types/admin-department'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
 import { IAdminCategory } from '@/types/admin-category'
@@ -26,7 +26,7 @@ type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>
 interface IProps {
   departments: Pick<IAdminDepartment, 'id' | 'name'>[]
   categories: PartialCategory[]
-  status: prodectStatus[]
+  status: productStatus[]
   product: IVendorProduct
 }
 
