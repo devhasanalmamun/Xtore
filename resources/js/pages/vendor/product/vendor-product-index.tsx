@@ -19,8 +19,13 @@ const columns: ColumnDef<IVendorProduct>[] = [
   },
   {
     header: 'Description',
-    accessorKey: 'description',
-    cell: ({ row }) => String(row.getValue('description')).slice(0, 30) + ' ...',
+    accessorKey: 'description_html',
+    cell: ({ row }) => (
+      <div
+        className="prose max-w-none"
+        dangerouslySetInnerHTML={{ __html: String(row.getValue('description_html')).slice(0, 40) }}
+      />
+    ),
   },
   {
     header: 'Price',
