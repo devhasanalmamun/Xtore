@@ -77,20 +77,6 @@ export default function VendorProductForm(props: IProps) {
         <InputError message={props.errors.slug} />
       </div>
 
-      <div>
-        <Label htmlFor="description">Description</Label>
-        <Textarea
-          id="description"
-          name="description"
-          value={props.data.description}
-          onChange={(e) => handleChange('description', e.target.value)}
-          placeholder="Enter the product description"
-          rows={5}
-          required
-        />
-        <InputError message={props.errors.description} />
-      </div>
-
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="quantity">Quantity</Label>
@@ -221,7 +207,8 @@ export default function VendorProductForm(props: IProps) {
 
       <div>
         <Label>Product Description</Label>
-        <PlateEditor />
+        <PlateEditor value={props.data.description} onChange={(value) => handleChange('description', value)} />
+        <InputError message={props.errors.description} />
       </div>
     </form>
   )

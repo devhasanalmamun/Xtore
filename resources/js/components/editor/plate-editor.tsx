@@ -1,34 +1,33 @@
 import { Plate, usePlateEditor } from 'platejs/react'
-import type { Value } from 'platejs'
-import { useState } from 'react'
+import { Value } from 'platejs'
 
 import { FixedToolbarButtons } from '@/components/editor/toolbar/fixed-toolbar-buttons'
 import { FixedToolbar } from '@/components/editor/toolbar/fixed-toolbar'
 import { Editor, EditorContainer } from '@/components/editor/ui/editor'
 import { EditorKit } from '@/components/editor/editor-kit'
+import { MarkdownPlugin } from '@platejs/markdown'
 
-const initialValue: Value = [
-  {
-    type: 'p',
-    children: [
-      { text: 'Style your ' },
-      { text: 'product', bold: true },
-      { text: ', ' },
-      { text: 'description ', italic: true },
-      { text: 'here', underline: true },
-    ],
-  },
-]
+interface IProps {
+  onChange?: (value: string) => void
+  value?: string
+}
 
-export default function PlateEditor() {
-  const [value, setValue] = useState(initialValue)
+export default function PlateEditor(props: IProps) {
   const editor = usePlateEditor({
     plugins: EditorKit,
-    value: value,
+    value: (editor) => (props.value ? editor.getApi(MarkdownPlugin).markdown.deserialize(props.value) : undefined),
   })
 
+  function parseToMarkdown(value: Value) {
+    const parsed = editor.api.markdown.serialize({ value })
+
+    if (props.onChange) {
+      props.onChange(parsed)
+    }
+  }
+
   return (
-    <Plate editor={editor} onChange={(e) => setValue(e.value)}>
+    <Plate editor={editor} onChange={({ value }) => parseToMarkdown(value)}>
       <FixedToolbar>
         <FixedToolbarButtons />
       </FixedToolbar>
