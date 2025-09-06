@@ -22,13 +22,10 @@ import { EmojiKit } from '@/components/editor/plugins/emoji-kit'
 import { FontKit } from '@/components/editor/plugins/font-kit'
 import { ListKit } from '@/components/editor/plugins/list-kit'
 import { LinkKit } from '@/components/editor/plugins/link-kit'
+import { DateKit } from '@/components/editor/plugins/date-kit'
 import { TocKit } from '@/components/editor/plugins/toc-kit'
 import { DndKit } from '@/components/editor/plugins/dnd-kit'
 
-// import { CursorOverlayKit } from './plugins/cursor-overlay-kit'
-// import { DateKit } from './plugins/date-kit'
-// import { DocxKit } from './plugins/docx-kit'
-// import { ExitBreakKit } from './plugins/exit-break-kit'
 // import { FixedToolbarKit } from './plugins/fixed-toolbar-kit'
 // import { FloatingToolbarKit } from './plugins/floating-toolbar-kit'
 
@@ -45,7 +42,7 @@ export const EditorKit = [
   ...MediaKit,
   ...CalloutKit,
   ...ColumnKit,
-  // ...DateKit,
+  ...DateKit,
   ...IndentKit,
   ...LinkKit,
 
@@ -60,15 +57,11 @@ export const EditorKit = [
 
   // Editing
   ...AutoformatKit,
-  // ...CursorOverlayKit,
   ...DndKit,
-
   ...EmojiKit,
-  // ...ExitBreakKit,
   TrailingBlockPlugin,
 
   // Parsers
-  // ...DocxKit,
   ...MarkdownKit,
 
   // UI

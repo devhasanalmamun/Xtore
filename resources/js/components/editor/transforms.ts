@@ -7,7 +7,6 @@ import { insertCallout } from '@platejs/callout'
 import { insertDate } from '@platejs/date'
 import { insertColumnGroup, toggleColumnGroup } from '@platejs/layout'
 import { triggerFloatingLink } from '@platejs/link/react'
-import { insertEquation, insertInlineEquation } from '@platejs/math'
 import { insertAudioPlaceholder, insertFilePlaceholder, insertMedia, insertVideoPlaceholder } from '@platejs/media'
 import { TablePlugin } from '@platejs/table/react'
 import { insertToc } from '@platejs/toc'
@@ -32,7 +31,6 @@ const insertBlockMap: Record<string, (editor: PlateEditor, type: string) => void
   [ACTION_THREE_COLUMNS]: (editor) => insertColumnGroup(editor, { columns: 3, select: true }),
   [KEYS.audio]: (editor) => insertAudioPlaceholder(editor, { select: true }),
   [KEYS.callout]: (editor) => insertCallout(editor, { select: true }),
-  [KEYS.equation]: (editor) => insertEquation(editor, { select: true }),
   [KEYS.file]: (editor) => insertFilePlaceholder(editor, { select: true }),
   [KEYS.img]: (editor) =>
     insertMedia(editor, {
@@ -51,7 +49,6 @@ const insertBlockMap: Record<string, (editor: PlateEditor, type: string) => void
 
 const insertInlineMap: Record<string, (editor: PlateEditor, type: string) => void> = {
   [KEYS.date]: (editor) => insertDate(editor, { select: true }),
-  [KEYS.inlineEquation]: (editor) => insertInlineEquation(editor, '', { select: true }),
   [KEYS.link]: (editor) => triggerFloatingLink(editor, { focused: true }),
 }
 
