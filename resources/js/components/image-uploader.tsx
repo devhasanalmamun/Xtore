@@ -1,11 +1,12 @@
-import { ImageUpIcon } from 'lucide-react'
+import { ImageUpIcon, XIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { Input } from '@/components/ui/input'
+import { Button } from './ui/button'
 
 interface IProps {
   image: string
-  onChange: (file: File) => void
+  onChange: (file: File | string) => void
 }
 
 export default function ImageUploader(props: IProps) {
@@ -32,11 +33,24 @@ export default function ImageUploader(props: IProps) {
 
   return (
     <div
-      className="flex h-100 cursor-pointer items-center justify-center rounded-md border border-dashed"
+      className="relative flex h-100 cursor-pointer items-center justify-center rounded-md border border-dashed"
       onClick={() => inputRef.current?.click()}
     >
       {props.image ? (
-        <img className="size-full object-cover" src={preview} alt="image" />
+        <>
+          <img className="size-full object-cover" src={preview} alt="image" />
+          <Button
+            type="button"
+            className="absolute top-4 right-4 rounded-sm"
+            onClick={(e) => {
+              e.stopPropagation()
+              setPreview(undefined)
+              props.onChange('')
+            }}
+          >
+            <XIcon />
+          </Button>
+        </>
       ) : (
         <div className="text-center">
           <p className="mb-2 flex items-center gap-2">
