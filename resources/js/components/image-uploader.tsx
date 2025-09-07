@@ -1,8 +1,8 @@
-import { ImageUpIcon, XIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { ImageUpIcon, XIcon } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Button } from './ui/button'
 
 interface IProps {
   image: string
@@ -18,6 +18,12 @@ export default function ImageUploader(props: IProps) {
     if (file) {
       props.onChange(file)
     }
+  }
+
+  function handleCancel(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation()
+    setPreview(undefined)
+    props.onChange('')
   }
 
   useEffect(() => {
@@ -39,15 +45,7 @@ export default function ImageUploader(props: IProps) {
       {props.image ? (
         <>
           <img className="size-full object-cover" src={preview} alt="image" />
-          <Button
-            type="button"
-            className="absolute top-4 right-4 rounded-sm"
-            onClick={(e) => {
-              e.stopPropagation()
-              setPreview(undefined)
-              props.onChange('')
-            }}
-          >
+          <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleCancel}>
             <XIcon />
           </Button>
         </>
