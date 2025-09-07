@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Http\Resources\Vendor\VendorProductResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
@@ -13,7 +14,6 @@ use App\Models\Category;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class VendorProductController extends Controller
@@ -39,9 +39,14 @@ class VendorProductController extends Controller
         ]);
     }
 
-    public function store(#[Authenticated] User $user, VendorProductData $data, Request $request): RedirectResponse 
+    public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
     {
-        dd($request->all());
+        $cloudinaryProductThumbnail = Cloudinary::upload(
+            $data->thumbnail->getRealPath(),
+            ['folder' => 'products']
+        );
+        
+        dd($cloudinaryProductThumbnail);
 
         Product::create([
             ...$data->toArray(),

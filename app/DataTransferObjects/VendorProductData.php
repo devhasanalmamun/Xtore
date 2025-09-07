@@ -3,7 +3,10 @@
 namespace App\DataTransferObjects;
 
 use Spatie\LaravelData\Attributes\Validation\Required;
+use Spatie\LaravelData\Attributes\Validation\Image;
 use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Illuminate\Http\UploadedFile;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
@@ -38,6 +41,9 @@ final class VendorProductData extends Data {
 
     #[Required]
     public readonly ProductStatusEnum $status,
+
+    #[Required, Image, Max(2048)]
+    public readonly UploadedFile $thumbnail,
   )
   {}
 

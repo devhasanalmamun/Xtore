@@ -208,7 +208,7 @@ export default function VendorProductForm(props: IProps) {
 
       <div>
         <Label htmlFor="thumbnail">Product Thumbnail</Label>
-        <ImageUploader image={props.data.thumbnail_url} onChange={(file) => handleChange('thumbnail_url', file)} />
+        <ImageUploader image={props.data.thumbnail} onChange={(file) => handleChange('thumbnail', file)} />
       </div>
 
       <div>
