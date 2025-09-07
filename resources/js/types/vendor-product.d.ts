@@ -12,6 +12,7 @@ export interface IVendorProduct {
   quantity: number
   status: VendorProductStatusEnum
   thumbnail_url: string
+  thumbnail_public_id?: string
   meta_title: string
   meta_description: string
 }
