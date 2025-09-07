@@ -1,5 +1,7 @@
+import { fill } from '@cloudinary/url-gen/actions/resize'
 import { ColumnDef } from '@tanstack/react-table'
 import { EditIcon, PlusIcon } from 'lucide-react'
+import { Cloudinary } from '@cloudinary/url-gen'
 import { router } from '@inertiajs/react'
 
 import VendorProductDelete from '@/pages/vendor/product/vendor-product-delete'
@@ -10,60 +12,7 @@ import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-
-const columns: ColumnDef<IVendorProduct>[] = [
-  {
-    header: 'Thumbnail',
-    accessorKey: 'thumbnail_url',
-    cell: ({ row }) => {
-      const value = row.getValue('thumbnail_url') as string | null
-      const src = value
-        ? value
-        : 'https://res.cloudinary.com/dpxzczlob/image/upload/t_product-default-low-res/v1757261351/Xtore/default-gray-product_qlwb9v.jpg'
-      return <img className="h-14 w-full rounded object-cover" src={src} alt={row.original.title} />
-    },
-  },
-  {
-    header: 'Title',
-    accessorKey: 'title',
-    cell: ({ row }) => String(row.getValue('title')).slice(0, 20) + ' ...',
-  },
-  {
-    header: 'Price',
-    accessorKey: 'price',
-    cell: ({ row }) => row.getValue('price') + ' bdt',
-  },
-  {
-    header: 'Quantity',
-    accessorKey: 'quantity',
-    cell: ({ row }) => row.getValue('quantity') + ' piece',
-  },
-  {
-    header: 'Status',
-    accessorKey: 'status',
-    cell: ({ row }) => {
-      const status: string = row.getValue('status')
-      return <p className={cn(status === 'Published' && 'text-primary')}>{status}</p>
-    },
-  },
-  {
-    header: 'Created At',
-    accessorKey: 'created_at',
-    cell: ({ row }) => row.getValue('created_at'),
-  },
-  {
-    header: 'Actions',
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <Button variant="outline" onClick={() => router.get(route('vendor.products.edit', row.original.slug))}>
-          <EditIcon />
-        </Button>
-
-        <VendorProductDelete slug={row.original.slug} />
-      </div>
-    ),
-  },
-]
+import { useMemo } from 'react'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -81,6 +30,73 @@ interface IProps {
 }
 
 export default function VendorProductIndex(props: IProps) {
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'dpxzczlob',
+    },
+  })
+
+  const columns = useMemo<ColumnDef<IVendorProduct>[]>(
+    () => [
+      {
+        header: 'Thumbnail',
+        accessorKey: 'thumbnail_url',
+        cell: ({ row }) => {
+          const publicId = row.original.thumbnail_public_id as string | undefined
+          const small = cld.image(publicId).resize(fill().width(200).height(200)).toURL()
+
+          const src = publicId
+            ? small
+            : 'https://res.cloudinary.com/dpxzczlob/image/upload/t_product-default-low-res/v1757261351/Xtore/default-gray-product_qlwb9v.jpg'
+
+          return <img className="h-14 w-full rounded object-cover" src={src} alt={row.original.title} />
+        },
+      },
+      {
+        header: 'Title',
+        accessorKey: 'title',
+        cell: ({ row }) => String(row.getValue('title')).slice(0, 20) + ' ...',
+      },
+      {
+        header: 'Price',
+        accessorKey: 'price',
+        cell: ({ row }) => row.getValue('price') + ' bdt',
+      },
+      {
+        header: 'Quantity',
+        accessorKey: 'quantity',
+        cell: ({ row }) => row.getValue('quantity') + ' piece',
+      },
+      {
+        header: 'Status',
+        accessorKey: 'status',
+        cell: ({ row }) => {
+          const status: string = row.getValue('status')
+          return <p className={cn(status === 'Published' && 'text-primary')}>{status}</p>
+        },
+      },
+      {
+        header: 'Created At',
+        accessorKey: 'created_at',
+        cell: ({ row }) => row.getValue('created_at'),
+      },
+      {
+        header: 'Actions',
+        cell: ({ row }) => (
+          <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={() => router.get(route('vendor.products.edit', row.original.slug))}>
+              <EditIcon />
+            </Button>
+
+            <VendorProductDelete slug={row.original.slug} />
+          </div>
+        ),
+      },
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
+
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
       <section className="px-4 py-8 md:px-4 md:py-8">
