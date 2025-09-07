@@ -16,7 +16,11 @@ const columns: ColumnDef<IVendorProduct>[] = [
     header: 'Thumbnail',
     accessorKey: 'thumbnail_url',
     cell: ({ row }) => {
-      return <img className="h-14 w-full rounded object-cover" src={row.getValue('thumbnail_url')} alt="yo" />
+      const value = row.getValue('thumbnail_url') as string | null
+      const src = value
+        ? value
+        : 'https://res.cloudinary.com/dpxzczlob/image/upload/t_product-default-low-res/v1757261351/Xtore/default-gray-product_qlwb9v.jpg'
+      return <img className="h-14 w-full rounded object-cover" src={src} alt={row.original.title} />
     },
   },
   {
