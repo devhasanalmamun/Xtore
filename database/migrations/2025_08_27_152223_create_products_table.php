@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->string('status')->index();
             $table->string('thumbnail_url')->nullable();
+            $table->string('thumbnail_public_id')->nullable();
             $table->string('meta_title');
             $table->string('meta_description');
             $table->timestamp('deleted_at')->nullable();

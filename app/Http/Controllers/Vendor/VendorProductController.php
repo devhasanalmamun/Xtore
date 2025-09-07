@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class VendorProductController extends Controller
@@ -38,8 +39,10 @@ class VendorProductController extends Controller
         ]);
     }
 
-    public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
+    public function store(#[Authenticated] User $user, VendorProductData $data, Request $request): RedirectResponse 
     {
+        dd($request->all());
+
         Product::create([
             ...$data->toArray(),
             'created_by' => $user->id,
