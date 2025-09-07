@@ -1,3 +1,4 @@
+import { ColumnDef } from '@tanstack/react-table'
 import { EditIcon, PlusIcon } from 'lucide-react'
 import { router } from '@inertiajs/react'
 
@@ -7,25 +8,21 @@ import VendorLayout from '@/layouts/vendor/vendor-layout'
 import { IVendorProduct } from '@/types/vendor-product'
 import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
-import { ColumnDef } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 const columns: ColumnDef<IVendorProduct>[] = [
   {
+    header: 'Thumbnail',
+    accessorKey: 'thumbnail_url',
+    cell: ({ row }) => {
+      return <img className="h-14 w-full rounded object-cover" src={row.getValue('thumbnail_url')} alt="yo" />
+    },
+  },
+  {
     header: 'Title',
     accessorKey: 'title',
     cell: ({ row }) => String(row.getValue('title')).slice(0, 20) + ' ...',
-  },
-  {
-    header: 'Description',
-    accessorKey: 'description_html',
-    cell: ({ row }) => (
-      <div
-        className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: String(row.getValue('description_html')).slice(0, 40) }}
-      />
-    ),
   },
   {
     header: 'Price',
