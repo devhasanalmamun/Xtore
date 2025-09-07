@@ -6,6 +6,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Http\Resources\Vendor\VendorProductResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Enums\ProductStatusEnum;
@@ -41,15 +42,15 @@ class VendorProductController extends Controller
 
     public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
     {
-        $cloudinaryProductThumbnail = Cloudinary::upload(
-            $data->thumbnail->getRealPath(),
-            ['folder' => 'products']
-        );
-        
-        dd($cloudinaryProductThumbnail);
+        $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
+
+        $thumbnail_public_id = Storage::disk('cloudinary')->put($folder_thumbnail_path, $data->thumbnail);
+        $thumbnail_url = Storage::disk('cloudinary')->url($thumbnail_public_id);
 
         Product::create([
             ...$data->toArray(),
+            'thumbnail' => $thumbnail_url,
+            'thumbnail_public_id' => $thumbnail_public_id,
             'created_by' => $user->id,
             'updated_by' => $user->id,
         ]);
