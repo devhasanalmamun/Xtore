@@ -18,7 +18,7 @@ class VendorProductResource extends JsonResource
             'price' => $this->price,
             'quantity' => $this->quantity,
             'status' => $this->status->label(),
-            'thumbnail' => $this->thumbnail,
+            'thumbnail_url' => $this->thumbnail_url,
             'created_at' => $this->created_at->diffForHumans()
         ];
     }

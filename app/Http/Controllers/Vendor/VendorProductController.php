@@ -44,12 +44,12 @@ class VendorProductController extends Controller
     {
         $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
 
-        $thumbnail_public_id = Storage::disk('cloudinary')->put($folder_thumbnail_path, $data->thumbnail);
+        $thumbnail_public_id = Storage::disk('cloudinary')->put($folder_thumbnail_path, $data->thumbnail_url);
         $thumbnail_url = Storage::disk('cloudinary')->url($thumbnail_public_id);
 
         Product::create([
             ...$data->toArray(),
-            'thumbnail' => $thumbnail_url,
+            'thumbnail_url' => $thumbnail_url,
             'thumbnail_public_id' => $thumbnail_public_id,
             'created_by' => $user->id,
             'updated_by' => $user->id,

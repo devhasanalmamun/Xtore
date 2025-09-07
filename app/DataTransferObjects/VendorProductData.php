@@ -43,7 +43,7 @@ final class VendorProductData extends Data {
     public readonly ProductStatusEnum $status,
 
     #[Required, Image, Max(2048)]
-    public readonly UploadedFile $thumbnail,
+    public readonly UploadedFile $thumbnail_url,
   )
   {}
 

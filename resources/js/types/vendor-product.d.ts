@@ -11,7 +11,7 @@ export interface IVendorProduct {
   price: number
   quantity: number
   status: VendorProductStatusEnum
-  thumbnail: string
+  thumbnail_url: string
   meta_title: string
   meta_description: string
 }

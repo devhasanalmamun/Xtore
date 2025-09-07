@@ -20,7 +20,7 @@ class Product extends Model
         'quantity',
         'price',
         'status',
-        'thumbnail',
+        'thumbnail_url',
         'thumbnail_public_id',
         'meta_title',
         'meta_description',
