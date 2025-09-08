@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 interface IProps {
-  image: string
+  image: string | File
   onChange: (file: File | string) => void
 }
 
@@ -44,7 +44,11 @@ export default function ImageUploader(props: IProps) {
     >
       {props.image ? (
         <>
-          <img className="size-full object-cover" src={preview ?? props.image} alt="image" />
+          <img
+            className="size-full object-cover"
+            src={preview ?? (typeof props.image === 'string' ? props.image : undefined)}
+            alt="image"
+          />
           <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleCancel}>
             <XIcon />
           </Button>

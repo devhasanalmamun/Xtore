@@ -46,6 +46,7 @@ export default function VendorProductEdit(props: IProps) {
   })
 
   function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+    console.log(data)
     e.preventDefault()
     patch(route('vendor.products.update', props.product.slug))
   }

@@ -18,7 +18,6 @@ import InputError from '@/components/ui/input-error'
 import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import MultiImageUploader from '@/components/multi-image-uploader'
 
 type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>
 
@@ -213,11 +212,11 @@ export default function VendorProductForm(props: IProps) {
         <InputError message={props.errors.thumbnail_url} />
       </div>
 
-      <div>
+      {/* <div>
         <Label htmlFor="images">Product Images</Label>
         <MultiImageUploader />
         <InputError message={props.errors.thumbnail_url} />
-      </div>
+      </div> */}
 
       <div>
         <Label>Product Description</Label>
