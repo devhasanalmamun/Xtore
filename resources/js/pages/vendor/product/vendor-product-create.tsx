@@ -36,7 +36,7 @@ export default function VendorProductCreate(props: IProps) {
     category_id: undefined,
     title: '',
     slug: '',
-    description: '',
+    description: 'Description will be added later',
     price: 100,
     quantity: 1,
     status: VendorProductStatusEnum.PUBLISHED,

@@ -39,7 +39,7 @@ export default function ImageUploader(props: IProps) {
 
   return (
     <div
-      className="relative flex h-100 cursor-pointer items-center justify-center rounded-md border border-dashed"
+      className="relative flex h-60 cursor-pointer items-center justify-center rounded-md border border-dashed"
       onClick={() => inputRef.current?.click()}
     >
       {props.image ? (
