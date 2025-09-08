@@ -44,6 +44,13 @@ class Product extends Model
         );
     }
 
+    protected function thumbnailUrl(): Attribute 
+    {
+        return Attribute::make(
+            get: fn($value) => $value ?: asset('images/default-product.png')
+        );
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

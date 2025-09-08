@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Http\Resources\Vendor\VendorProductResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
@@ -44,8 +43,8 @@ class VendorProductController extends Controller
     {
         $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
 
-        $thumbnail_public_id = Storage::disk('cloudinary')->put($folder_thumbnail_path, $data->thumbnail_url);
-        $thumbnail_url = Storage::disk('cloudinary')->url($thumbnail_public_id);
+        $thumbnail_public_id = Storage::disk(env('FILESYSTEM_DISK'))->put($folder_thumbnail_path, $data->thumbnail_url);
+        $thumbnail_url = Storage::disk(env('FILESYSTEM_DISK'))->url($thumbnail_public_id);
 
         Product::create([
             ...$data->toArray(),

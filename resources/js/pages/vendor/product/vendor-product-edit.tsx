@@ -31,7 +31,7 @@ interface IProps {
 }
 
 export default function VendorProductEdit(props: IProps) {
-  const { data, setData, processing, patch, errors } = useForm<IVendorProduct>({
+  const { data, setData, processing, post, errors, transform } = useForm<IVendorProduct>({
     department_id: props.product.department_id,
     category_id: props.product.category_id,
     title: props.product.title,
@@ -48,7 +48,13 @@ export default function VendorProductEdit(props: IProps) {
   function handleEdit(e: React.FormEvent<HTMLFormElement>) {
     console.log(data)
     e.preventDefault()
-    patch(route('vendor.products.update', props.product.slug))
+
+    transform((data) => ({
+      ...data,
+      _method: 'patch',
+    }))
+
+    post(route('vendor.products.update', props.product.slug))
   }
 
   useEffect(() => {
