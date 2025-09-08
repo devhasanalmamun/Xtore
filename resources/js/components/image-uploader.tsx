@@ -44,7 +44,7 @@ export default function ImageUploader(props: IProps) {
     >
       {props.image ? (
         <>
-          <img className="size-full object-cover" src={preview} alt="image" />
+          <img className="size-full object-cover" src={preview ?? props.image} alt="image" />
           <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleCancel}>
             <XIcon />
           </Button>
