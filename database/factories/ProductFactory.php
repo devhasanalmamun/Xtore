@@ -23,6 +23,8 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(50, 5000),
             'quantity' => $this->faker->numberBetween(1, 10),
             'status' => $this->faker->randomElement(ProductStatusEnum::cases())->value,
+            'thumbnail_url' => 'https://res.cloudinary.com/dpxzczlob/image/upload/v1757261351/Xtore/default-gray-product_qlwb9v.jpg',
+            'thumbnail_public_id' => 'Xtore/default-gray-product_qlwb9v.jpg',
             'meta_title' => $this->faker->sentence(2),
             'meta_description' => $this->faker->sentence(6),
         ];
