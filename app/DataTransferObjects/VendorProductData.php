@@ -2,6 +2,7 @@
 
 namespace App\DataTransferObjects;
 
+use Spatie\LaravelData\Attributes\Validation\Sometimes;
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\Image;
 use Spatie\LaravelData\Attributes\Validation\Min;
@@ -43,7 +44,8 @@ final class VendorProductData extends Data {
     public readonly ProductStatusEnum $status,
 
     #[Required, Image, Max(2048)]
-    public readonly UploadedFile $thumbnail_url,
+    // TODO: validate image properly for update, create and when other fields changes (when image field is string) 
+    public readonly UploadedFile|string $thumbnail_url,
   )
   {}
 

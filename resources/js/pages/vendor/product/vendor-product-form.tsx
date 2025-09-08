@@ -209,6 +209,7 @@ export default function VendorProductForm(props: IProps) {
       <div>
         <Label htmlFor="thumbnail">Product Thumbnail</Label>
         <ImageUploader image={props.data.thumbnail_url} onChange={(file) => handleChange('thumbnail_url', file)} />
+        <InputError message={props.errors.thumbnail_url} />
       </div>
 
       <div>
