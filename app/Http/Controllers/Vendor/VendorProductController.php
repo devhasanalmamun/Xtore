@@ -8,6 +8,7 @@ use App\DataTransferObjects\VendorProductData;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\UploadedFile;
 use App\Enums\ProductStatusEnum;
 use App\Models\Department;
 use App\Models\Category;
@@ -69,7 +70,23 @@ class VendorProductController extends Controller
 
     public function update(VendorProductData $data, Product $product): RedirectResponse 
     {
-        $product->update($data->toArray());
+        $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
+
+        if($data->thumbnail_url instanceof UploadedFile){
+            if($product->thumbnail_public_id){
+                Storage::disk(env('FILESYSTEM_DISK'))->delete($product->thumbnail_public_id);
+            }
+        }
+
+        $thumbnail_public_id = Storage::disk(env('FILESYSTEM_DISK'))->put($folder_thumbnail_path, $data->thumbnail_url);
+        $thumbnail_url = Storage::disk(env('FILESYSTEM_DISK'))->url($thumbnail_public_id);
+
+        
+        $product->update([
+            ...$data->toArray(),
+            'thumbnail_url' => $thumbnail_url,
+            'thumbnail_public_id' => $thumbnail_public_id,
+        ]);
         return redirect(route('vendor.products.index'));
     }
 
