@@ -5,10 +5,10 @@ namespace App\DataTransferObjects;
 
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\Min;
+use Illuminate\Validation\Rules\File;
 use Illuminate\Http\UploadedFile;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\File;
 use Spatie\LaravelData\Data;
 
 final class VendorProductData extends Data {

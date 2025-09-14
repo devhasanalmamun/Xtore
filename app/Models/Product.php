@@ -47,7 +47,7 @@ class Product extends Model
     protected function thumbnailUrl(): Attribute 
     {
         return Attribute::make(
-            get: fn($value) => $value ?: asset('images/default-product.png')
+            get: fn($value) => $value ?: asset('assets/images/default-gray-product.jpg')
         );
     }
 

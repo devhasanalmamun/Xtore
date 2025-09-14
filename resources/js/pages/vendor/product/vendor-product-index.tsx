@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { EditIcon, PlusIcon } from 'lucide-react'
 import { Cloudinary } from '@cloudinary/url-gen'
 import { router } from '@inertiajs/react'
+import { useMemo } from 'react'
 
 import VendorProductDelete from '@/pages/vendor/product/vendor-product-delete'
 import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
@@ -12,7 +13,6 @@ import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { useMemo } from 'react'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -42,14 +42,12 @@ export default function VendorProductIndex(props: IProps) {
         header: 'Thumbnail',
         accessorKey: 'thumbnail_url',
         cell: ({ row }) => {
-          const publicId = row.original.thumbnail_public_id as string | undefined
-          const small = cld.image(publicId).resize(fill().width(200).height(200)).toURL()
+          const publicId = row.original.thumbnail_public_id || row.original.thumbnail_url
+          const small = row.original.thumbnail_public_id
+            ? cld.image(publicId).resize(fill().width(200).height(200)).toURL()
+            : publicId
 
-          const src = publicId
-            ? small
-            : 'https://res.cloudinary.com/dpxzczlob/image/upload/t_product-default-low-res/v1757261351/Xtore/default-gray-product_qlwb9v.jpg'
-
-          return <img className="h-14 w-full rounded object-cover" src={src} alt={row.original.title} />
+          return <img className="h-14 w-40 rounded object-cover" src={small} alt={row.original.title} />
         },
       },
       {
