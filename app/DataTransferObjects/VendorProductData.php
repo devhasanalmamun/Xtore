@@ -58,4 +58,13 @@ final class VendorProductData extends Data {
 			]
 		];
 	}
+
+	public static function messages(): array
+	{
+		return [
+			'thumbnail_url.required' => 'Please upload a product thumbnail image.',
+			'thumbnail_url.max' => 'The image must not be greater than 2MB.',
+			'thumbnail_url.image' => 'The file must be a valid image format (jpg, png, etc).'
+		];
+	}
 }
