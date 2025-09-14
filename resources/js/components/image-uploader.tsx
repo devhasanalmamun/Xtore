@@ -56,9 +56,8 @@ export default function ImageUploader(props: IProps) {
       ) : (
         <div className="text-center">
           <p className="mb-2 flex items-center gap-2">
-            <ImageUpIcon /> Drag and drop an image here
+            <ImageUpIcon /> Select an image.
           </p>
-          <p className="text-sm text-gray-400">or click to select file</p>
         </div>
       )}
 

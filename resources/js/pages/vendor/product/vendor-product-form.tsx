@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { IVendorProduct, productStatus } from '@/types/vendor-product'
+import MultiImageUploader from '@/components/multi-image-uploader'
 import { IAdminDepartment } from '@/types/admin-department'
 import PlateEditor from '@/components/editor/plate-editor'
 import { IAdminCategory } from '@/types/admin-category'
@@ -212,11 +213,11 @@ export default function VendorProductForm(props: IProps) {
         <InputError message={props.errors.thumbnail_url} />
       </div>
 
-      {/* <div>
-        <Label htmlFor="images">Product Images</Label>
+      <div>
+        <Label htmlFor="images">Product Images (5 image max)</Label>
         <MultiImageUploader />
         <InputError message={props.errors.thumbnail_url} />
-      </div> */}
+      </div>
 
       <div>
         <Label>Product Description</Label>
