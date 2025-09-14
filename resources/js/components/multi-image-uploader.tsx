@@ -1,15 +1,13 @@
+import { PlusCircleIcon, XIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { PlusCircleIcon } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 export default function MultiImageUploader() {
   const [images, setImages] = useState<(File | string)[]>([])
   const [previews, setPreviews] = useState<string[]>([])
   const imageRef = useRef<HTMLInputElement | null>(null)
-
-  console.log(images)
-  console.log(previews)
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) return
@@ -23,6 +21,11 @@ export default function MultiImageUploader() {
 
     setImages((prev) => [...prev, ...files])
   }
+
+  function handleFileCancel() {}
+
+  console.log(images)
+  console.log(previews)
 
   useEffect(() => {
     if (images.length === 0) return
@@ -40,8 +43,16 @@ export default function MultiImageUploader() {
     <div className="flex items-center gap-4 rounded-md border border-dashed px-8 py-5">
       <div className="flex gap-2 overflow-x-auto">
         {previews.map((src, i) => (
-          <div key={i} className="h-38 w-33 shrink-0">
-            <img src={src} alt={`preview-${i}`} className="h-full w-full rounded object-cover" />
+          <div key={i} className="relative h-38 w-33 shrink-0 overflow-hidden rounded border">
+            <img src={src} alt={`preview-${i}`} className="h-full w-full object-cover" />
+            <Button
+              type="button"
+              size="sm"
+              className="absolute top-0.5 right-0.5 h-6.5 rounded-sm has-[>svg]:px-1"
+              onClick={handleFileCancel}
+            >
+              <XIcon />
+            </Button>
           </div>
         ))}
 
