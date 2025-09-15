@@ -14,7 +14,7 @@ export default function MultiImageUploader() {
 
     const files = Array.from(e.target.files)
 
-    if (files.length >= 5) {
+    if (files.length > 5) {
       console.log("You can't add more than 5 image")
       return
     }
@@ -22,13 +22,13 @@ export default function MultiImageUploader() {
     setImages((prev) => [...prev, ...files])
   }
 
-  function handleFileCancel() {}
-
-  console.log(images)
-  console.log(previews)
+  function handleFileCancel(index: number) {
+    const newImages = images.filter((_, i) => i !== index)
+    setImages(newImages)
+  }
 
   useEffect(() => {
-    if (images.length === 0) return
+    if (images.length === 0 && previews.length === 0) return
 
     const fileImages = images.filter((img): img is File => img instanceof File)
     const stringImages = images.filter((img): img is string => typeof img === 'string')
@@ -37,7 +37,7 @@ export default function MultiImageUploader() {
     setPreviews([...stringImages, ...fileUrls])
 
     return () => fileUrls.forEach((url) => URL.revokeObjectURL(url))
-  }, [images])
+  }, [images, previews.length])
 
   return (
     <div className="flex items-center gap-4 rounded-md border border-dashed px-8 py-5">
@@ -49,7 +49,7 @@ export default function MultiImageUploader() {
               type="button"
               size="sm"
               className="absolute top-0.5 right-0.5 h-6.5 rounded-sm has-[>svg]:px-1"
-              onClick={handleFileCancel}
+              onClick={() => handleFileCancel(i)}
             >
               <XIcon />
             </Button>
