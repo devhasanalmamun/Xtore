@@ -4,9 +4,14 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
+type PreviewItem = {
+  url: string
+  isObjectUrl: boolean
+}
+
 export default function MultiImageUploader() {
   const [images, setImages] = useState<(File | string)[]>([])
-  const [previews, setPreviews] = useState<string[]>([])
+  const [previews, setPreviews] = useState<PreviewItem[]>([])
   const imageRef = useRef<HTMLInputElement | null>(null)
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -30,26 +35,39 @@ export default function MultiImageUploader() {
   useEffect(() => {
     if (images.length === 0 && previews.length === 0) return
 
-    const fileImages = images.filter((img): img is File => img instanceof File)
-    const stringImages = images.filter((img): img is string => typeof img === 'string')
+    const newPreviews: PreviewItem[] = images.map((img) => {
+      if (img instanceof File) {
+        return {
+          url: URL.createObjectURL(img),
+          isObjectUrl: true,
+        }
+      } else {
+        return {
+          url: img,
+          isObjectUrl: false,
+        }
+      }
+    })
 
-    const fileUrls = fileImages.map((file) => URL.createObjectURL(file))
-    setPreviews([...stringImages, ...fileUrls])
+    setPreviews(newPreviews)
 
-    return () => fileUrls.forEach((url) => URL.revokeObjectURL(url))
+    return () =>
+      newPreviews.forEach((item) => {
+        if (item.isObjectUrl) URL.revokeObjectURL(item.url)
+      })
   }, [images, previews.length])
 
   return (
     <div className="flex items-center gap-4 rounded-md border border-dashed px-8 py-5">
       <div className="flex gap-2 overflow-x-auto">
-        {previews.map((src, i) => (
-          <div key={i} className="relative h-38 w-33 shrink-0 overflow-hidden rounded border">
-            <img src={src} alt={`preview-${i}`} className="h-full w-full object-cover" />
+        {previews.map((item, index) => (
+          <div key={index} className="relative h-38 w-33 shrink-0 overflow-hidden rounded border">
+            <img src={item.url} alt={`preview-${index}`} className="h-full w-full object-cover" />
             <Button
               type="button"
               size="sm"
               className="absolute top-0.5 right-0.5 h-6.5 rounded-sm has-[>svg]:px-1"
-              onClick={() => handleFileCancel(i)}
+              onClick={() => handleFileCancel(index)}
             >
               <XIcon />
             </Button>
