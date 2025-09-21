@@ -22,6 +22,8 @@ class Product extends Model
         'status',
         'thumbnail_url',
         'thumbnail_public_id',
+        'product_images',
+        'product_image_public_ids',
         'meta_title',
         'meta_description',
         'department_id',
@@ -33,7 +35,9 @@ class Product extends Model
     public function casts(): array 
     {
         return [
-            'status'=> ProductStatusEnum::class
+            'status'=> ProductStatusEnum::class,
+            'product_images' => 'array',
+            'product_image_public_ids' => 'array',
         ];
     }
 

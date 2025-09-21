@@ -15,6 +15,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class VendorProductController extends Controller
@@ -40,8 +41,10 @@ class VendorProductController extends Controller
         ]);
     }
 
-    public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
+    public function store(#[Authenticated] User $user, VendorProductData $data, Request $request): RedirectResponse 
     {
+        //TODO: Will add a queue/jobs to upload images in the future
+        dd($request->all());
         $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
 
         $thumbnail_public_id = Storage::disk(env('FILESYSTEM_DISK'))->put($folder_thumbnail_path, $data->thumbnail_url);
