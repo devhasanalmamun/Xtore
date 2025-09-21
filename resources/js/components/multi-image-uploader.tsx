@@ -9,7 +9,11 @@ type PreviewItem = {
   isObjectUrl: boolean
 }
 
-export default function MultiImageUploader() {
+interface IProps {
+  onChange: (images: (File | string)[]) => void
+}
+
+export default function MultiImageUploader(props: IProps) {
   const [images, setImages] = useState<(File | string)[]>([])
   const [previews, setPreviews] = useState<PreviewItem[]>([])
   const imageRef = useRef<HTMLInputElement | null>(null)
@@ -35,6 +39,7 @@ export default function MultiImageUploader() {
   useEffect(() => {
     if (images.length === 0) {
       setPreviews([])
+      props.onChange(images)
       return
     }
 
@@ -53,11 +58,13 @@ export default function MultiImageUploader() {
     })
 
     setPreviews(newPreviews)
+    props.onChange(images)
 
     return () =>
       newPreviews.forEach((item) => {
         if (item.isObjectUrl) URL.revokeObjectURL(item.url)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images])
 
   return (

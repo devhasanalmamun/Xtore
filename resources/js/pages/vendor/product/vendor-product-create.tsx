@@ -41,6 +41,7 @@ export default function VendorProductCreate(props: IProps) {
     quantity: 1,
     status: VendorProductStatusEnum.PUBLISHED,
     thumbnail_url: '',
+    product_images: [],
     meta_title: '',
     meta_description: '',
   })
