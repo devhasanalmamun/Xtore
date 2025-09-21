@@ -19,7 +19,7 @@ export default function MultiImageUploader() {
 
     const files = Array.from(e.target.files)
 
-    if (files.length > 5) {
+    if (files.length + images.length > 5) {
       console.log("You can't add more than 5 image")
       return
     }
@@ -33,7 +33,10 @@ export default function MultiImageUploader() {
   }
 
   useEffect(() => {
-    if (images.length === 0 && previews.length === 0) return
+    if (images.length === 0) {
+      setPreviews([])
+      return
+    }
 
     const newPreviews: PreviewItem[] = images.map((img) => {
       if (img instanceof File) {
@@ -55,7 +58,7 @@ export default function MultiImageUploader() {
       newPreviews.forEach((item) => {
         if (item.isObjectUrl) URL.revokeObjectURL(item.url)
       })
-  }, [images, previews.length])
+  }, [images])
 
   return (
     <div className="flex items-center gap-4 rounded-md border border-dashed px-8 py-5">
