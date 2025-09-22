@@ -216,7 +216,7 @@ export default function VendorProductForm(props: IProps) {
       <div>
         <Label htmlFor="product_images">Product Images (5 image max)</Label>
         <MultiImageUploader onChange={(images) => handleChange('product_images', images)} />
-        <InputError message={props.errors.thumbnail_url} />
+        <InputError message={props.errors['product_images.0'] || props.errors.product_images} />
       </div>
 
       <div>
