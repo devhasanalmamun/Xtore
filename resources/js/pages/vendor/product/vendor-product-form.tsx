@@ -35,6 +35,8 @@ interface IProps {
 export default function VendorProductForm(props: IProps) {
   const [relatedCategories, setRelatedCategories] = useState<PartialCategory[]>([])
 
+  const imageError = Object.keys(props.errors).find((key) => key.startsWith('product_images.'))
+
   function handleChange(key: keyof IVendorProduct, value: string | number | undefined | File | (string | File)[]) {
     props.onDataChange({
       ...props.data,
@@ -216,7 +218,7 @@ export default function VendorProductForm(props: IProps) {
       <div>
         <Label htmlFor="product_images">Product Images (5 image max)</Label>
         <MultiImageUploader onChange={(images) => handleChange('product_images', images)} />
-        <InputError message={props.errors['product_images.0'] || props.errors.product_images} />
+        <InputError message={imageError ? props.errors[imageError] : props.errors.product_images} />
       </div>
 
       <div>

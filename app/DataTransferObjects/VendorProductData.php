@@ -10,7 +10,6 @@ use Illuminate\Validation\Rules\File;
 use Illuminate\Http\UploadedFile;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Validation\Rule;
-
 use Spatie\LaravelData\Data;
 
 final class VendorProductData extends Data {
