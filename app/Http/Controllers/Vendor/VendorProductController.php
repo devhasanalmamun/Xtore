@@ -42,7 +42,6 @@ class VendorProductController extends Controller
 
     public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
     {
-        //TODO: Will add a queue/jobs to upload images in the future
         $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
         $folder_images_path = "Xtore/products/{$data->slug}/images";
 

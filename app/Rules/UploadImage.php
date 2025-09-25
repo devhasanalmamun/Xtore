@@ -9,19 +9,23 @@ use Closure;
 
 class UploadImage implements ValidationRule
 {
+    public function __construct(
+        private int $max_size = 1024
+    )
+    {}
+
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $max_size = 2048;
         
         if(is_string($value)) return;
         
         if($value instanceof UploadedFile) {
             $validator = Validator::make(
                 ['file' => $value],
-                ['file' => ['image', 'max:'.$max_size]],
+                ['file' => ['image', 'max:'.$this->max_size]],
                 [
                     'file.image' => "Image here must be a valid image file.",
-                    'file.max' => "Image must not be greater than ($max_size) KB"
+                    'file.max' => "Image must not be greater than ($this->max_size) KB"
                 ]
             );
             
@@ -32,6 +36,6 @@ class UploadImage implements ValidationRule
             return;
         }
 
-        $fail("The product image must be a valid image file not greater than ($max_size) KB");
+        $fail("The product image must be a valid image file not greater than ($this->max_size) KB");
     }
 }

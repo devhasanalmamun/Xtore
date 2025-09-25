@@ -54,9 +54,9 @@ final class VendorProductData extends Data {
 
 		return [
 			'slug' => ['required', 'min:3', 'max:255', Rule::unique('products', 'slug')->ignore($product_id)],
-			'thumbnail_url' => ['required', new UploadImage()],
+			'thumbnail_url' => ['required', new UploadImage(256)],
 			'product_images' => ['required', 'array', 'max:5'],
-			'product_images.*' => [new UploadImage()]
+			'product_images.*' => [new UploadImage(512)]
 		];
 	}
 
