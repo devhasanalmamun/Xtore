@@ -77,7 +77,7 @@ class VendorProductController extends Controller
             'departments' => Department::select('id', 'name')->orderBy('name')->get(),
             'categories' => Category::select('id', 'department_id', 'name')->orderBy('name')->get(),
             'status' => ProductStatusEnum::labels(),
-            'product'=> $product
+            'product'=> VendorProductResource::make($product)
         ]);    
     }
 

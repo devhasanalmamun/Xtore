@@ -12,10 +12,14 @@ export interface IVendorProduct {
   quantity: number
   status: VendorProductStatusEnum
   product_images: (File | string)[]
-  thumbnail_url: string
-  thumbnail_public_id?: string
+  thumbnail_image: PrductThumbnail
   meta_title: string
   meta_description: string
+}
+
+export type PrductThumbnail = {
+  secure_url: string
+  public_id: string
 }
 
 export type productStatus = {

@@ -42,8 +42,8 @@ export default function VendorProductIndex(props: IProps) {
         header: 'Thumbnail',
         accessorKey: 'thumbnail_url',
         cell: ({ row }) => {
-          const publicId = row.original.thumbnail_public_id || row.original.thumbnail_url
-          const small = row.original.thumbnail_public_id
+          const publicId = row.original.thumbnail_image?.public_id || row.original.thumbnail_image?.secure_url
+          const small = row.original.thumbnail_image?.public_id
             ? cld.image(publicId).resize(fill().width(200).height(200)).toURL()
             : publicId
 

@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { IVendorProduct, productStatus } from '@/types/vendor-product'
+import { IVendorProduct, PrductThumbnail, productStatus } from '@/types/vendor-product'
 import MultiImageUploader from '@/components/multi-image-uploader'
 import { IAdminDepartment } from '@/types/admin-department'
 import PlateEditor from '@/components/editor/plate-editor'
@@ -37,7 +37,10 @@ export default function VendorProductForm(props: IProps) {
 
   const imageError = Object.keys(props.errors).find((key) => key.startsWith('product_images.'))
 
-  function handleChange(key: keyof IVendorProduct, value: string | number | undefined | File | (string | File)[]) {
+  function handleChange(
+    key: keyof IVendorProduct,
+    value: PrductThumbnail | string | number | undefined | (string | File)[],
+  ) {
     props.onDataChange({
       ...props.data,
       [key]: value,
@@ -211,8 +214,8 @@ export default function VendorProductForm(props: IProps) {
 
       <div>
         <Label htmlFor="thumbnail">Product Thumbnail</Label>
-        <ImageUploader image={props.data.thumbnail_url} onChange={(file) => handleChange('thumbnail_url', file)} />
-        <InputError message={props.errors.thumbnail_url} />
+        <ImageUploader image={props.data.thumbnail_image} onChange={(urls) => handleChange('thumbnail_image', urls)} />
+        <InputError message={props.errors.thumbnail_image} />
       </div>
 
       <div>
