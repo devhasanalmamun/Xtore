@@ -30,6 +30,9 @@ export default function ImageUploader(props: IProps) {
     const csrfToken = tokenEl?.content
 
     try {
+      // Will have a upload progress indicator later
+      setError('')
+
       const res = await fetch(route('upload.product-thumbnail'), {
         method: 'POST',
         headers: {
@@ -48,6 +51,7 @@ export default function ImageUploader(props: IProps) {
 
       props.onChange({ secure_url: data.secure_url, public_id: data.public_id })
     } catch (error) {
+      props.onChange({ secure_url: '', public_id: '' })
       console.error('Error uploading image:', error)
     }
   }
