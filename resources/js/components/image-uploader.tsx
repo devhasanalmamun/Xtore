@@ -1,10 +1,11 @@
 import { ImageUpIcon, XIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
+import axios from 'axios'
 
 import { PrductThumbnail } from '@/types/vendor-product'
+import InputError from '@/components/ui/input-error'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import InputError from './ui/input-error'
 
 interface IProps {
   image: PrductThumbnail
@@ -14,7 +15,7 @@ interface IProps {
 export default function ImageUploader(props: IProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [preview, setPreview] = useState<string | undefined>(undefined)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>('')
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -33,25 +34,24 @@ export default function ImageUploader(props: IProps) {
       // Will have a upload progress indicator later
       setError('')
 
-      const res = await fetch(route('upload.product-thumbnail'), {
-        method: 'POST',
+      const res = await axios.post(route('upload.product-thumbnail'), formData, {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-TOKEN': csrfToken ?? '',
         },
-        body: formData,
       })
 
-      const data = await res.json()
+      props.onChange({ secure_url: res.data.secure_url, public_id: res.data.public_id })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      props.onChange({ secure_url: '', public_id: '' })
 
-      if (!res.ok) {
-        setError(data.message || 'Failed to upload image')
-        throw new Error(data.message || 'Failed to upload image')
+      if (error.response?.status === 422 || error.response?.status === 413) {
+        setError(error.response.data.message)
+      } else {
+        setError('Failed to upload image')
       }
 
-      props.onChange({ secure_url: data.secure_url, public_id: data.public_id })
-    } catch (error) {
-      props.onChange({ secure_url: '', public_id: '' })
       console.error('Error uploading image:', error)
     }
   }
