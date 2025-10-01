@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('price', 20, 2);
             $table->integer('quantity')->nullable();
             $table->string('status')->index();
-            $table->string('thumbnail_url')->nullable();
+            $table->string('thumbnail_image')->nullable();
             $table->string('thumbnail_public_id')->nullable();
             $table->json('product_images')->nullable();
             $table->json('product_image_public_ids')->nullable();

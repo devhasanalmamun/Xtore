@@ -15,13 +15,14 @@ use App\Models\Category;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Inertia\Inertia;
 
 class VendorProductController extends Controller
 {
     public function index(#[Authenticated] User $user): Response
     {
-        $products = Product::select('title','slug', 'description', 'price', 'quantity', 'thumbnail_url', 'thumbnail_public_id', 'status', 'created_at')
+        $products = Product::select('title','slug', 'description', 'price', 'quantity', 'thumbnail_image', 'thumbnail_public_id', 'status', 'created_at')
             ->where('created_by', $user->id)
             ->orderBy('title')
             ->paginate(10);
@@ -42,12 +43,23 @@ class VendorProductController extends Controller
 
     public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
     {
-        $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
+        // Thumbnail Image
+        $old_thumbnail_public_id_with_ext = $data->thumbnail_image['public_id'];
+        $old_thumbnail_public_id = preg_replace('/\.[^.]+$/', '', $old_thumbnail_public_id_with_ext);
+
+        $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail/" . basename($old_thumbnail_public_id);
+
+        $result = Cloudinary::UploadApi()->rename(
+            $old_thumbnail_public_id,
+            $folder_thumbnail_path,
+            ['overwrite' => true, 'resource_type' => 'image']
+        );
+
+        $thumbnail_url = $result['secure_url'];
+        $thumbnail_public_id = $result['public_id'];
+
+        // Product images
         $folder_images_path = "Xtore/products/{$data->slug}/images";
-
-        $thumbnail_public_id = Storage::disk(env('FILESYSTEM_DISK'))->put($folder_thumbnail_path, $data->thumbnail_url);
-        $thumbnail_url = Storage::disk(env('FILESYSTEM_DISK'))->url($thumbnail_public_id);
-
         $product_images_urls = [];
         $product_images_public_ids = [];
         foreach ($data->product_images as $image) {
@@ -60,7 +72,7 @@ class VendorProductController extends Controller
 
         Product::create([
             ...$data->toArray(),
-            'thumbnail_url' => $thumbnail_url,
+            'thumbnail_image' => $thumbnail_url,
             'thumbnail_public_id' => $thumbnail_public_id,
             'product_images' => $product_images_urls,
             'product_image_public_ids' => $product_images_public_ids,
@@ -85,19 +97,19 @@ class VendorProductController extends Controller
     {
         $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
 
-        if($data->thumbnail_url instanceof UploadedFile){
+        if($data->thumbnail_image instanceof UploadedFile){
             if($product->thumbnail_public_id){
                 Storage::disk(env('FILESYSTEM_DISK'))->delete($product->thumbnail_public_id);
             }
         }
 
-        $thumbnail_public_id = Storage::disk(env('FILESYSTEM_DISK'))->put($folder_thumbnail_path, $data->thumbnail_url);
+        $thumbnail_public_id = Storage::disk(env('FILESYSTEM_DISK'))->put($folder_thumbnail_path, $data->thumbnail_image);
         $thumbnail_url = Storage::disk(env('FILESYSTEM_DISK'))->url($thumbnail_public_id);
 
         
         $product->update([
             ...$data->toArray(),
-            'thumbnail_url' => $thumbnail_url,
+            'thumbnail_image' => $thumbnail_url,
             'thumbnail_public_id' => $thumbnail_public_id,
         ]);
         return redirect(route('vendor.products.index'));

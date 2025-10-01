@@ -21,8 +21,6 @@ export default function LandingHeader() {
   const getInitials = useInitials()
   const [open, setOpen] = useState(false)
 
-  console.log('LandingHeader', { auth })
-
   return (
     <>
       <nav className="mx-auto flex max-w-7xl items-center justify-between">

@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(50, 5000),
             'quantity' => $this->faker->numberBetween(1, 10),
             'status' => $this->faker->randomElement(ProductStatusEnum::cases())->value,
-            'thumbnail_url' => null,
+            'thumbnail_image' => null,
             'thumbnail_public_id' => null,
             'meta_title' => $this->faker->sentence(2),
             'meta_description' => $this->faker->sentence(6),

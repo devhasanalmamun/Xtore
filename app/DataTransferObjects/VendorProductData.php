@@ -5,7 +5,6 @@ namespace App\DataTransferObjects;
 
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\Min;
-use Illuminate\Http\UploadedFile;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
@@ -42,7 +41,8 @@ final class VendorProductData extends Data {
 		#[Required]
 		public readonly ProductStatusEnum $status,
 
-		public readonly UploadedFile|string $thumbnail_url,
+		#[Required]
+		public readonly array $thumbnail_image,
 
 		public readonly array $product_images,
 	)
@@ -54,7 +54,8 @@ final class VendorProductData extends Data {
 
 		return [
 			'slug' => ['required', 'min:3', 'max:255', Rule::unique('products', 'slug')->ignore($product_id)],
-			'thumbnail_url' => ['required', new UploadImage(256)],
+			'thumbnail_image' => ['required', 'array'],
+			'thumbnail_image.*' => ['string', 'string'],
 			'product_images' => ['required', 'array', 'max:5'],
 			'product_images.*' => [new UploadImage(512)]
 		];
