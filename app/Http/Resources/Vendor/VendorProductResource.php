@@ -19,7 +19,7 @@ class VendorProductResource extends JsonResource
             'quantity' => $this->quantity,
             'status' => $this->status->label(),
             'thumbnail_image' => [
-                'secure_url' => $this->thumbnail_url,
+                'secure_url' => $this->thumbnail_image,
                 'public_id' => $this->thumbnail_public_id
             ],
             'created_at' => $this->created_at->diffForHumans()

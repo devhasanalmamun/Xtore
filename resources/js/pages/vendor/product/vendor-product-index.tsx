@@ -40,7 +40,7 @@ export default function VendorProductIndex(props: IProps) {
     () => [
       {
         header: 'Thumbnail',
-        accessorKey: 'thumbnail_url',
+        accessorKey: 'thumbnail_image',
         cell: ({ row }) => {
           const publicId = row.original.thumbnail_image?.public_id || row.original.thumbnail_image?.secure_url
           const small = row.original.thumbnail_image?.public_id

@@ -10,12 +10,12 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
 use App\Enums\ProductStatusEnum;
+use App\Helpers\FileMover;
 use App\Models\Department;
 use App\Models\Category;
 use App\Models\Product;
 use Inertia\Response;
 use App\Models\User;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Inertia\Inertia;
 
 class VendorProductController extends Controller
@@ -43,20 +43,8 @@ class VendorProductController extends Controller
 
     public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
     {
-        // Thumbnail Image
-        $old_thumbnail_public_id_with_ext = $data->thumbnail_image['public_id'];
-        $old_thumbnail_public_id = preg_replace('/\.[^.]+$/', '', $old_thumbnail_public_id_with_ext);
-
-        $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail/" . basename($old_thumbnail_public_id);
-
-        $result = Cloudinary::UploadApi()->rename(
-            $old_thumbnail_public_id,
-            $folder_thumbnail_path,
-            ['overwrite' => true, 'resource_type' => 'image']
-        );
-
-        $thumbnail_url = $result['secure_url'];
-        $thumbnail_public_id = $result['public_id'];
+        // Move thumbnail to proper folder
+        $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/{$data->slug}/thumbnail");
 
         // Product images
         $folder_images_path = "Xtore/products/{$data->slug}/images";
@@ -72,8 +60,8 @@ class VendorProductController extends Controller
 
         Product::create([
             ...$data->toArray(),
-            'thumbnail_image' => $thumbnail_url,
-            'thumbnail_public_id' => $thumbnail_public_id,
+            'thumbnail_image' => $thumbnail_result['secure_url'],
+            'thumbnail_public_id' => $thumbnail_result['public_id'],
             'product_images' => $product_images_urls,
             'product_image_public_ids' => $product_images_public_ids,
             'created_by' => $user->id,
