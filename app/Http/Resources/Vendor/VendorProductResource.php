@@ -20,11 +20,13 @@ class VendorProductResource extends JsonResource
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
             'status' => $this->status,
+            'department_id' => $this->department->id,
+            'category_id' => $this->category->id,
             'thumbnail_image' => [
                 'secure_url' => $this->thumbnail_image,
                 'public_id' => $this->thumbnail_public_id
             ],
-            'created_at' => $this->created_at->diffForHumans()
+            'created_at' => $this->created_at->diffForHumans(),
         ];
     }
 }

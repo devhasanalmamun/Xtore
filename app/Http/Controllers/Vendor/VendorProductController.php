@@ -22,7 +22,7 @@ class VendorProductController extends Controller
 {
     public function index(#[Authenticated] User $user): Response
     {
-        $products = Product::select('title','slug', 'description', 'price', 'quantity', 'thumbnail_image', 'thumbnail_public_id', 'status', 'created_at')
+        $products = Product::select('title','slug', 'description', 'price', 'quantity', 'department_id' , 'category_id', 'thumbnail_image', 'thumbnail_public_id', 'status', 'created_at')
             ->where('created_by', $user->id)
             ->orderBy('title')
             ->paginate(10);
