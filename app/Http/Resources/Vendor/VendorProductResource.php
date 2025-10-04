@@ -17,7 +17,9 @@ class VendorProductResource extends JsonResource
             'description_html' => Str::markdown($this->description),
             'price' => $this->price,
             'quantity' => $this->quantity,
-            'status' => $this->status->label(),
+            'meta_title' => $this->meta_title,
+            'meta_description' => $this->meta_description,
+            'status' => $this->status,
             'thumbnail_image' => [
                 'secure_url' => $this->thumbnail_image,
                 'public_id' => $this->thumbnail_public_id

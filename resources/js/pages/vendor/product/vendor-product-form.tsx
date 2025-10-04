@@ -197,8 +197,12 @@ export default function VendorProductForm(props: IProps) {
       </div>
 
       <div>
-        <Label htmlFor="status">Select Status</Label>
-        <Select name="status" value={props.data.status} onValueChange={(e) => handleChange('status', e)}>
+        <Label htmlFor="status">Select Product Status</Label>
+        <Select
+          name="status"
+          value={props.data.status.toLocaleLowerCase()}
+          onValueChange={(e) => handleChange('status', e)}
+        >
           <SelectTrigger id="status">
             <SelectValue placeholder="Select a status" />
           </SelectTrigger>

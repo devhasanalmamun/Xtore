@@ -78,7 +78,7 @@ class VendorProductController extends Controller
             'categories' => Category::select('id', 'department_id', 'name')->orderBy('name')->get(),
             'status' => ProductStatusEnum::labels(),
             'product'=> VendorProductResource::make($product)
-        ]);    
+        ]);
     }
 
     public function update(VendorProductData $data, Product $product): RedirectResponse 
