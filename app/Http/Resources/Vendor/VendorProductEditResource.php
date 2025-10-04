@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class VendorProductResource extends JsonResource
+class VendorProductEditResource extends JsonResource
 {
     public function toArray(Request $request): array
     {

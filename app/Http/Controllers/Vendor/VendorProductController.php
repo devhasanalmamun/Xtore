@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use App\Http\Resources\Vendor\VendorProductResource;
+use App\Http\Resources\Vendor\VendorProductIndexResource;
+use App\Http\Resources\Vendor\VendorProductEditResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
 use Illuminate\Support\Facades\Storage;
@@ -22,13 +23,13 @@ class VendorProductController extends Controller
 {
     public function index(#[Authenticated] User $user): Response
     {
-        $products = Product::select('title','slug', 'description', 'price', 'quantity', 'department_id' , 'category_id', 'thumbnail_image', 'thumbnail_public_id', 'status', 'created_at')
+        $products = Product::select('title','slug', 'price', 'quantity', 'thumbnail_image', 'thumbnail_public_id', 'status', 'created_at')
             ->where('created_by', $user->id)
             ->orderBy('title')
             ->paginate(10);
 
         return Inertia::render('vendor/product/vendor-product-index', [
-            'products' => VendorProductResource::collection($products)
+            'products' => VendorProductIndexResource::collection($products)
         ]);
     }
 
@@ -77,7 +78,7 @@ class VendorProductController extends Controller
             'departments' => Department::select('id', 'name')->orderBy('name')->get(),
             'categories' => Category::select('id', 'department_id', 'name')->orderBy('name')->get(),
             'status' => ProductStatusEnum::labels(),
-            'product'=> VendorProductResource::make($product)
+            'product'=> VendorProductEditResource::make($product)
         ]);
     }
 
