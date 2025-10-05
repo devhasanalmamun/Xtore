@@ -35,8 +35,6 @@ interface IProps {
 export default function VendorProductForm(props: IProps) {
   const [relatedCategories, setRelatedCategories] = useState<PartialCategory[]>([])
 
-  const imageError = Object.keys(props.errors).find((key) => key.startsWith('product_images.'))
-
   function handleChange(
     key: keyof IVendorProduct,
     value: PrductThumbnail | string | number | undefined | ProductImage[],
