@@ -3,12 +3,13 @@
 namespace App\DataTransferObjects;
 
 
+use Spatie\LaravelData\Attributes\Validation\ArrayType;
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\Max;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
-use App\Rules\UploadImage;
 
 final class VendorProductData extends Data {
 	public function __construct(
@@ -44,6 +45,7 @@ final class VendorProductData extends Data {
 		#[Required]
 		public readonly array $thumbnail_image,
 
+		#[Required, Max(5), ArrayType('string')]
 		public readonly array $product_images,
 	)
 	{}
@@ -56,8 +58,6 @@ final class VendorProductData extends Data {
 			'slug' => ['required', 'min:3', 'max:255', Rule::unique('products', 'slug')->ignore($product_id)],
 			'thumbnail_image' => ['required', 'array'],
 			'thumbnail_image.*' => ['string', 'string'],
-			'product_images' => ['required', 'array', 'max:5'],
-			'product_images.*' => [new UploadImage(512)]
 		];
 	}
 

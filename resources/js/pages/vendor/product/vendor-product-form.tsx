@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { IVendorProduct, PrductThumbnail, productStatus } from '@/types/vendor-product'
+import { IVendorProduct, PrductThumbnail, ProductImage, productStatus } from '@/types/vendor-product'
 import MultiImageUploader from '@/components/multi-image-uploader'
 import { IAdminDepartment } from '@/types/admin-department'
 import PlateEditor from '@/components/editor/plate-editor'
@@ -39,7 +39,7 @@ export default function VendorProductForm(props: IProps) {
 
   function handleChange(
     key: keyof IVendorProduct,
-    value: PrductThumbnail | string | number | undefined | (string | File)[],
+    value: PrductThumbnail | string | number | undefined | ProductImage[],
   ) {
     props.onDataChange({
       ...props.data,
@@ -223,8 +223,10 @@ export default function VendorProductForm(props: IProps) {
 
       <div>
         <Label htmlFor="product_images">Product Images (5 image max)</Label>
-        <MultiImageUploader onChange={(images) => handleChange('product_images', images)} />
-        <InputError message={imageError ? props.errors[imageError] : props.errors.product_images} />
+        <MultiImageUploader
+          product_images={props.data.product_images}
+          onChange={(images) => handleChange('product_images', images)}
+        />
       </div>
 
       <div>

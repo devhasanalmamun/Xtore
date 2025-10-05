@@ -18,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function (){
-    Route::post('/upload/product-thumbnail', [FileUploadController::class, 'uploadProductThumbnail'])->name('upload.product-thumbnail');
+    Route::post('/upload/product-image', [FileUploadController::class, 'uploadProductImage'])->name('upload.product-image');
 });
 
 require __DIR__.'/settings.php';

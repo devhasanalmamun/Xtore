@@ -38,7 +38,7 @@ export default function ImageUploader(props: IProps) {
       setError('')
       setProgress(0)
 
-      const res = await axios.post(route('upload.product-thumbnail'), formData, {
+      const res = await axios.post(route('upload.product-image'), formData, {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-TOKEN': csrfToken ?? '',

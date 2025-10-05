@@ -9,11 +9,11 @@ use Exception;
 
 class FileUploadController extends Controller
 {
-    public function uploadProductThumbnail(Request $request) 
+    public function uploadProductImage(Request $request) 
     {
         $request->validate(
-            ['file' => ['required', new UploadImage(256)]],
-            ['file.required' => 'Product thumbnail is required.']
+            ['file' => ['required', new UploadImage(512)]],
+            ['file.required' => 'Please select a image to upload.']
         );
 
         try {
