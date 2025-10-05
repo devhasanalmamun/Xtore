@@ -225,6 +225,7 @@ export default function VendorProductForm(props: IProps) {
           product_images={props.data.product_images}
           onChange={(images) => handleChange('product_images', images)}
         />
+        <InputError message={props.errors.product_images} />
       </div>
 
       <div>

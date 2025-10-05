@@ -35,4 +35,9 @@ class FileUploadController extends Controller
             ]);
         }
     }
+
+    public function deleteProductImage() 
+    {
+        return 'yo';
+    }
 }

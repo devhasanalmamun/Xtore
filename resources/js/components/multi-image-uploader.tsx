@@ -69,8 +69,9 @@ export default function MultiImageUploader(props: IProps) {
     }
   }
 
-  function handleFileCancel(index: number) {
-    console.log(index)
+  async function handleFileCancel(index: number) {
+    const updatedImages = props.product_images.filter((_, i) => i !== index)
+    props.onChange(updatedImages)
   }
 
   useEffect(() => {

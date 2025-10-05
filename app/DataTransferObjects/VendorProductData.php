@@ -45,7 +45,7 @@ final class VendorProductData extends Data {
 		#[Required]
 		public readonly array $thumbnail_image,
 
-		#[Required, Max(5), ArrayType('string')]
+		#[Required]
 		public readonly array $product_images,
 	)
 	{}
@@ -56,8 +56,7 @@ final class VendorProductData extends Data {
 
 		return [
 			'slug' => ['required', 'min:3', 'max:255', Rule::unique('products', 'slug')->ignore($product_id)],
-			'thumbnail_image' => ['required', 'array'],
-			'thumbnail_image.*' => ['string', 'string'],
+			'product_images'   => ['required', 'array', 'max:5'],
 		];
 	}
 
