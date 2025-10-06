@@ -37,6 +37,37 @@ class FileMover {
 			];
 	}
 
+	public static function moveFiles(array $product_images, string $new_destination) {
+		if(config('filesystems.default') === 'cloudinary') {
+			$product_images_public_ids = [];
+			$product_images_secure_urls = [];
+
+			foreach ($product_images as $image) {
+				$result = Cloudinary::UploadApi()->rename(
+					self::normalizeCloudinaryPublicId($image['public_id']),
+					$new_destination . '/' . basename(self::normalizeCloudinaryPublicId($image['public_id']))
+				);
+
+        $product_images_public_ids[] = $result['public_id'];	
+				$product_images_secure_urls[] = $result['secure_url'];
+			}
+
+			return [
+				'public_ids' => $product_images_public_ids,
+				'secure_urls' => $product_images_secure_urls,
+			];
+		}
+
+		if(config('filesystems.default') !== 'cloudinary') {
+			dd('Will be implemented later');
+		}
+
+		return [
+			'public_ids' => null,
+			'secure_urls' => null
+		];
+	}	
+
 	public static function normalizeCloudinaryPublicId(string $public_id){
 		return preg_replace('/\.[^.]+$/', '', $public_id);
 	}

@@ -2,11 +2,8 @@
 
 namespace App\DataTransferObjects;
 
-
-use Spatie\LaravelData\Attributes\Validation\ArrayType;
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\Min;
-use Spatie\LaravelData\Attributes\Validation\Max;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;

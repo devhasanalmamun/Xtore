@@ -44,26 +44,15 @@ class VendorProductController extends Controller
 
     public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
     {
-        // Move thumbnail to proper folder
         $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/{$data->slug}/thumbnail");
-
-        // Product images
-        $folder_images_path = "Xtore/products/{$data->slug}/images";
-        $product_image_secure_urls = [];
-        $product_image_public_ids = [];
-
-        foreach ($data->product_images as $image) {
-            $product_image_secure_urls[] = $image['secure_url'];
-            $product_image_public_ids[] = $image['public_id'];
-        }
-
+        $product_images_result = FileMover::moveFiles($data->product_images, "Xtore/products/{$data->slug}/images");
 
         Product::create([
             ...$data->toArray(),
             'thumbnail_image' => $thumbnail_result['secure_url'],
             'thumbnail_public_id' => $thumbnail_result['public_id'],
-            'product_images' => $product_image_secure_urls,
-            'product_image_public_ids' => $product_image_public_ids,
+            'product_images' => $product_images_result['secure_urls'],
+            'product_image_public_ids' => $product_images_result['public_ids'],
             'created_by' => $user->id,
             'updated_by' => $user->id,
         ]);
