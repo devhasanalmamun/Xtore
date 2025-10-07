@@ -1,12 +1,11 @@
 import { ImageUpIcon, LoaderIcon, XIcon } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 
 import { PrductThumbnail } from '@/types/vendor-product'
 import InputError from '@/components/ui/input-error'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
 
 interface IProps {
   image: PrductThumbnail
@@ -15,17 +14,12 @@ interface IProps {
 
 export default function ImageUploader(props: IProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const [preview, setPreview] = useState<string | undefined>(undefined)
   const [progress, setProgress] = useState<number>(0)
   const [error, setError] = useState<string>('')
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
-
-    setTimeout(() => {
-      setPreview(URL.createObjectURL(file))
-    }, 350)
 
     const formData = new FormData()
     formData.append('file', file)
@@ -59,12 +53,18 @@ export default function ImageUploader(props: IProps) {
 
   function handleFileCancel(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation()
-    setPreview(undefined)
     setError('')
     props.onChange({ secure_url: '', public_id: '' })
-
     if (inputRef.current) inputRef.current.value = ''
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setProgress(0)
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [props.image.secure_url])
 
   return (
     <>
@@ -76,15 +76,12 @@ export default function ImageUploader(props: IProps) {
           }
         }}
       >
-        {props.image.secure_url || preview ? (
+        {props.image.secure_url ? (
           <>
-            <img className="size-full object-cover" src={preview || props.image.secure_url} alt="image" />
-
-            {(progress === 0 || progress === 100) && (
-              <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleFileCancel}>
-                <XIcon />
-              </Button>
-            )}
+            <img className="size-full object-cover" src={props.image.secure_url} alt="image" />
+            <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleFileCancel}>
+              <XIcon />
+            </Button>
           </>
         ) : (
           <div className="flex flex-col items-center text-center">
@@ -92,7 +89,7 @@ export default function ImageUploader(props: IProps) {
               <ImageUpIcon /> Select an image.
             </p>
             <p className="mb-2 flex items-center gap-2 text-sm text-red-300">
-              *Image size must not be greater than 256 KB
+              *Image size must not be greater than 512 KB
             </p>
           </div>
         )}
@@ -106,10 +103,10 @@ export default function ImageUploader(props: IProps) {
           onChange={handleFileChange}
         />
 
-        {preview && progress > 0 && progress < 100 && (
+        {progress > 0 && progress < 100 && (
           <div className="absolute z-100 h-full w-full bg-gray-100/40 backdrop-blur-xl">
             <div className="absolute top-1/2 left-1/2 flex w-fit -translate-1/2 items-center justify-center gap-4 rounded bg-white/90 px-2 py-2 text-primary">
-              <LoaderIcon className={cn('size-10', progress === 0 || progress === 0 ? 'block' : 'block')} />
+              <LoaderIcon className="animate-spin" />
               <p>{progress} %</p>
             </div>
           </div>

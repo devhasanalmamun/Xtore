@@ -128,7 +128,7 @@ export default function MultiImageUploader(props: IProps) {
 
         {progress > 0 && progress < 100 && (
           <div className="absolute top-4 right-10 flex gap-2">
-            <LoaderIcon className={cn('animate-spin')} />
+            <LoaderIcon className="animate-spin" />
             <p>{progress} %</p>
           </div>
         )}
