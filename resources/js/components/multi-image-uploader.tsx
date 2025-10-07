@@ -77,7 +77,7 @@ export default function MultiImageUploader(props: IProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setProgress(0)
-    }, 500)
+    }, 50)
 
     return () => clearTimeout(timer)
   }, [props.product_images.length])

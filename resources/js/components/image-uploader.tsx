@@ -30,23 +30,14 @@ export default function ImageUploader(props: IProps) {
     const formData = new FormData()
     formData.append('file', file)
 
-    const tokenEl = document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement | null
-    const csrfToken = tokenEl?.content
-
     try {
-      // Will have a upload progress indicator later
       setError('')
       setProgress(0)
 
       const res = await axios.post(route('upload.product-image'), formData, {
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-TOKEN': csrfToken ?? '',
-        },
-
         onUploadProgress: (event) => {
           if (event.total) {
-            const percentCompleted = Math.round((event.loaded * 100) / event.total)
+            const percentCompleted = Math.round((event.loaded * 100) / event.total) - 1
             setProgress(percentCompleted)
           }
         },
@@ -55,6 +46,7 @@ export default function ImageUploader(props: IProps) {
       props.onChange({ secure_url: res.data.secure_url, public_id: res.data.public_id })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      console.error('Error uploading image:', error)
       props.onChange({ secure_url: '', public_id: '' })
 
       if (error.response?.status === 422 || error.response?.status === 413) {
@@ -62,12 +54,10 @@ export default function ImageUploader(props: IProps) {
       } else {
         setError('Failed to upload image')
       }
-
-      console.error('Error uploading image:', error)
     }
   }
 
-  function handleCancel(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function handleFileCancel(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation()
     setPreview(undefined)
     setError('')
@@ -91,7 +81,7 @@ export default function ImageUploader(props: IProps) {
             <img className="size-full object-cover" src={preview || props.image.secure_url} alt="image" />
 
             {(progress === 0 || progress === 100) && (
-              <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleCancel}>
+              <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleFileCancel}>
                 <XIcon />
               </Button>
             )}
