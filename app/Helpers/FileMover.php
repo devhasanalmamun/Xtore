@@ -27,7 +27,7 @@ class FileMover {
 
 			return [
 				'public_id' => $old_public_id,
-				'secure_url' => Storage::disk(config('filesystems.default'))->url($new_destination . '/' . basename('$old_public_id'))
+				'secure_url' => Storage::url($new_destination . '/' . basename('$old_public_id'))
 			];
 		}
 
