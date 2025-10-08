@@ -27,23 +27,16 @@ interface IProps {
   departments: Pick<IAdminDepartment, 'id' | 'name'>[]
   categories: PartialCategory[]
   data: IVendorProduct
-  onDataChange: (data: IVendorProduct) => void
+  onDataChange: (
+    key: keyof IVendorProduct,
+    value: PrductThumbnail | string | number | undefined | ProductImage[],
+  ) => void
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   errors: Record<string, string>
 }
 
 export default function VendorProductForm(props: IProps) {
   const [relatedCategories, setRelatedCategories] = useState<PartialCategory[]>([])
-
-  function handleChange(
-    key: keyof IVendorProduct,
-    value: PrductThumbnail | string | number | undefined | ProductImage[],
-  ) {
-    props.onDataChange({
-      ...props.data,
-      [key]: value,
-    })
-  }
 
   useEffect(() => {
     if (!props.data.department_id) return
@@ -62,7 +55,7 @@ export default function VendorProductForm(props: IProps) {
           id="title"
           name="title"
           value={props.data.title}
-          onChange={(e) => handleChange('title', e.target.value)}
+          onChange={(e) => props.onDataChange('title', e.target.value)}
           placeholder="Enter the product title"
           required
         />
@@ -75,7 +68,7 @@ export default function VendorProductForm(props: IProps) {
           id="slug"
           name="slug"
           value={props.data.slug}
-          onChange={(e) => handleChange('slug', e.target.value)}
+          onChange={(e) => props.onDataChange('slug', e.target.value)}
           placeholder="Enter the product slug"
           required
         />
@@ -90,7 +83,7 @@ export default function VendorProductForm(props: IProps) {
             id="quantity"
             name="quantity"
             value={props.data.quantity}
-            onChange={(e) => handleChange('quantity', parseInt(e.target.value, 10))}
+            onChange={(e) => props.onDataChange('quantity', parseInt(e.target.value, 10))}
             required
           />
           <InputError message={props.errors.quantity} />
@@ -103,7 +96,7 @@ export default function VendorProductForm(props: IProps) {
             id="price"
             name="price"
             value={props.data.price}
-            onChange={(e) => handleChange('price', parseInt(e.target.value, 10))}
+            onChange={(e) => props.onDataChange('price', parseInt(e.target.value, 10))}
             required
           />
           <InputError message={props.errors.price} />
@@ -117,11 +110,8 @@ export default function VendorProductForm(props: IProps) {
             name="department"
             value={props.data.department_id !== undefined ? String(props.data.department_id) : ''}
             onValueChange={(e) => {
-              props.onDataChange({
-                ...props.data,
-                department_id: parseInt(e, 10),
-                category_id: undefined,
-              })
+              props.onDataChange('department_id', parseInt(e, 10))
+              props.onDataChange('category_id', undefined)
             }}
           >
             <SelectTrigger id="department">
@@ -145,7 +135,7 @@ export default function VendorProductForm(props: IProps) {
             <Select
               name="category"
               value={props.data.category_id !== undefined ? String(props.data.category_id) : ''}
-              onValueChange={(e) => handleChange('category_id', parseInt(e, 10))}
+              onValueChange={(e) => props.onDataChange('category_id', parseInt(e, 10))}
             >
               <SelectTrigger id="category">
                 <SelectValue placeholder="Select a category for product" />
@@ -173,7 +163,7 @@ export default function VendorProductForm(props: IProps) {
           id="meta_title"
           name="meta_title"
           value={props.data.meta_title}
-          onChange={(e) => handleChange('meta_title', e.target.value)}
+          onChange={(e) => props.onDataChange('meta_title', e.target.value)}
           placeholder="Enter the product meta title for SEO"
           required
         />
@@ -187,7 +177,7 @@ export default function VendorProductForm(props: IProps) {
           name="meta_description"
           rows={5}
           value={props.data.meta_description}
-          onChange={(e) => handleChange('meta_description', e.target.value)}
+          onChange={(e) => props.onDataChange('meta_description', e.target.value)}
           placeholder="Enter the product meta description for SEO"
           required
         />
@@ -199,7 +189,7 @@ export default function VendorProductForm(props: IProps) {
         <Select
           name="status"
           value={props.data.status.toLocaleLowerCase()}
-          onValueChange={(e) => handleChange('status', e)}
+          onValueChange={(e) => props.onDataChange('status', e)}
         >
           <SelectTrigger id="status">
             <SelectValue placeholder="Select a status" />
@@ -216,7 +206,10 @@ export default function VendorProductForm(props: IProps) {
 
       <div>
         <Label htmlFor="thumbnail">Product Thumbnail</Label>
-        <ImageUploader image={props.data.thumbnail_image} onChange={(urls) => handleChange('thumbnail_image', urls)} />
+        <ImageUploader
+          image={props.data.thumbnail_image}
+          onChange={(urls) => props.onDataChange('thumbnail_image', urls)}
+        />
         <InputError message={props.errors['thumbnail_image.public_id']} />
       </div>
 
@@ -224,14 +217,14 @@ export default function VendorProductForm(props: IProps) {
         <Label htmlFor="product_images">Product Images (5 image max)</Label>
         <MultiImageUploader
           product_images={props.data.product_images}
-          onChange={(images) => handleChange('product_images', images)}
+          onChange={(images) => props.onDataChange('product_images', images)}
         />
         <InputError message={props.errors.product_images} />
       </div>
 
       <div>
         <Label>Product Description</Label>
-        <PlateEditor value={props.data.description} onChange={(value) => handleChange('description', value)} />
+        <PlateEditor value={props.data.description} onChange={(value) => props.onDataChange('description', value)} />
         <InputError message={props.errors.description} />
       </div>
     </form>

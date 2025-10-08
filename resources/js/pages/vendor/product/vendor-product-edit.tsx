@@ -50,7 +50,6 @@ export default function VendorProductEdit(props: IProps) {
   })
 
   function handleEdit(e: React.FormEvent<HTMLFormElement>) {
-    console.log(data)
     e.preventDefault()
 
     transform((data) => ({
