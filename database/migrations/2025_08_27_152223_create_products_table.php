@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignId('department_id')->index()->constrained('departments');
             $table->foreignId('category_id')->index()->constrained('categories');
             $table->foreignId('created_by')->index()->constrained('users');
