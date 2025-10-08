@@ -9,7 +9,6 @@ use App\DataTransferObjects\VendorProductData;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\UploadedFile;
 use App\Enums\ProductStatusEnum;
 use App\Helpers\FileMover;
 use App\Models\Department;
@@ -71,23 +70,22 @@ class VendorProductController extends Controller
     }
 
     public function update(VendorProductData $data, Product $product): RedirectResponse 
-    {
-        $folder_thumbnail_path = "Xtore/products/{$data->slug}/thumbnail";
-
-        if($data->thumbnail_image instanceof UploadedFile){
-            if($product->thumbnail_public_id){
+    {   
+        if($data->thumbnail_image['public_id'] !== $product->thumbnail_public_id) {
+            if($product->thumbnail_public_id) {
                 Storage::disk(env('FILESYSTEM_DISK'))->delete($product->thumbnail_public_id);
             }
-        }
 
-        $thumbnail_public_id = Storage::disk(env('FILESYSTEM_DISK'))->put($folder_thumbnail_path, $data->thumbnail_image);
-        $thumbnail_url = Storage::disk(env('FILESYSTEM_DISK'))->url($thumbnail_public_id);
+            $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/{$data->slug}/thumbnail");
+        }     
 
         
         $product->update([
             ...$data->toArray(),
-            'thumbnail_image' => $thumbnail_url,
-            'thumbnail_public_id' => $thumbnail_public_id,
+            'thumbnail_image' => $thumbnail_result['secure_url'] ?? $data->thumbnail_image['secure_url'],
+            'thumbnail_public_id' => $thumbnail_result['public_id'] ?? $data->thumbnail_image['public_id'],
+            'product_images' => $product->product_images,
+            'product_image_public_ids' => $product->product_image_public_ids,
         ]);
         return redirect(route('vendor.products.index'));
     }

@@ -40,6 +40,7 @@ export default function ImageUploader(props: IProps) {
       props.onChange({ secure_url: res.data.secure_url, public_id: res.data.public_id })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      setProgress(0)
       console.error('Error uploading image:', error)
       props.onChange({ secure_url: '', public_id: '' })
 
@@ -78,7 +79,7 @@ export default function ImageUploader(props: IProps) {
       >
         {props.image.secure_url ? (
           <>
-            <img className="size-full object-cover" src={props.image.secure_url} alt="image" />
+            <img className="size-full object-contain" src={props.image.secure_url} alt="image" />
             <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleFileCancel}>
               <XIcon />
             </Button>
