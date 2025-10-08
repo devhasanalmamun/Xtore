@@ -83,17 +83,42 @@ class VendorProductController extends Controller
             if($product->thumbnail_public_id) {
                 FileDeleter::delete($product->thumbnail_public_id);
             }
-
             $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/{$product->id}/thumbnail");
-        }     
+        }
 
+        $existing_public_ids = $product->product_image_public_ids ?? [];
+        $existing_secure_urls = $product->product_images ?? [];
+
+        $new_public_ids = collect($data->product_images)->pluck('public_id')->toArray();
+        $new_secure_urls = collect($data->product_images)->pluck('secure_url')->toArray();
         
+        $final_public_ids = [];
+        $final_secure_urls = [];
+        foreach ($new_public_ids as $index => $public_id) {
+            if(!in_array($public_id, $existing_public_ids)){
+                $moved = FileMover::moveFile($public_id, "Xtore/products/{$product->id}/images");
+                $final_public_ids[] = $moved['public_id'];
+                $final_secure_urls[] = $moved['secure_url'];
+            } else {
+                $final_public_ids[] = $public_id;
+
+                $old_index = array_search($public_id, $existing_public_ids);
+                $final_secure_urls[] =  $existing_secure_urls[$old_index] ?? $new_secure_urls[$index];
+            }
+        }
+
+        $deleted_images = array_diff($existing_public_ids, $new_public_ids);
+
+        foreach ($deleted_images as $image) {
+            FileDeleter::delete($image);
+        }
+
         $product->update([
             ...$data->toArray(),
-            'thumbnail_image' => $thumbnail_result['secure_url'] ?? $data->thumbnail_image['secure_url'],
-            'thumbnail_public_id' => $thumbnail_result['public_id'] ?? $data->thumbnail_image['public_id'],
-            'product_images' => $product->product_images,
-            'product_image_public_ids' => $product->product_image_public_ids,
+            'thumbnail_image' => $thumbnail_result['secure_url'] ?? $product->thumbnail_image,
+            'thumbnail_public_id' => $thumbnail_result['public_id'] ?? $product->thumbnail_public_id,
+            'product_images' => $final_secure_urls,
+            'product_image_public_ids' => $final_public_ids
         ]);
         return redirect(route('vendor.products.index'));
     }
