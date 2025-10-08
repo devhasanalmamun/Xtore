@@ -6,10 +6,10 @@ use App\Http\Resources\Vendor\VendorProductIndexResource;
 use App\Http\Resources\Vendor\VendorProductEditResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Enums\ProductStatusEnum;
+use App\Helpers\FileDeleter;
 use App\Helpers\FileMover;
 use App\Models\Department;
 use App\Models\Category;
@@ -73,10 +73,10 @@ class VendorProductController extends Controller
     {   
         if($data->thumbnail_image['public_id'] !== $product->thumbnail_public_id) {
             if($product->thumbnail_public_id) {
-                Storage::disk(env('FILESYSTEM_DISK'))->delete($product->thumbnail_public_id);
+                FileDeleter::delete($product->thumbnail_public_id);
             }
 
-            $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/{$data->slug}/thumbnail");
+            $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/{$product->slug}/thumbnail");
         }     
 
         
