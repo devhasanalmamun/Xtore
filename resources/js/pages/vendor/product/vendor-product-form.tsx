@@ -207,6 +207,7 @@ export default function VendorProductForm(props: IProps) {
       <div>
         <Label htmlFor="thumbnail">Product Thumbnail</Label>
         <ImageUploader
+          id={props.data.id}
           image={props.data.thumbnail_image}
           onChange={(urls) => props.onDataChange('thumbnail_image', urls)}
         />
@@ -216,6 +217,7 @@ export default function VendorProductForm(props: IProps) {
       <div>
         <Label htmlFor="product_images">Product Images (5 image max)</Label>
         <MultiImageUploader
+          id={props.data.id}
           product_images={props.data.product_images}
           onChange={(images) => props.onDataChange('product_images', images)}
         />

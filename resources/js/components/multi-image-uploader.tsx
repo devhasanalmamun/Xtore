@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 
 interface IProps {
+  id?: string
   product_images: ProductImage[]
   onChange: (images: ProductImage[]) => void
 }
@@ -38,6 +39,9 @@ export default function MultiImageUploader(props: IProps) {
         formData.append('file', file)
 
         return axios.post(route('upload.product-image'), formData, {
+          headers: {
+            'X-File-Path': `Xtore/products/${props.id}/images`,
+          },
           onUploadProgress: (event) => {
             if (event.total) {
               totalLoaded += event.loaded

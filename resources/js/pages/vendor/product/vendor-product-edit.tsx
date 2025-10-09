@@ -32,6 +32,7 @@ interface IProps {
 
 export default function VendorProductEdit(props: IProps) {
   const { data, setData, processing, post, errors, transform } = useForm<IVendorProduct>({
+    id: props.product.id,
     department_id: props.product.department_id,
     category_id: props.product.category_id,
     title: props.product.title,

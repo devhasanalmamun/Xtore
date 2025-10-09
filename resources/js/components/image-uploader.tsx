@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 interface IProps {
+  id?: string
   image: PrductThumbnail
   onChange: (image: PrductThumbnail) => void
 }
@@ -29,6 +30,10 @@ export default function ImageUploader(props: IProps) {
       setProgress(0)
 
       const res = await axios.post(route('upload.product-image'), formData, {
+        headers: {
+          'X-File-Path': `Xtore/products/${props.id}/thumbnail`,
+        },
+
         onUploadProgress: (event) => {
           if (event.total) {
             const percentCompleted = Math.round((event.loaded * 100) / event.total) - 1
