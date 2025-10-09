@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('determine-dashboard', DetermineDashboardController::class)->name('determine-dashboard');
 });
 
-Route::middleware(['auth'])->group(function (){
+Route::middleware(['auth', 'verified'])->group(function (){
     Route::post('/upload/product-image', [FileUploadController::class, 'uploadProductImage'])->name('upload.product-image');
 });
 
