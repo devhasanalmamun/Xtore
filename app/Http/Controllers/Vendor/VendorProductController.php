@@ -8,6 +8,7 @@ use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use Cloudinary\Api\Admin\AdminApi;
 use App\Enums\ProductStatusEnum;
 use App\Helpers\FileDeleter;
 use App\Helpers\FileMover;
@@ -107,6 +108,10 @@ class VendorProductController extends Controller
 
     public function destroy(Product $product): RedirectResponse
     {
+        $api = new AdminApi();
+        $api->deleteAssetsByPrefix("Xtore/products/{$product->id}/");
+        $api->deleteFolder("Xtore/products/{$product->id}");
+        
         $product->delete();
         return redirect(route('vendor.products.index'));
     }

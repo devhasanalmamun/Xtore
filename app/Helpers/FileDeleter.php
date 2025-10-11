@@ -11,7 +11,7 @@ class FileDeleter{
     if(env('FILESYSTEM_DISK') === 'cloudinary') {
       Cloudinary::UploadApi()->destroy($public_id);
     } else {
-      Storage::disk(env('FILESYSTEM_DISK'))->delete($public_id);
+      Storage::delete($public_id);
     }
   }
 }
