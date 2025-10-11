@@ -54,8 +54,6 @@ class VendorProductController extends Controller
             'updated_by' => $user->id,
         ]);
 
-        
-
         $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/{$product->id}/thumbnail");
         $product_images_result = FileMover::moveFiles($data->product_images, "Xtore/products/{$product->id}/images");
 

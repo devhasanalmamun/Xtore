@@ -19,7 +19,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function (){
-    Route::post('/editor-media', FileUploadController::class)->name('editor-media.store');
+    Route::post('/editor-media', EditorMediaController::class)->name('editor-media.store');
     Route::post('/upload/product-image', FileUploadController::class)->name('upload.product-image');
 });
 
