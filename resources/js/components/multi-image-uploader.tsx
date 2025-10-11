@@ -40,7 +40,7 @@ export default function MultiImageUploader(props: IProps) {
 
         return axios.post(route('upload.product-image'), formData, {
           headers: {
-            'X-File-Path': `Xtore/products/${props.id}/images`,
+            'X-File-Path': props.id ? `Xtore/products/${props.id}/images` : 'Xtore/temp',
           },
           onUploadProgress: (event) => {
             if (event.total) {
