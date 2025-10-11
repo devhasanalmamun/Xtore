@@ -3,9 +3,9 @@ import * as React from 'react'
 import type { OurFileRouter } from '@/lib/uploadthing'
 import type { ClientUploadedFileData, UploadFilesOptions } from 'uploadthing/types'
 
-import { generateReactHelpers } from '@uploadthing/react'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import axios from 'axios'
 
 export type UploadedFile<T = unknown> = ClientUploadedFileData<T>
 
@@ -30,25 +30,28 @@ export function useUploadFile({ onUploadComplete, onUploadError, ...props }: Use
     setUploadingFile(file)
 
     try {
-      const res = await uploadFiles('editorUploader', {
-        ...props,
-        files: [file],
-        onUploadProgress: ({ progress }) => {
-          setProgress(Math.min(progress, 100))
+      const res = await axios.post(
+        route('editor-media.store'),
+        { file },
+        {
+          headers: {
+            'X-File-Path': `Xtore/products/placeholder-id/description`,
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      })
+      )
 
-      setUploadedFile(res[0])
-      onUploadComplete?.(res[0])
+      const data = res.data
+      console.log(data)
+
+      setUploadedFile(data)
+      onUploadComplete?.(data)
 
       return uploadedFile
     } catch (error) {
       const errorMessage = getErrorMessage(error)
-
       const message = errorMessage.length > 0 ? errorMessage : 'Something went wrong, please try again later.'
-
       toast.error(message)
-
       onUploadError?.(error)
 
       // Mock upload for unauthenticated users
@@ -93,8 +96,6 @@ export function useUploadFile({ onUploadComplete, onUploadError, ...props }: Use
     uploadingFile,
   }
 }
-
-export const { uploadFiles, useUploadThing } = generateReactHelpers<OurFileRouter>()
 
 export function getErrorMessage(err: unknown) {
   const unknownError = 'Something went wrong, please try again later.'

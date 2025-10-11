@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DetermineDashboardController;
+use App\Http\Controllers\EditorMediaController;
 use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,7 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function (){
-    Route::post('/upload/product-image', [FileUploadController::class, 'uploadProductImage'])->name('upload.product-image');
+    Route::post('/editor-media', FileUploadController::class)->name('editor-media.store');
+    Route::post('/upload/product-image', FileUploadController::class)->name('upload.product-image');
 });
 
 require __DIR__.'/settings.php';

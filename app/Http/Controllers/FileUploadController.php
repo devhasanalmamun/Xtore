@@ -9,14 +9,13 @@ use Exception;
 
 class FileUploadController extends Controller
 {
-    public function uploadProductImage(Request $request) 
+    public function __invoke(Request $request) 
     {
-        $folder_path = '';
+        $file = $request->file('file');
+        $folder_path = "Xtore/temp";
 
         if($request->header('X-File-Path')) {
             $folder_path = $request->header('X-File-Path');
-        } else {
-            $folder_path = "Xtore/temp";
         }
 
         $request->validate(
@@ -25,8 +24,6 @@ class FileUploadController extends Controller
         );
 
         try {
-            $file = $request->file('file');
-
             $thumbnail_public_id = Storage::put($folder_path, $file);
             $thumbnail_url = Storage::url($thumbnail_public_id);
 
@@ -41,10 +38,5 @@ class FileUploadController extends Controller
                 'message' => "{$e->getMessage()}"
             ]);
         }
-    }
-
-    public function deleteProductImage() 
-    {
-        return 'yo';
     }
 }
