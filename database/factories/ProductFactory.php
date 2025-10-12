@@ -23,10 +23,12 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(50, 5000),
             'quantity' => $this->faker->numberBetween(1, 10),
             'status' => $this->faker->randomElement(ProductStatusEnum::cases())->value,
-            'thumbnail_image' => null,
-            'thumbnail_public_id' => null,
+            'thumbnail_image' => 'https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/Best-Brand-Name-Items_Hero_sr3qkm.webp',
+            'thumbnail_public_id' => 'demo-seeder/Best-Brand-Name-Items_Hero_sr3qkm.webp',
+            'product_images' => ['https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/Best-Brand-Name-Items_Hero_sr3qkm.webp'],
+            'product_image_public_ids' => ['demo-seeder/Best-Brand-Name-Items_Hero_sr3qkm.webp'],
             'meta_title' => $this->faker->sentence(2),
-            'meta_description' => $this->faker->sentence(6),
+            'meta_description' => $this->faker->sentence(5),
         ];
     }
 }
