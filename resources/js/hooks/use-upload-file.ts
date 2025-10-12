@@ -2,10 +2,13 @@ import * as React from 'react'
 
 import type { OurFileRouter } from '@/lib/uploadthing'
 import type { ClientUploadedFileData, UploadFilesOptions } from 'uploadthing/types'
+import type { PageProps as InertiaPageProps } from '@inertiajs/core'
 
 import { toast } from 'sonner'
 import { z } from 'zod'
 import axios from 'axios'
+import { usePage } from '@inertiajs/react'
+import { IVendorProduct } from '@/types/vendor-product'
 
 export type UploadedFile<T = unknown> = ClientUploadedFileData<T>
 
@@ -18,13 +21,17 @@ interface UseUploadFileProps
   onUploadError?: (error: unknown) => void
 }
 
+interface PageProps extends InertiaPageProps {
+  product: IVendorProduct
+}
+
 export function useUploadFile({ onUploadComplete, onUploadError, ...props }: UseUploadFileProps = {}) {
+  const { product } = usePage<PageProps>().props
   const [uploadedFile, setUploadedFile] = React.useState<UploadedFile>()
   const [uploadingFile, setUploadingFile] = React.useState<File>()
   const [progress, setProgress] = React.useState<number>(0)
   const [isUploading, setIsUploading] = React.useState(false)
 
-  //TODO: Have to fix this later so product description use images properly
   async function uploadThing(file: File) {
     setIsUploading(true)
     setUploadingFile(file)
@@ -35,7 +42,7 @@ export function useUploadFile({ onUploadComplete, onUploadError, ...props }: Use
         { file },
         {
           headers: {
-            'X-File-Path': `Xtore/products/placeholder-id/description`,
+            'X-File-Path': product?.id ? `Xtore/products/${product.id}/description` : 'Xtore/temp',
             'Content-Type': 'multipart/form-data',
           },
         },

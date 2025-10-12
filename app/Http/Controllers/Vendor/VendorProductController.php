@@ -33,7 +33,7 @@ class VendorProductController extends Controller
         ]);
     }
 
-    public function create(): Response 
+    public function create(): Response
     {
         return Inertia::render('vendor/product/vendor-product-create', [
             'departments' => Department::select('id', 'name')->orderBy('name')->get(),
@@ -42,7 +42,7 @@ class VendorProductController extends Controller
         ]);
     }
 
-    public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse 
+    public function store(#[Authenticated] User $user, VendorProductData $data): RedirectResponse
     {
         $product = Product::create([
             ...$data->toArray(),
@@ -54,8 +54,8 @@ class VendorProductController extends Controller
             'updated_by' => $user->id,
         ]);
 
-        $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/{$product->id}/thumbnail");
-        $product_images_result = FileMover::moveFiles($data->product_images, "Xtore/products/{$product->id}/images");
+        $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/$product->id/thumbnail");
+        $product_images_result = FileMover::moveFiles($data->product_images, "Xtore/products/$product->id/images");
 
         $product->update([
             ...$data->toArray(),
@@ -68,7 +68,7 @@ class VendorProductController extends Controller
         return redirect(route('vendor.products.store'));
     }
 
-    public function edit(Product $product): Response 
+    public function edit(Product $product): Response
     {
         return Inertia::render('vendor/product/vendor-product-edit', [
             'departments' => Department::select('id', 'name')->orderBy('name')->get(),
@@ -78,8 +78,8 @@ class VendorProductController extends Controller
         ]);
     }
 
-    public function update(VendorProductData $data, Product $product): RedirectResponse 
-    {   
+    public function update(VendorProductData $data, Product $product): RedirectResponse
+    {
         if($data->thumbnail_image['public_id'] !== $product->thumbnail_public_id) {
             if($product->thumbnail_public_id) {
                 FileDeleter::delete($product->thumbnail_public_id);
@@ -111,7 +111,7 @@ class VendorProductController extends Controller
         $api = new AdminApi();
         $api->deleteAssetsByPrefix("Xtore/products/{$product->id}/");
         $api->deleteFolder("Xtore/products/{$product->id}");
-        
+
         $product->delete();
         return redirect(route('vendor.products.index'));
     }
