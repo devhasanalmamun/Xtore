@@ -31,7 +31,7 @@ export default function ImageUploader(props: IProps) {
 
       const res = await axios.post(route('upload.product-image'), formData, {
         headers: {
-          'X-File-Path': props.id ? `Xtore/products/${props.id}/images` : 'Xtore/temp',
+          'X-File-Path': props.id ? `Xtore/products/${props.id}/thumbnail` : 'Xtore/temp',
         },
 
         onUploadProgress: (event) => {

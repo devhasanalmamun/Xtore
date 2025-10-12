@@ -19,10 +19,6 @@ class ProductSeeder extends Seeder
 				'price' => 10900,
 				'quantity' => 50,
 				'status' => 'published',
-        'thumbnail_image' => 'https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/Best-Brand-Name-Items_Hero_sr3qkm.webp',
-        'thumbnail_public_id' => 'demo-seeder/Best-Brand-Name-Items_Hero_sr3qkm.webp',
-        'product_images' => ['https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/Best-Brand-Name-Items_Hero_sr3qkm.webp'],
-        'product_image_public_ids' => ['demo-seeder/Best-Brand-Name-Items_Hero_sr3qkm.webp']
 			],
 			[
 				'department_id' => 1, // Assuming Department Electronics
@@ -33,10 +29,6 @@ class ProductSeeder extends Seeder
 				'price' => 11500,
 				'quantity' => 40,
 				'status' => 'published',
-        'thumbnail_image' => 'https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/Promotional-Product-Trends-2024_Hero_vwolyn.webp',
-        'thumbnail_public_id' => 'demo-seeder/Promotional-Product-Trends-2024_Hero_vwolyn.webp',
-        'product_images' => ['https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/Promotional-Product-Trends-2024_Hero_vwolyn.webp'],
-        'product_image_public_ids' => ['demo-seeder/Promotional-Product-Trends-2024_Hero_vwolyn.webp']
 			],
 			[
 				'department_id' => 1, // Assuming Department Electronics
@@ -47,10 +39,6 @@ class ProductSeeder extends Seeder
 				'price' => 6000,
 				'quantity' => 30,
 				'status' => 'published',
-        'thumbnail_image' => 'https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/splash-03-605-v1_v2l59p.webp',
-        'thumbnail_public_id' => 'demo-seeder/splash-03-605-v1_v2l59p.webp',
-        'product_images' => ['https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/Promotional-Product-Trends-2024_Hero_vwolyn.webp','https://res.cloudinary.com/dpxzczlob/image/upload/v1760011866/demo-seeder/splash-03-605-v1_v2l59p.webp'],
-        'product_image_public_ids' => ['demo-seeder/Promotional-Product-Trends-2024_Hero_vwolyn.webp', 'demo-seeder/splash-03-605-v1_v2l59p.webp']
 			],
 		]);
 

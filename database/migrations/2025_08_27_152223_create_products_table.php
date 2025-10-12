@@ -20,10 +20,13 @@ return new class extends Migration
             $table->decimal('price', 20);
             $table->integer('quantity')->nullable();
             $table->string('status')->index();
-            $table->string('thumbnail_image');
-            $table->string('thumbnail_public_id');
-            $table->json('product_images');
-            $table->json('product_image_public_ids');
+
+            // TODO: Remove nullable for these images before it goes to production
+            $table->string('thumbnail_image')->nullable();
+            $table->string('thumbnail_public_id')->nullable();
+            $table->json('product_images')->nullable();
+            $table->json('product_image_public_ids')->nullable();
+
             $table->string('meta_title');
             $table->string('meta_description');
             $table->timestamp('deleted_at')->nullable();
