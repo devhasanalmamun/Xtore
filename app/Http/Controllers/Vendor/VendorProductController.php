@@ -109,8 +109,8 @@ class VendorProductController extends Controller
     public function destroy(Product $product): RedirectResponse
     {
         $api = new AdminApi();
-        $api->deleteAssetsByPrefix("Xtore/products/{$product->id}/");
-        $api->deleteFolder("Xtore/products/{$product->id}");
+        $api->deleteAssetsByPrefix("Xtore/products/$product->id/");
+        $api->deleteFolder("Xtore/products/$product->id");
 
         $product->delete();
         return redirect(route('vendor.products.index'));
