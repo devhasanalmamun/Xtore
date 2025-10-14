@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminVariationTypeController;
 use App\Http\Controllers\Admin\AdminDepartmentController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminCategoryController;
@@ -12,4 +13,5 @@ Route::middleware(['auth', 'verified', 'admin'])
 			Route::get('dashboard', AdminDashboardController::class)->name('dashboard.index');
 			Route::resource('departments', AdminDepartmentController::class);
 			Route::resource('categories', AdminCategoryController::class);
+      Route::resource('variation-types', AdminVariationTypeController::class);
 	});

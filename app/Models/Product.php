@@ -33,7 +33,7 @@ class Product extends Model
         'updated_by',
     ];
 
-    public function casts(): array 
+    public function casts(): array
     {
         return [
             'status'=> ProductStatusEnum::class,
@@ -45,11 +45,11 @@ class Product extends Model
     protected function slug(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => Str::slug( $value ?: $this->title, '-'),
+            set: fn($value) => Str::slug( $value ?: $this->title),
         );
     }
 
-    protected function thumbnailImage(): Attribute 
+    protected function thumbnailImage(): Attribute
     {
         return Attribute::make(
             get: fn($value) => $value ?: asset('assets/images/default-gray-product.jpg')
@@ -61,12 +61,12 @@ class Product extends Model
         return 'slug';
     }
 
-    public function department() : BelongsTo 
+    public function department() : BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
-    public function category() : BelongsTo 
+    public function category() : BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
