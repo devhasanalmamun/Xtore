@@ -9,6 +9,7 @@ import { IAdminCategory } from '@/types/admin-category'
 import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
+import { PlusIcon } from 'lucide-react'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -71,10 +72,15 @@ export default function VendorProductEdit(props: IProps) {
       <Head title="Edit Category" />
 
       <section className="px-4 py-8">
-        <Heading
-          title={`Edit product - ${props.product.title}`}
-          description="This product will be edited and shown in landing pages."
-        />
+        <div className="flex items-center justify-between">
+          <Heading
+            title={`Edit product - ${props.product.title}`}
+            description="This product will be edited and shown in landing pages."
+          />
+          <Button>
+            <PlusIcon strokeWidth="3px" /> Create/update Variants
+          </Button>
+        </div>
 
         <VendorProductForm
           departments={props.departments}
