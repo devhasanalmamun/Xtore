@@ -18,7 +18,7 @@ const columns: ColumnDef<IAdminDepartment>[] = [
       <Button
         variant="ghost"
         className="has-[>svg]:px-0"
-        onClick={() => column.toggleSorting(column.getIsSorted() === 'desc' ? false : true)}
+        onClick={() => column.toggleSorting(column.getIsSorted() !== 'desc')}
       >
         Department Name
         <ArrowUp
@@ -35,7 +35,7 @@ const columns: ColumnDef<IAdminDepartment>[] = [
       <Button
         variant="ghost"
         className="has-[>svg]:px-0"
-        onClick={() => column.toggleSorting(column.getIsSorted() === 'desc' ? false : true)}
+        onClick={() => column.toggleSorting(column.getIsSorted() !== 'desc')}
       >
         Active
         <ArrowUp
