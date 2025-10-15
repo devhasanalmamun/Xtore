@@ -1,13 +1,14 @@
 import { CheckCircleIcon, CircleXIcon, EditIcon, PlusIcon } from 'lucide-react'
 import { ColumnDef } from '@tanstack/react-table'
 import { Head, router } from '@inertiajs/react'
-import { BreadcrumbItem } from '@/types'
 
 import AdminVariationTypeDelete from '@/pages/admin/variations-types/admin-variation-type-delete'
+import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
 import { IAdminVariationType } from '@/types/admin-variation-type'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
 import { Button } from '@/components/ui/button'
+import Pagination from '@/components/ui/pagination'
 
 const columns: ColumnDef<IAdminVariationType>[] = [
   {
@@ -51,7 +52,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 interface IProps {
-  variation_types: IAdminVariationType[]
+  variation_types: {
+    data: IAdminVariationType[]
+    meta: PaginationMeta
+    links: PaginationLinks
+  }
 }
 
 export default function AdminVariationTypeIndex(props: IProps) {
@@ -69,12 +74,12 @@ export default function AdminVariationTypeIndex(props: IProps) {
         </div>
 
         <div className="mt-8">
-          <DataTable columns={columns} data={props.variation_types} />
-          {/*<Pagination*/}
-          {/*  meta={props.departments.meta}*/}
-          {/*  pagination_links={props.departments.links}*/}
-          {/*  totalRows={props.departments.data.length}*/}
-          {/*/>*/}
+          <DataTable columns={columns} data={props.variation_types.data} />
+          <Pagination
+            meta={props.variation_types.meta}
+            pagination_links={props.variation_types.links}
+            totalRows={props.variation_types.data.length}
+          />
         </div>
       </section>
     </AdminLayout>

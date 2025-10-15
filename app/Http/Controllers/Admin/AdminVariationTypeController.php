@@ -13,7 +13,7 @@ class AdminVariationTypeController extends Controller
     public function index()
     {
         return Inertia::render('admin/variations-types/admin-variation-type-index', [
-          'variation_types' => AdminVariationTypeResource::collection(VariationType::orderBy('name')->get())
+          'variation_types' => AdminVariationTypeResource::collection(VariationType::orderBy('name')->paginate(10))
         ]);
     }
 
