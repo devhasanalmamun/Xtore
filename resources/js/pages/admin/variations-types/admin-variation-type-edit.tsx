@@ -14,21 +14,33 @@ const breadcrumbs: BreadcrumbItem[] = [
     routeName: 'admin.variation-types.index',
   },
   {
-    title: 'Create',
-    routeName: 'admin.variation-types.create',
+    title: 'Edit',
+    routeName: 'admin.variation-types.edit',
   },
 ]
 
-export default function AdminVariationTypeCreate() {
-  const { data, setData, processing, post, errors } = useForm<IAdminVariationType>({
-    name: '',
-    slug: '',
-    active: true,
+interface IProps {
+  variation_type: IAdminVariationType
+}
+
+export default function AdminVariationTypeEdit(props: IProps) {
+  const { data, setData, processing, patch, errors } = useForm<IAdminVariationType>({
+    name: props.variation_type.name,
+    slug: props.variation_type.slug,
+    active: props.variation_type.active,
   })
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+  function handleEdit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    post(route('admin.variation-types.store'))
+    patch(route('admin.variation-types.update', props.variation_type.slug), {
+      onSuccess: () => {
+        console.log('Variation type updated successfully')
+      },
+
+      onError: (error) => {
+        console.error(error)
+      },
+    })
   }
 
   useEffect(() => {
@@ -39,14 +51,14 @@ export default function AdminVariationTypeCreate() {
     <AdminLayout breadcrumbs={breadcrumbs}>
       <section className="px-4 py-8 md:px-4 md:py-8">
         <Heading
-          title="Create a variation type for products"
+          title={`Edit variation type ${props.variation_type.name} for products`}
           description="This vartion type will appear when vendor starts creating variations for their product"
         />
 
-        <AdminVariationTypeForm data={data} onDataChange={setData} errors={errors} handleSubmit={handleSubmit} />
+        <AdminVariationTypeForm data={data} onDataChange={setData} errors={errors} handleSubmit={handleEdit} />
 
         <Button type="submit" className="mt-4" disabled={processing} form="admin-variation-type-form">
-          Submit Variation Type
+          Update Variation Type
         </Button>
       </section>
     </AdminLayout>

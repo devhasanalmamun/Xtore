@@ -22,7 +22,7 @@ export default function AdminVariationTypeForm(props: IProps) {
   }
 
   return (
-    <form id="admin-department-form" className="max-w-xl space-y-4" onSubmit={props.handleSubmit}>
+    <form id="admin-variation-type-form" className="max-w-xl space-y-4" onSubmit={props.handleSubmit}>
       <div>
         <Label htmlFor="name">Variation Type Name</Label>
         <Input

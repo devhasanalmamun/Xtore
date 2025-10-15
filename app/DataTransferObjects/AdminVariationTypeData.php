@@ -22,7 +22,7 @@
 
     public static function rules(): array
     {
-      $variation_type_id = request()->route('variation-type')?->id;
+      $variation_type_id = request()->route('variation_type')?->id;
 
       return [
         'slug' => ['required', 'max:255', Rule::unique('variation_types', 'slug')->ignore($variation_type_id)]
