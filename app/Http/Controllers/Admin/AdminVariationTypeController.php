@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTransferObjects\AdminVariationTypeData;
 use App\Http\Resources\Admin\AdminVariationTypeResource;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\VariationType;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -23,14 +24,10 @@ class AdminVariationTypeController extends Controller
         return Inertia::render('admin/variations-types/admin-variation-type-create');
     }
 
-    public function store(Request $request)
+    public function store(AdminVariationTypeData $data): RedirectResponse
     {
-        //
-    }
-
-    public function show(string $id)
-    {
-        //
+        VariationType::create($data->toArray());
+        return redirect(route('admin.variation-types.index'));
     }
 
     public function edit(string $id)

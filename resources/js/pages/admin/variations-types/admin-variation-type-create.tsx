@@ -28,8 +28,7 @@ export default function AdminVariationTypeCreate() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault()
-    console.log(data)
-    // post(route('admin.departments.store'))
+    post(route('admin.variation-types.store'))
   }
 
   useEffect(() => {
