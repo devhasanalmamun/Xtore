@@ -20,7 +20,7 @@ class AdminVariationTypeController extends Controller
 
     public function create()
     {
-        //
+        return Inertia::render('admin/variations-types/admin-variation-type-create');
     }
 
     public function store(Request $request)
