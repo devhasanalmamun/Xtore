@@ -7,8 +7,8 @@ import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
 import { IAdminVariationType } from '@/types/admin-variation-type'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
-import { Button } from '@/components/ui/button'
 import Pagination from '@/components/ui/pagination'
+import { Button } from '@/components/ui/button'
 
 const columns: ColumnDef<IAdminVariationType>[] = [
   {
