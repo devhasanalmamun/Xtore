@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Resources\Admin\AdminVariationTypeResource;
 use App\Http\Controllers\Controller;
 use App\Models\VariationType;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -42,8 +43,9 @@ class AdminVariationTypeController extends Controller
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(VariationType $variationType): RedirectResponse
     {
-        //
+        $variationType->delete();
+        return back();
     }
 }
