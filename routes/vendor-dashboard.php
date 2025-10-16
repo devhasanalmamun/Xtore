@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Vendor\VendorProductVariationController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorProductController;
 use Illuminate\Support\Facades\Route;
@@ -10,4 +11,5 @@ Route::middleware(['auth', 'verified', 'vendor'])
 	->group(function () {
     Route::get('dashboard', VendorDashboardController::class)->name('dashboard.index');
 		Route::resource('products', VendorProductController::class);
+    Route::resource('products/variations', VendorProductVariationController::class);
 });

@@ -1,5 +1,6 @@
-import { useForm } from '@inertiajs/react'
-import { useEffect } from 'react'
+import { router, useForm } from '@inertiajs/react'
+import React, { useEffect } from 'react'
+import { PlusIcon } from 'lucide-react'
 
 import VendorProductForm from '@/pages/vendor/product/vendor-product-form'
 import VendorProductStatusEnum from '@/enums/vendor-product-status-enums'
@@ -10,7 +11,6 @@ import { IAdminCategory } from '@/types/admin-category'
 import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
-import { PlusIcon } from 'lucide-react'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     routeName: 'vendor.products.index',
   },
   {
-    title: 'Create',
+    title: 'Create Product',
     routeName: 'vendor.products.create',
   },
 ]
@@ -65,7 +65,7 @@ export default function VendorProductCreate(props: IProps) {
             title="Create a product"
             description="This product will be shown in website under the selected department and category"
           />
-          <Button>
+          <Button onClick={() => router.get(route('vendor.variations.create'))}>
             <PlusIcon strokeWidth="3px" /> Create Variants
           </Button>
         </div>
