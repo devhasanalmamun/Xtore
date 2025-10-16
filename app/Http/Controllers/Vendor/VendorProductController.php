@@ -6,6 +6,7 @@ use App\Http\Resources\Vendor\VendorProductIndexResource;
 use App\Http\Resources\Vendor\VendorProductEditResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Cloudinary\Api\Admin\AdminApi;
@@ -23,7 +24,7 @@ class VendorProductController extends Controller
 {
     public function index(#[Authenticated] User $user): Response
     {
-        $products = Product::select('title','slug', 'price', 'quantity', 'thumbnail_image', 'thumbnail_public_id', 'status', 'created_at')
+        $products = Product::select('title','slug', 'price', 'quantity', 'thumbnail_image', 'status', 'created_at')
             ->where('created_by', $user->id)
             ->orderBy('title')
             ->paginate(10);
@@ -47,22 +48,18 @@ class VendorProductController extends Controller
         $product = Product::create([
             ...$data->toArray(),
             'thumbnail_image' => null,
-            'thumbnail_public_id' => null,
             'product_images' => null,
-            'product_image_public_ids' => null,
             'created_by' => $user->id,
             'updated_by' => $user->id,
         ]);
 
-        $thumbnail_result = FileMover::moveFile($data->thumbnail_image['public_id'], "Xtore/products/$product->id/thumbnail");
-        $product_images_result = FileMover::moveFiles($data->product_images, "Xtore/products/$product->id/images");
+        $updated_thumbnail_url = FileMover::moveFile($data->thumbnail_image, "/products/$product->id/thumbnail/");
+        $updated_product_images_urls = FileMover::moveFiles($data->product_images, "/products/$product->id/images/");
 
         $product->update([
             ...$data->toArray(),
-            'thumbnail_image' => $thumbnail_result['secure_url'],
-            'thumbnail_public_id' => $thumbnail_result['public_id'],
-            'product_images' => $product_images_result['secure_urls'],
-            'product_image_public_ids' => $product_images_result['public_ids'],
+            'thumbnail_image' => $updated_thumbnail_url,
+            'product_images' => $updated_product_images_urls,
         ]);
 
         return redirect(route('vendor.products.store'));

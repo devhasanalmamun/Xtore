@@ -1,8 +1,7 @@
 import { LoaderIcon, PlusCircleIcon, XIcon } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 
-import { ProductImage } from '@/types/vendor-product'
 import InputError from '@/components/ui/input-error'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,8 +9,8 @@ import { cn } from '@/lib/utils'
 
 interface IProps {
   id?: string
-  product_images: ProductImage[]
-  onChange: (images: ProductImage[]) => void
+  product_images: string[]
+  onChange: (images: string[]) => void
 }
 
 export default function MultiImageUploader(props: IProps) {
@@ -40,7 +39,7 @@ export default function MultiImageUploader(props: IProps) {
 
         return axios.post(route('upload.product-image'), formData, {
           headers: {
-            'X-File-Path': props.id ? `Xtore/products/${props.id}/images` : 'Xtore/temp',
+            'X-File-Path': props.id ? `/products/${props.id}/images` : '/temp',
           },
           onUploadProgress: (event) => {
             if (event.total) {
@@ -53,11 +52,7 @@ export default function MultiImageUploader(props: IProps) {
       })
 
       const results = await Promise.all(uploadPromises)
-
-      const uploadedImages = results.map((res) => ({
-        secure_url: res.data.secure_url,
-        public_id: res.data.public_id,
-      }))
+      const uploadedImages = results.map((res) => res.data)
 
       props.onChange([...props.product_images, ...uploadedImages])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -97,7 +92,7 @@ export default function MultiImageUploader(props: IProps) {
         <div className="flex gap-2 overflow-x-auto">
           {props.product_images.map((image, index) => (
             <div key={index} className="relative h-38 w-33 shrink-0 overflow-hidden rounded border">
-              <img src={image.secure_url} alt={`preview-${index}`} className="h-full w-full object-cover" />
+              <img src={image} alt={`preview-${index}`} className="h-full w-full object-cover" />
               <Button
                 type="button"
                 size="sm"

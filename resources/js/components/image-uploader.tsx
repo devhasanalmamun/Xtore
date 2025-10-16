@@ -1,16 +1,15 @@
 import { ImageUpIcon, LoaderIcon, XIcon } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 
-import { PrductThumbnail } from '@/types/vendor-product'
 import InputError from '@/components/ui/input-error'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 interface IProps {
   id?: string
-  image: PrductThumbnail
-  onChange: (image: PrductThumbnail) => void
+  image: string
+  onChange: (image: string) => void
 }
 
 export default function ImageUploader(props: IProps) {
@@ -31,7 +30,7 @@ export default function ImageUploader(props: IProps) {
 
       const res = await axios.post(route('upload.product-image'), formData, {
         headers: {
-          'X-File-Path': props.id ? `Xtore/products/${props.id}/thumbnail` : 'Xtore/temp',
+          'X-File-Path': props.id ? `/products/${props.id}/thumbnail` : '/temp',
         },
 
         onUploadProgress: (event) => {
@@ -42,12 +41,12 @@ export default function ImageUploader(props: IProps) {
         },
       })
 
-      props.onChange({ secure_url: res.data.secure_url, public_id: res.data.public_id })
+      props.onChange(res.data)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setProgress(0)
       console.error('Error uploading image:', error)
-      props.onChange({ secure_url: '', public_id: '' })
+      props.onChange('')
 
       if (error.response?.status === 422 || error.response?.status === 413) {
         setError(error.response.data.message)
@@ -60,7 +59,7 @@ export default function ImageUploader(props: IProps) {
   function handleFileCancel(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation()
     setError('')
-    props.onChange({ secure_url: '', public_id: '' })
+    props.onChange('')
     if (inputRef.current) inputRef.current.value = ''
   }
 
@@ -70,7 +69,7 @@ export default function ImageUploader(props: IProps) {
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [props.image.secure_url])
+  }, [props.image])
 
   return (
     <>
@@ -82,9 +81,9 @@ export default function ImageUploader(props: IProps) {
           }
         }}
       >
-        {props.image.secure_url ? (
+        {props.image ? (
           <>
-            <img className="size-full object-contain" src={props.image.secure_url} alt="image" />
+            <img className="size-full object-contain" src={props.image} alt="image" />
             <Button type="button" className="absolute top-4 right-4 rounded-sm" onClick={handleFileCancel}>
               <XIcon />
             </Button>

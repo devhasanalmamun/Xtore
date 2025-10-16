@@ -40,7 +40,7 @@ final class VendorProductData extends Data {
 		public readonly ProductStatusEnum $status,
 
 		#[Required]
-		public readonly array $thumbnail_image,
+		public readonly string $thumbnail_image,
 
 		#[Required]
 		public readonly array $product_images,
@@ -53,7 +53,7 @@ final class VendorProductData extends Data {
 
 		return [
 			'slug' => ['required', 'min:3', 'max:255', Rule::unique('products', 'slug')->ignore($product_id)],
-			'thumbnail_image.public_id' => ['required', 'string'],
+			'thumbnail_image' => ['required', 'string'],
 			'product_images'   => ['required', 'array', 'max:5'],
 		];
 	}
@@ -61,7 +61,7 @@ final class VendorProductData extends Data {
 	public static function messages(): array
 	{
 		return [
-			'thumbnail_image.public_id.required' => 'Please upload a product thumbnail image.',
+			'thumbnail_image.required' => 'Please upload a product thumbnail image.',
 			'product_images.required' => 'Please upload at least 1 product image.',
       'product_images.max' => 'You can upload a maximum of 5 images.',
 		];

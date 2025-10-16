@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   Select,
@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { IVendorProduct, PrductThumbnail, ProductImage, productStatus } from '@/types/vendor-product'
+import { IVendorProduct, productStatus } from '@/types/vendor-product'
 import MultiImageUploader from '@/components/multi-image-uploader'
 import { IAdminDepartment } from '@/types/admin-department'
 import PlateEditor from '@/components/editor/plate-editor'
@@ -27,10 +27,7 @@ interface IProps {
   departments: Pick<IAdminDepartment, 'id' | 'name'>[]
   categories: PartialCategory[]
   data: IVendorProduct
-  onDataChange: (
-    key: keyof IVendorProduct,
-    value: PrductThumbnail | string | number | undefined | ProductImage[],
-  ) => void
+  onDataChange: (key: keyof IVendorProduct, value: string | number | undefined | string[]) => void
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   errors: Record<string, string>
 }

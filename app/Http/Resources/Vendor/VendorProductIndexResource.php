@@ -15,10 +15,7 @@ class VendorProductIndexResource extends JsonResource
             'price' => $this->price,
             'quantity' => $this->quantity,
             'status' => $this->status,
-            'thumbnail_image' => [
-                'secure_url' => $this->thumbnail_image,
-                'public_id' => $this->thumbnail_public_id
-            ],
+            'thumbnail_image' => $this->thumbnail_image,
             'created_at' => $this->created_at->diffForHumans(),
         ];
     }

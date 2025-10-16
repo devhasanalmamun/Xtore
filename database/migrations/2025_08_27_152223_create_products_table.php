@@ -23,9 +23,7 @@ return new class extends Migration
 
             // TODO: Remove nullable for these images before it goes to production
             $table->string('thumbnail_image')->nullable();
-            $table->string('thumbnail_public_id')->nullable();
             $table->json('product_images')->nullable();
-            $table->json('product_image_public_ids')->nullable();
 
             $table->string('meta_title');
             $table->string('meta_description');

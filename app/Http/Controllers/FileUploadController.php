@@ -13,7 +13,7 @@ class FileUploadController extends Controller
     public function __invoke(Request $request)
     {
         $file = $request->file('file');
-        $folder_path = "Xtore/temp";
+        $folder_path = "/temp";
 
         if($request->header('X-File-Path')) {
             $folder_path = $request->header('X-File-Path');
@@ -25,14 +25,10 @@ class FileUploadController extends Controller
         );
 
         try {
-            $thumbnail_public_id = Storage::put($folder_path, $file);
-            $thumbnail_url = Storage::url($thumbnail_public_id);
+            $path = Storage::put($folder_path, $file);
+            $thumbnail_image = Storage::url($path);
 
-            return response()->json([
-                    'public_id'=> FileMover::normalizeCloudinaryPublicId($thumbnail_public_id),
-                    'secure_url' => $thumbnail_url
-                ]
-            );
+            return response()->json($thumbnail_image);
         } catch(Exception $e){
             return response()->json([
                 'success' => false,
