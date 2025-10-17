@@ -23,16 +23,8 @@ class VendorProductEditResource extends JsonResource
             'status' => $this->status,
             'department_id' => $this->department->id,
             'category_id' => $this->category->id,
-            'thumbnail_image' => [
-                'secure_url' => $this->thumbnail_image,
-                'public_id' => $this->thumbnail_public_id
-            ],
-            'product_images' => collect($this->product_images)->map(function($url, $index){
-                return [
-                    'secure_url' => $url,
-                    'public_id' => $this->product_image_public_ids[$index] ?? null
-                ];
-            }),
+            'thumbnail_image' => $this->thumbnail_image,
+            'product_images' => $this->product_images
         ];
     }
 }

@@ -1,5 +1,6 @@
 import { Head, useForm } from '@inertiajs/react'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { PlusIcon } from 'lucide-react'
 
 import VendorProductForm from '@/pages/vendor/product/vendor-product-form'
 import { IVendorProduct, productStatus } from '@/types/vendor-product'
@@ -9,7 +10,6 @@ import { IAdminCategory } from '@/types/admin-category'
 import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
-import { PlusIcon } from 'lucide-react'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -42,10 +42,7 @@ export default function VendorProductEdit(props: IProps) {
     price: props.product.price,
     quantity: props.product.quantity,
     status: props.product.status,
-    thumbnail_image: {
-      secure_url: props.product.thumbnail_image?.secure_url,
-      public_id: props.product.thumbnail_image?.public_id,
-    },
+    thumbnail_image: props.product.thumbnail_image,
     product_images: props.product.product_images || [],
     meta_title: props.product.meta_title,
     meta_description: props.product.meta_description,
