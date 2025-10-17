@@ -13,6 +13,7 @@ use App\Helpers\FileMover;
 use App\Models\Department;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 use App\Models\User;
 use Inertia\Inertia;
@@ -96,6 +97,8 @@ class VendorProductController extends Controller
 
     public function destroy(Product $product): RedirectResponse
     {
+        $folder_path = "products/$product->id";
+        Storage::deleteDirectory($folder_path);
         $product->delete();
         return redirect(route('vendor.products.index'));
     }
