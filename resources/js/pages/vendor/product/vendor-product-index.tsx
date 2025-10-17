@@ -1,7 +1,5 @@
-import { fill } from '@cloudinary/url-gen/actions/resize'
 import { ColumnDef } from '@tanstack/react-table'
 import { EditIcon, PlusIcon } from 'lucide-react'
-import { Cloudinary } from '@cloudinary/url-gen'
 import { router } from '@inertiajs/react'
 import { useMemo } from 'react'
 
@@ -30,24 +28,19 @@ interface IProps {
 }
 
 export default function VendorProductIndex(props: IProps) {
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: 'dpxzczlob',
-    },
-  })
-
   const columns = useMemo<ColumnDef<IVendorProduct>[]>(
     () => [
       {
         header: 'Thumbnail',
         accessorKey: 'thumbnail_image',
         cell: ({ row }) => {
-          const publicId = row.original.thumbnail_image?.public_id || row.original.thumbnail_image?.secure_url
-          const small = row.original.thumbnail_image?.public_id
-            ? cld.image(publicId).resize(fill().width(200).height(200)).toURL()
-            : publicId
-
-          return <img className="h-14 w-40 rounded object-cover" src={small} alt={row.original.title} />
+          return (
+            <img
+              className="h-14 w-40 rounded object-cover"
+              src={row.original.thumbnail_image}
+              alt={row.original.title}
+            />
+          )
         },
       },
       {
@@ -91,7 +84,6 @@ export default function VendorProductIndex(props: IProps) {
         ),
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
 

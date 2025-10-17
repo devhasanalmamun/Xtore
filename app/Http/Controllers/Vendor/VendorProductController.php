@@ -6,12 +6,9 @@ use App\Http\Resources\Vendor\VendorProductIndexResource;
 use App\Http\Resources\Vendor\VendorProductEditResource;
 use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
-use Cloudinary\Api\Admin\AdminApi;
 use App\Enums\ProductStatusEnum;
-use App\Helpers\FileDeleter;
 use App\Helpers\FileMover;
 use App\Models\Department;
 use App\Models\Category;
@@ -77,38 +74,28 @@ class VendorProductController extends Controller
 
     public function update(VendorProductData $data, Product $product): RedirectResponse
     {
-        if($data->thumbnail_image['public_id'] !== $product->thumbnail_public_id) {
-            if($product->thumbnail_public_id) {
-                FileDeleter::delete($product->thumbnail_public_id);
+        if($data->thumbnail_image !== $product->thumbnail_image) {
+            if($product->thumbnail_image) {
+                FileMover::removeFile($product->thumbnail_image);
             }
         }
 
-        $existing_public_ids = $product->product_image_public_ids ?? [];
-
-        $new_public_ids = collect($data->product_images)->pluck('public_id')->toArray();
-        $new_secure_urls = collect($data->product_images)->pluck('secure_url')->toArray();
-
-        $deleted_images = array_diff($existing_public_ids, $new_public_ids);
+        $deleted_images = array_diff($product->product_images ?? [], $data->product_images);
         foreach ($deleted_images as $image) {
-            FileDeleter::delete($image);
+            FileMover::removeFile($image);
         }
 
         $product->update([
             ...$data->toArray(),
-            'thumbnail_image' => $data->thumbnail_image['secure_url'],
-            'thumbnail_public_id' => $data->thumbnail_image['public_id'],
-            'product_images' => $new_secure_urls,
-            'product_image_public_ids' => $new_public_ids
+            'thumbnail_image' => $data->thumbnail_image,
+            'product_images' => $data->product_images,
         ]);
+
         return redirect(route('vendor.products.index'));
     }
 
     public function destroy(Product $product): RedirectResponse
     {
-        $api = new AdminApi();
-        $api->deleteAssetsByPrefix("Xtore/products/$product->id/");
-        $api->deleteFolder("Xtore/products/$product->id");
-
         $product->delete();
         return redirect(route('vendor.products.index'));
     }

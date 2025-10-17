@@ -5,29 +5,34 @@ namespace App\Helpers;
 use Illuminate\Support\Facades\Storage;
 
 class FileMover {
-	public static function moveFile(string $old_path, string $new_path) : string
+	public static function moveFile(string $old_url, string $new_folder_destination) : string
 	{
-    $old_base_path = str_replace(config('filesystems.disks.s3.url'), '', $old_path);
-    $new_full_path = $new_path . basename($old_base_path);
+    $old_base_path = str_replace(config('filesystems.disks.s3.url'), '', $old_url);
+    $new_full_path = $new_folder_destination . basename($old_base_path);
 
-    Storage::move($new_full_path, $old_base_path);
+    Storage::move($old_base_path, $new_full_path);
 
 		return config('filesystems.disks.s3.url') . $new_full_path;
 	}
 
-	public static function moveFiles(array $product_images, string $new_path): array
+	public static function moveFiles(array $images_urls, string $new_folder_destination): array
   {
-			$new_product_images = [];
+			$new_images = [];
+			foreach ($images_urls as $image_url) {
+        $old_base_path = str_replace(config('filesystems.disks.s3.url'), '', $image_url);
+        $new_full_path = $new_folder_destination . basename($old_base_path);
 
-			foreach ($product_images as $image) {
-        $old_base_path = str_replace(config('filesystems.disks.s3.url'), '', $image);
-        $new_full_path = $new_path . basename($old_base_path);
+        Storage::move($old_base_path, $new_full_path);
 
-        Storage::move($new_full_path, $old_base_path);
-
-        $new_product_images[] = config('filesystems.disks.s3.url') . $new_full_path;
+        $new_images[] = config('filesystems.disks.s3.url') . $new_full_path;
 			}
 
-			return $new_product_images;
+			return $new_images;
 	}
+
+  public static function removeFile ($old_url): void
+  {
+    $old_path = str_replace(config('filesystems.disks.s3.url'), '', $old_url);
+    Storage::delete($old_path);
+  }
 }

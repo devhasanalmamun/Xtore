@@ -42,6 +42,6 @@ class ProductSeeder extends Seeder
 			],
 		]);
 
-    Product::factory()->count(6)->createMany();
+    Product::factory()->count(2)->createMany();
 	}
 }
