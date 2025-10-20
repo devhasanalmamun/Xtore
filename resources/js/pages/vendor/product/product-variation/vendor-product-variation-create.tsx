@@ -35,54 +35,61 @@ interface IProps {
   }[]
 }
 
+interface IVariation {
+  id: number
+  name: string
+  options: string[]
+  display_type: string
+}
+
 interface IFormData {
-  variation_type_ids: number[]
-  variation_type_options: Record<number, string>
-  variations_display_type: {
-    variation_id: number
-    variation_type: string
-  }[]
+  variations: IVariation[]
 }
 
 export default function VendorProductVariationCreate(props: IProps) {
   const { data, setData } = useForm<IFormData>({
-    variation_type_ids: [],
-    variation_type_options: {},
-    variations_display_type: [],
+    variations: [],
   })
 
-  console.log(data)
+  function handleCheckedChange(checkedState: string | boolean, variation_type: { name: string; id: number }) {
+    const has_existing_variation = data.variations.some((v) => v.id === variation_type.id)
 
-  function handleCheckedChange(checkedState: string | boolean, variation_id: number) {
-    if (checkedState) {
-      setData('variation_type_ids', [...data.variation_type_ids, variation_id])
+    if (!has_existing_variation && checkedState) {
+      setData('variations', [
+        ...data.variations,
+        {
+          id: variation_type.id,
+          name: variation_type.name,
+          options: [],
+          display_type: '',
+        },
+      ])
     }
 
     if (!checkedState) {
       setData(
-        'variation_type_ids',
-        data.variation_type_ids.filter((id) => id !== variation_id),
-      )
-
-      setData(
-        'variations_display_type',
-        data.variations_display_type.filter((vdt) => vdt.variation_id !== variation_id),
+        'variations',
+        data.variations.filter((v) => v.id !== variation_type.id),
       )
     }
   }
 
-  function handleDisplayTypeChange(value: string, variation_type_id: number) {
-    const has_existing_variation_display_type = data.variations_display_type.find(
-      (vdt) => vdt.variation_id === variation_type_id,
+  function handleVariationOptionsInputChange(e: string, variation_type_id: number) {
+    const options = e
+      .split(',')
+      .map((option) => option.trim())
+      .filter(Boolean)
+
+    const updated_variations = data.variations.map((v) => (v.id === variation_type_id ? { ...v, options } : v))
+
+    setData('variations', updated_variations)
+  }
+
+  function handleVariationDisplayTypeChange(value: string, variation_type_id: number) {
+    const updated_variations = data.variations.map((v) =>
+      v.id === variation_type_id ? { ...v, display_type: value } : v,
     )
-
-    const new_variation_display_type = has_existing_variation_display_type
-      ? data.variations_display_type.map((vdt) =>
-          vdt.variation_id === variation_type_id ? { ...vdt, variation_type: value } : vdt,
-        )
-      : [...data.variations_display_type, { variation_id: variation_type_id, variation_type: value }]
-
-    setData('variations_display_type', new_variation_display_type)
+    setData('variations', updated_variations)
   }
 
   return (
@@ -93,12 +100,13 @@ export default function VendorProductVariationCreate(props: IProps) {
           <h3 className="text-lg font-medium">Select all the variation type that your product might have :</h3>
           <div className="flex items-center gap-4">
             {props.variation_types.map((variation_type) => {
+              const is_checked = data.variations.some((v) => v.id === variation_type.id)
               return (
                 <div className="flex items-center gap-1" key={variation_type.id}>
                   <Checkbox
-                    value={variation_type.id}
+                    checked={is_checked}
                     className="cursor-pointer"
-                    onCheckedChange={(checked) => handleCheckedChange(checked, variation_type.id)}
+                    onCheckedChange={(checked) => handleCheckedChange(Boolean(checked), variation_type)}
                   />
                   <Label className="mb-0 font-normal">{variation_type.name}</Label>
                 </div>
@@ -111,44 +119,50 @@ export default function VendorProductVariationCreate(props: IProps) {
           </p>
         </div>
 
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Enter all the variation type options for each variation type :</h3>
-          {data.variation_type_ids.map((id) => {
-            const variation_type = props.variation_types.find((v_type) => v_type.id === id)
-            const name_lwCase = variation_type?.name.toLocaleLowerCase()
+        {data.variations.length > 0 && (
+          <>
+            <div className="space-y-2">
+              <h3 className="text-lg font-medium">Enter all the variation type options for each variation type :</h3>
+              {data.variations.map((variation) => {
+                return (
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center" key={variation.id}>
+                    <div className="xl:min-w-lg">
+                      <Label htmlFor={variation.name.toLowerCase()}>{variation.name}</Label>
+                      <Input
+                        id={variation.name.toLowerCase()}
+                        name={variation.name.toLowerCase()}
+                        defaultValue={variation.options.join(', ')}
+                        onBlur={(e) => handleVariationOptionsInputChange(e.target.value, variation.id)}
+                        placeholder="Enter (For Color) ex: Red, Blue, Green (For Size): XL,XXL"
+                      />
+                    </div>
 
-            return (
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center" key={id}>
-                <div className="xl:min-w-lg">
-                  <Label htmlFor={name_lwCase}>{variation_type?.name}</Label>
-                  <Input
-                    id={name_lwCase}
-                    name={name_lwCase}
-                    placeholder="Enter (For Color) ex: Red, Blue, Green (For Size): XL,XXL"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="display_type">Display type</Label>
-                  <Select name="status" value="" onValueChange={(e) => handleDisplayTypeChange(e, id)}>
-                    <SelectTrigger id="display_type" className="sm:min-w-[220px]">
-                      <SelectValue placeholder="Select a display type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {props.variation_display_types.map((type) => (
-                        <SelectItem key={type.value} value={type.value}>
-                          {type.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        <Button>Create Combinations</Button>
+                    <div>
+                      <Label htmlFor="display_type">Display type</Label>
+                      <Select
+                        name="status"
+                        value={variation.display_type}
+                        onValueChange={(e) => handleVariationDisplayTypeChange(e, variation.id)}
+                      >
+                        <SelectTrigger id="display_type" className="sm:min-w-[220px]">
+                          <SelectValue placeholder="Select a display type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {props.variation_display_types.map((type) => (
+                            <SelectItem key={type.value} value={type.value}>
+                              {type.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <Button>Create Combinations</Button>{' '}
+          </>
+        )}
       </section>
     </VendorLayout>
   )

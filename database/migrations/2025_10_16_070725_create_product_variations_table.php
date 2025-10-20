@@ -21,7 +21,6 @@ return new class extends Migration
         $table->id();
         $table->foreignId('product_variation_type_id')->constrained('product_variation_type')->cascadeOnDelete();
         $table->string('name');
-        $table->string('slug')->unique();
         $table->string('value')->nullable();
         $table->timestamps();
       });
