@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import VendorLayout from '@/layouts/vendor/vendor-layout'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
+import { cartesianProduct } from '@/lib/utils'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 
@@ -42,13 +43,23 @@ interface IVariation {
   display_type: string
 }
 
+interface IProductVariation {
+  name: string
+  stock: number
+  price: number
+  discount_percent: number
+  images: string[]
+}
+
 interface IFormData {
   variations: IVariation[]
+  product_variations: IProductVariation[]
 }
 
 export default function VendorProductVariationCreate(props: IProps) {
   const { data, setData } = useForm<IFormData>({
     variations: [],
+    product_variations: [],
   })
 
   function handleCheckedChange(checkedState: string | boolean, variation_type: { name: string; id: number }) {
@@ -90,6 +101,27 @@ export default function VendorProductVariationCreate(props: IProps) {
       v.id === variation_type_id ? { ...v, display_type: value } : v,
     )
     setData('variations', updated_variations)
+  }
+
+  function createCombinations() {
+    const variation_option_groups = data.variations.map((v) => v.options).filter((options) => options.length > 0)
+
+    if (variation_option_groups.length < 1) {
+      console.log('Please add at least 1 variation option')
+      return
+    }
+
+    const combinations = cartesianProduct(...variation_option_groups)
+
+    const product_variations = combinations.map((combination) => ({
+      name: combination.join('-'),
+      price: 0,
+      discount_percent: 0,
+      stock: 0,
+      images: [],
+    }))
+
+    setData('product_variations', product_variations)
   }
 
   return (
@@ -160,7 +192,7 @@ export default function VendorProductVariationCreate(props: IProps) {
                 )
               })}
             </div>
-            <Button>Create Combinations</Button>{' '}
+            <Button onClick={createCombinations}>Create Combinations</Button>
           </>
         )}
       </section>
