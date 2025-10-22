@@ -1,13 +1,15 @@
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { cn } from '@/lib/utils'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  className?: string
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, ...props }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data: data,
     columns: columns,
@@ -16,7 +18,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   })
 
   return (
-    <div className="overflow-hidden rounded border">
+    <div className={cn('overflow-hidden rounded border', props.className)}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

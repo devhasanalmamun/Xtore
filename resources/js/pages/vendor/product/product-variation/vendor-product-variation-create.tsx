@@ -1,9 +1,12 @@
+import { ColumnDef } from '@tanstack/react-table'
 import { Head, useForm } from '@inertiajs/react'
+import { ImagePlusIcon } from 'lucide-react'
 import { BreadcrumbItem } from '@/types'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
+import { DataTable } from '@/components/ui/data-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { cartesianProduct } from '@/lib/utils'
@@ -124,10 +127,74 @@ export default function VendorProductVariationCreate(props: IProps) {
     setData('product_variations', product_variations)
   }
 
+  function handleUpdateProductVariationValues(index: number, key: keyof IProductVariation, value: number) {
+    console.log('yo')
+    const updated_variations = data.product_variations.map((pv, i) => (i === index ? { ...pv, [key]: value } : pv))
+    setData('product_variations', updated_variations)
+  }
+
+  function handleSubmit() {
+    console.log(data)
+  }
+
+  const columns = useMemo<ColumnDef<IProductVariation>[]>(
+    () => [
+      {
+        header: 'Combination',
+        accessorKey: 'name',
+      },
+      {
+        header: 'Price',
+        accessorKey: 'price',
+        cell: ({ row }) => (
+          <Input
+            type="number"
+            name="price"
+            defaultValue={row.original.price || 0}
+            onBlur={(e) => handleUpdateProductVariationValues(row.index, 'price', parseFloat(e.target.value))}
+          />
+        ),
+      },
+      {
+        header: 'Discount (%)',
+        accessorKey: 'discount_percent',
+        cell: ({ row }) => (
+          <Input
+            type="number"
+            name="discount_percent"
+            defaultValue={row.original.discount_percent || 0}
+            onBlur={(e) =>
+              handleUpdateProductVariationValues(row.index, 'discount_percent', parseFloat(e.target.value))
+            }
+          />
+        ),
+      },
+      {
+        header: 'Stock',
+        accessorKey: 'stock',
+        cell: ({ row }) => (
+          <Input
+            type="number"
+            name="stock"
+            defaultValue={row.original.stock || 0}
+            onBlur={(e) => handleUpdateProductVariationValues(row.index, 'stock', parseFloat(e.target.value))}
+          />
+        ),
+      },
+      {
+        header: 'Images',
+        accessorKey: 'images',
+        cell: () => <ImagePlusIcon className="text-primary" />,
+      },
+    ],
+    // eslint-disable-next-line
+    [data.product_variations],
+  )
+
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
       <Head title="Adding product variations" />
-      <section className="space-y-6 px-4 py-8">
+      <section className="mr-auto max-w-7xl space-y-6 px-4 py-8">
         <div className="space-y-2">
           <h3 className="text-lg font-medium">Select all the variation type that your product might have :</h3>
           <div className="flex items-center gap-4">
@@ -145,7 +212,7 @@ export default function VendorProductVariationCreate(props: IProps) {
               )
             })}
           </div>
-          <p className="text-sm text-red-400">
+          <p className="text-sm font-medium text-slate-800">
             <b>Note</b>: If a variation type is not available or suitable for your product please send a report to admin
             panel with the suggesting name of that variation type. If it sounds good to us we will consider adding it.
           </p>
@@ -194,6 +261,22 @@ export default function VendorProductVariationCreate(props: IProps) {
             </div>
             <Button onClick={createCombinations}>Create Combinations</Button>
           </>
+        )}
+
+        {/* Product Variations Table */}
+        {data.product_variations.length > 0 && (
+          <div className="mt-8 space-y-2">
+            <p className="text-sm font-medium text-slate-800">
+              <b>Note</b>: If you <b>don't have any need for a specific combination leave the stock field to 0</b>. You
+              can edit price, discount <b>(remember discount is in percent %)</b>, stock, images for any specific
+              combination you want.
+            </p>
+            <DataTable columns={columns} data={data.product_variations} />
+
+            <Button onClick={handleSubmit} className="mt-6">
+              Add Product Variations
+            </Button>
+          </div>
         )}
       </section>
     </VendorLayout>
