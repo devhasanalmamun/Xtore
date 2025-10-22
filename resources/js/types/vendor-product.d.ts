@@ -17,6 +17,14 @@ export interface IVendorProduct {
   meta_description: string
 }
 
+export interface IProductVariation {
+  name: string
+  stock: number
+  price: number
+  discount_percent: number
+  images: string[]
+}
+
 export type productStatus = {
   label: string
   value: string

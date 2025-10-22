@@ -1,12 +1,10 @@
-import { ColumnDef } from '@tanstack/react-table'
 import { Head, useForm } from '@inertiajs/react'
-import { ImagePlusIcon } from 'lucide-react'
 import { BreadcrumbItem } from '@/types'
-import React, { useMemo } from 'react'
 
+import VendorProductVariationsTable from '@/pages/vendor/product/product-variation/vendor-product-variations-table'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { IProductVariation } from '@/types/vendor-product'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
-import { DataTable } from '@/components/ui/data-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { cartesianProduct } from '@/lib/utils'
@@ -44,14 +42,6 @@ interface IVariation {
   name: string
   options: string[]
   display_type: string
-}
-
-interface IProductVariation {
-  name: string
-  stock: number
-  price: number
-  discount_percent: number
-  images: string[]
 }
 
 interface IFormData {
@@ -127,69 +117,9 @@ export default function VendorProductVariationCreate(props: IProps) {
     setData('product_variations', product_variations)
   }
 
-  function handleUpdateProductVariationValues(index: number, key: keyof IProductVariation, value: number) {
-    console.log('yo')
-    const updated_variations = data.product_variations.map((pv, i) => (i === index ? { ...pv, [key]: value } : pv))
-    setData('product_variations', updated_variations)
-  }
-
   function handleSubmit() {
     console.log(data)
   }
-
-  const columns = useMemo<ColumnDef<IProductVariation>[]>(
-    () => [
-      {
-        header: 'Combination',
-        accessorKey: 'name',
-      },
-      {
-        header: 'Price',
-        accessorKey: 'price',
-        cell: ({ row }) => (
-          <Input
-            type="number"
-            name="price"
-            defaultValue={row.original.price || 0}
-            onBlur={(e) => handleUpdateProductVariationValues(row.index, 'price', parseFloat(e.target.value))}
-          />
-        ),
-      },
-      {
-        header: 'Discount (%)',
-        accessorKey: 'discount_percent',
-        cell: ({ row }) => (
-          <Input
-            type="number"
-            name="discount_percent"
-            defaultValue={row.original.discount_percent || 0}
-            onBlur={(e) =>
-              handleUpdateProductVariationValues(row.index, 'discount_percent', parseFloat(e.target.value))
-            }
-          />
-        ),
-      },
-      {
-        header: 'Stock',
-        accessorKey: 'stock',
-        cell: ({ row }) => (
-          <Input
-            type="number"
-            name="stock"
-            defaultValue={row.original.stock || 0}
-            onBlur={(e) => handleUpdateProductVariationValues(row.index, 'stock', parseFloat(e.target.value))}
-          />
-        ),
-      },
-      {
-        header: 'Images',
-        accessorKey: 'images',
-        cell: () => <ImagePlusIcon className="text-primary" />,
-      },
-    ],
-    // eslint-disable-next-line
-    [data.product_variations],
-  )
 
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
@@ -266,13 +196,7 @@ export default function VendorProductVariationCreate(props: IProps) {
         {/* Product Variations Table */}
         {data.product_variations.length > 0 && (
           <div className="mt-8 space-y-2">
-            <p className="text-sm font-medium text-slate-800">
-              <b>Note</b>: If you <b>don't have any need for a specific combination leave the stock field to 0</b>. You
-              can edit price, discount <b>(remember discount is in percent %)</b>, stock, images for any specific
-              combination you want.
-            </p>
-            <DataTable columns={columns} data={data.product_variations} />
-
+            <VendorProductVariationsTable onChange={setData} product_variations={data.product_variations} />
             <Button onClick={handleSubmit} className="mt-6">
               Add Product Variations
             </Button>
