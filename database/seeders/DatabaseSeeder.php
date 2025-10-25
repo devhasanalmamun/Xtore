@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Banner;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,5 +16,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             VariationTypeSeeder::class,
         ]);
+
+        Banner::factory(20)->create();
     }
 }
