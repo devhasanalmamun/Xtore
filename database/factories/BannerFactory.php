@@ -14,7 +14,7 @@ class BannerFactory extends Factory
           'title' => $this->faker->sentence(3),
           'page' => $this->faker->randomElement(BannerPlacementPagesEnum::cases())->value,
           'section' => $this->faker->randomElement(BannerPlacementSectionsEnum::cases())->value,
-          'image' => $this->faker->imageUrl(1200, 600, 'business', true, 'Banner'),
+          'image' => 'https://placehold.co/1200x600?text=Banner',
           'active' => $this->faker->boolean(90),
           'created_by' => 1,
           'updated_by' => 1,
