@@ -40,7 +40,12 @@ export default function Register() {
         <div className="rounded-lg md:grid md:grid-cols-2 md:items-center md:bg-gray-50">
           <img className="hidden h-180 w-full object-cover md:block" srcSet="/assets/images/auth.png" alt="auth" />
           <form className="flex flex-col gap-6 bg-gray-50 p-6 md:bg-transparent" onSubmit={submit}>
-            <p></p>
+            <div className="flex items-center gap-2">
+              <h2 className="font-mono text-2xl font-semibold text-primary capitalize sm:text-3xl lg:text-4xl xl:text-5xl">
+                Join us!!
+              </h2>
+              <img className="h-12 object-cover md:h-20" srcSet="/assets/gifs/icon-lord-wow.gif" alt="smile" />
+            </div>
 
             <div className="grid gap-6">
               <div className="grid gap-2">
@@ -132,7 +137,7 @@ export default function Register() {
             </div>
 
             <div className="text-center text-sm text-muted-foreground">
-              Already have an account?{' '}
+              Already have an account?
               <TextLink href={route('login')} tabIndex={6}>
                 Log in
               </TextLink>
