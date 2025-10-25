@@ -3,12 +3,11 @@
 use App\Http\Controllers\DetermineDashboardController;
 use App\Http\Controllers\EditorMediaController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('landings/homepage/homepage-index');
-})->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 Route::get('/contact-us', function () {
     return Inertia::render('landings/contact-us/contact-us-index');
