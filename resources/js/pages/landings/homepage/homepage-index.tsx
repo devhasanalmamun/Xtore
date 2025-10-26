@@ -30,7 +30,7 @@ interface IProps {
 export default function HomepageIndex(props: IProps) {
   const [api, setApi] = useState<CarouselApi>()
   const [, setCurrent] = useState(0)
-  const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }))
+  const plugin = useRef(Autoplay({ delay: 6000, stopOnInteraction: true }))
 
   useEffect(() => {
     if (!api) return
