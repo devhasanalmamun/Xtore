@@ -1,34 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Vendor;
 
-use App\Http\Resources\Vendor\VendorProductIndexResource;
-use App\Http\Resources\Vendor\VendorProductEditResource;
-use Illuminate\Container\Attributes\Authenticated;
 use App\DataTransferObjects\VendorProductData;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\RedirectResponse;
-use App\Http\Controllers\Controller;
 use App\Enums\ProductStatusEnum;
 use App\Helpers\FileMover;
-use App\Models\Department;
-use App\Models\Category;
-use App\Models\Product;
-use Inertia\Response;
-use App\Models\User;
-use Inertia\Inertia;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Vendor\{VendorProductEditResource, VendorProductIndexResource};
+use App\Models\{Category, Department, Product, User};
+use Illuminate\Container\Attributes\Authenticated;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Inertia\{Inertia, Response};
 
 class VendorProductController extends Controller
 {
     public function index(#[Authenticated] User $user): Response
     {
-        $products = Product::select('title','slug', 'price', 'quantity', 'thumbnail_image', 'status', 'created_at')
+        $products = Product::select('title', 'slug', 'price', 'quantity', 'thumbnail_image', 'status', 'created_at')
             ->where('created_by', $user->id)
             ->orderBy('title')
             ->paginate(10);
 
         return Inertia::render('vendor/product/vendor-product-index', [
-            'products' => VendorProductIndexResource::collection($products)
+            'products' => VendorProductIndexResource::collection($products),
         ]);
     }
 
@@ -69,14 +66,14 @@ class VendorProductController extends Controller
             'departments' => Department::select('id', 'name')->orderBy('name')->get(),
             'categories' => Category::select('id', 'department_id', 'name')->orderBy('name')->get(),
             'status' => ProductStatusEnum::labels(),
-            'product'=> VendorProductEditResource::make($product)
+            'product' => VendorProductEditResource::make($product),
         ]);
     }
 
     public function update(VendorProductData $data, Product $product): RedirectResponse
     {
-        if($data->thumbnail_image !== $product->thumbnail_image) {
-            if($product->thumbnail_image) {
+        if ($data->thumbnail_image !== $product->thumbnail_image) {
+            if ($product->thumbnail_image) {
                 FileMover::removeFile($product->thumbnail_image);
             }
         }
@@ -100,6 +97,7 @@ class VendorProductController extends Controller
         $folder_path = "products/$product->id";
         Storage::deleteDirectory($folder_path);
         $product->delete();
+
         return redirect(route('vendor.products.index'));
     }
 }

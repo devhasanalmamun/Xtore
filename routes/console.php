@@ -1,12 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Schedule;
-use Illuminate\Support\Facades\Artisan;
-use Cloudinary\Api\Admin\AdminApi;
+declare(strict_types=1);
 
-Artisan::command('cloudinary:cleanup-temp', function() {
+use Cloudinary\Api\Admin\AdminApi;
+use Illuminate\Support\Facades\{Artisan, Schedule};
+
+Artisan::command('cloudinary:cleanup-temp', function () {
     $folder = 'Xtore/temp';
-    
+
     try {
         $result = new AdminApi()->deleteAssetsByPrefix("$folder/");
         info("✅ Cloudinary $folder/ cleanup successful", ['result' => $result]);

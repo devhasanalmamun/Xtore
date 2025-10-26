@@ -1,28 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources\Admin;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AdminCategoryResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
         return [
-            'parent_id'=> $this->parent_id,
+            'parent_id' => $this->parent_id,
             'name' => $this->name,
             'slug' => $this->slug,
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
             'active' => $this->active,
             'created_at' => $this->created_at->diffForHumans(),
-            'department' => $this->whenLoaded('department', function (){
+            'department' => $this->whenLoaded('department', function () {
                 return [
-                    'name'=> $this->department->name,
-                    'slug'=> $this->department->slug,
+                    'name' => $this->department->name,
+                    'slug' => $this->department->slug,
                 ];
-            })
+            }),
         ];
     }
 }

@@ -1,27 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
-enum ProductVariationTypeEnum : string
+enum ProductVariationTypeEnum: string
 {
     case RADIO = 'radio';
     case SELECT = 'select';
     case IMAGE = 'image';
 
-    public function label() : string
+    public function label(): string
     {
-      return match($this) {
-        self::RADIO => 'Radio',
-        self::SELECT => 'Select',
-        self::IMAGE => 'Image',
-      };
+        return match ($this) {
+            self::RADIO => 'Radio',
+            self::SELECT => 'Select',
+            self::IMAGE => 'Image',
+        };
     }
 
-    public static function labels() :array
+    public static function labels(): array
     {
-      return array_map(fn(self $case)=> [
-        'value' => $case->value,
-        'label' => $case->label(),
-      ], self::cases());
+        return array_map(fn (self $case) => [
+            'value' => $case->value,
+            'label' => $case->label(),
+        ], self::cases());
     }
 }

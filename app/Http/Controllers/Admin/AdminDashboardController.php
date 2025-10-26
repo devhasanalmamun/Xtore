@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Container\Attributes\Authenticated;
 use App\Http\Controllers\Controller;
-use Inertia\Response;
 use App\Models\User;
-use Inertia\Inertia;
+use Illuminate\Container\Attributes\Authenticated;
+use Inertia\{Inertia, Response};
 
 class AdminDashboardController extends Controller
 {

@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\DataTransferObjects\RegisteredUserData;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Response;
-use App\Models\User;
-use Inertia\Inertia;
+use Inertia\{Inertia, Response};
 
 class RegisteredUserController extends Controller
 {
@@ -18,10 +19,9 @@ class RegisteredUserController extends Controller
         return Inertia::render('auth/register');
     }
 
-    
     public function store(RegisteredUserData $data): RedirectResponse
     {
-		$user = User::create($data->toArray());
+        $user = User::create($data->toArray());
 
         event(new Registered($user));
         Auth::login($user);

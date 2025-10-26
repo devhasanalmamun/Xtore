@@ -1,0 +1,17 @@
+{
+  "preset": "laravel",
+  "rules": {
+    "simplified_null_return": true,
+    "braces": false,
+    "declare_strict_types": true,
+    "no_unused_imports": true,
+    "group_import": true,
+    "single_import_per_statement": false,
+    "no_useless_else": true,
+    "compact_nullable_typehint": true,
+    "new_with_braces": {
+      "anonymous_class": false,
+      "named_class": false
+    }
+  }
+}

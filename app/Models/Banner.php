@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,19 +12,19 @@ class Banner extends Model
     use HasFactory;
 
     protected $fillable = [
-      'title',
-      'page',
-      'section',
-      'image',
-      'active',
-      'created_by',
-      'updated_by',
+        'title',
+        'page',
+        'section',
+        'image',
+        'active',
+        'created_by',
+        'updated_by',
     ];
 
-    public function casts() : array
+    public function casts(): array
     {
-      return [
-        'active' => 'boolean',
-      ];
+        return [
+            'active' => 'boolean',
+        ];
     }
 }

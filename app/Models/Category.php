@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 use Illuminate\Support\Str;
 
 class Category extends Model
@@ -20,13 +21,13 @@ class Category extends Model
         'slug',
         'meta_title',
         'meta_description',
-        'active'
+        'active',
     ];
 
-    public function casts(): array 
+    public function casts(): array
     {
         return [
-            'active'=> 'boolean'
+            'active' => 'boolean',
         ];
     }
 
@@ -37,17 +38,17 @@ class Category extends Model
         );
     }
 
-    public function getRouteKeyName() : string
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    public function department() : BelongsTo
+    public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
-    public function children() : HasMany 
+    public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
     }

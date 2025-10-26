@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class DetermineIsUserAdminMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && $request->user()->isAdmin()){
+        if (Auth::check() && $request->user()->isAdmin()) {
             return $next($request);
         }
         abort(Response::HTTP_FORBIDDEN);

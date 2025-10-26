@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class EditorMediaController extends Controller
@@ -11,9 +13,9 @@ class EditorMediaController extends Controller
     public function __invoke(Request $request)
     {
         $file = $request->file('file');
-        $folder_path = "Xtore/temp";
+        $folder_path = 'Xtore/temp';
 
-        if($request->header('X-File-Path')) {
+        if ($request->header('X-File-Path')) {
             $folder_path = $request->header('X-File-Path');
         }
 
@@ -25,7 +27,7 @@ class EditorMediaController extends Controller
             'name' => $file->getClientOriginalName(),
             'size' => $file->getSize(),
             'type' => $file->getClientMimeType(),
-            'url' => $image_url
+            'url' => $image_url,
         ]);
     }
 }

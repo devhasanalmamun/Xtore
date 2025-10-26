@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\DetermineDashboardController;
-use App\Http\Controllers\EditorMediaController;
-use App\Http\Controllers\FileUploadController;
-use App\Http\Controllers\HomeController;
+declare(strict_types=1);
+
+use App\Http\Controllers\{DetermineDashboardController, EditorMediaController, FileUploadController, HomeController};
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,7 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('determine-dashboard', DetermineDashboardController::class)->name('determine-dashboard');
 });
 
-Route::middleware(['auth', 'verified'])->group(function (){
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/editor-media', EditorMediaController::class)->name('editor-media.store');
     Route::post('/upload/product-image', FileUploadController::class)->name('upload.product-image');
 });

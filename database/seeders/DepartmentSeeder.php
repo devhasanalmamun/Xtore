@@ -1,20 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use App\Models\Department;
 
 class DepartmentSeeder extends Seeder
 {
     public function run(): void
     {
         $departments = [
-            'Electronics', 
-            'Clothing & Fashion', 
-            'Home & Kitchen', 
-            'Sports & Outdoors', 
+            'Electronics',
+            'Clothing & Fashion',
+            'Home & Kitchen',
+            'Sports & Outdoors',
             'Health & Beauty',
             'Toys & Games',
             'Automotive',
@@ -22,10 +24,10 @@ class DepartmentSeeder extends Seeder
             'Grocery & Food',
             'Jewelry',
             'Furniture',
-            'Pet Supplies'
+            'Pet Supplies',
         ];
 
-        foreach ($departments as $name){
+        foreach ($departments as $name) {
             Department::factory()->create([
                 'name' => $name,
                 'slug' => Str::slug($name),

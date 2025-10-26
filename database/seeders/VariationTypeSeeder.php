@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\VariationType;
@@ -13,11 +15,11 @@ class VariationTypeSeeder extends Seeder
         $variation_types = ['Color', 'Size', 'Volume', 'Fabrics', 'Material', 'Weight'];
 
         foreach ($variation_types as $type) {
-          VariationType::create([
-            'name' => $type,
-            'slug' => Str::slug($type),
-            'active' => true
-          ]);
+            VariationType::create([
+                'name' => $type,
+                'slug' => Str::slug($type),
+                'active' => true,
+            ]);
         }
     }
 }
