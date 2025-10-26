@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import Autoplay from 'embla-carousel-autoplay'
 
 import {
   Carousel,
@@ -29,6 +30,7 @@ interface IProps {
 export default function HomepageIndex(props: IProps) {
   const [api, setApi] = useState<CarouselApi>()
   const [, setCurrent] = useState(0)
+  const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }))
 
   useEffect(() => {
     if (!api) return
@@ -40,7 +42,14 @@ export default function HomepageIndex(props: IProps) {
     <LandingsLayout title="Welcome to Our Site" description="This is the welcome page.">
       {/* Banner */}
       <section className="relative px-0 pb-8 sm:px-6 lg:px-8 lg:pb-16">
-        <Carousel setApi={setApi} className="mx-auto max-w-7xl" opts={{ loop: true }}>
+        <Carousel
+          className="mx-auto max-w-7xl"
+          opts={{ loop: true }}
+          setApi={setApi}
+          plugins={[plugin.current]}
+          onMouseEnter={() => plugin.current.stop()}
+          onMouseLeave={() => plugin.current.play()}
+        >
           <CarouselContent className="h-[40dvh] sm:h-[50dvh] md:h-[70dvh]">
             {props.banner_hero_images.map((item, i) => (
               <CarouselItem key={i}>
