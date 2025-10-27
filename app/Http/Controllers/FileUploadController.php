@@ -27,9 +27,9 @@ class FileUploadController extends Controller
 
         try {
             $path = Storage::put($folder_path, $file);
-            $thumbnail_image = Storage::url($path);
+            $image = Storage::url($path);
 
-            return response()->json($thumbnail_image);
+            return response()->json($image);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,

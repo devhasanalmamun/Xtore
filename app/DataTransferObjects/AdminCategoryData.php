@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
-use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Attributes\Validation\{Max, Min, Required, Rule as ValidationRuleSpatie};
+use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
 final class AdminCategoryData extends Data
@@ -20,6 +20,8 @@ final class AdminCategoryData extends Data
         public readonly string $name,
 
         public readonly string $slug,
+
+        public readonly string $image,
 
         #[Required, Min(8), Max(255)]
         public readonly string $meta_title,
@@ -37,6 +39,14 @@ final class AdminCategoryData extends Data
 
         return [
             'slug' => ['required', 'max:255', Rule::unique('categories', 'slug')->ignore($category_id)],
+            'image' => ['required', 'string'],
+        ];
+    }
+
+    public static function messages() : array
+    {
+        return [
+          'image.required' => 'Please upload a category image.',
         ];
     }
 }

@@ -31,6 +31,7 @@ export default function AdminCategoryCreate(props: IProps) {
     department_id: undefined,
     name: '',
     slug: '',
+    image: '',
     meta_title: '',
     meta_description: '',
     active: true,

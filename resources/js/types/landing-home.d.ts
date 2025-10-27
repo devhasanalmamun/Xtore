@@ -6,6 +6,7 @@ interface IHeroImage {
 interface ICategory {
   name: string
   slug: string
+  image: string
 }
 
 export { IHeroImage, ICategory }

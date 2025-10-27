@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
+use Spatie\LaravelData\Attributes\Validation\{Min, Required};
 use App\Enums\ProductStatusEnum;
 use Illuminate\Validation\Rule;
-use Spatie\LaravelData\Attributes\Validation\{Min, Required};
 use Spatie\LaravelData\Data;
 
 final class VendorProductData extends Data
@@ -41,7 +41,6 @@ final class VendorProductData extends Data
         #[Required]
         public readonly ProductStatusEnum $status,
 
-        #[Required]
         public readonly string $thumbnail_image,
 
         #[Required]

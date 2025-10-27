@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { XIcon } from 'lucide-react'
 
 import {
@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button'
 import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import ImageUploader from '@/components/image-uploader'
 
 type PartialCategory = Pick<IAdminCategory, 'id' | 'department_id' | 'name'>[]
 
@@ -51,7 +52,17 @@ export default function AdminCategoryForm(props: IProps) {
   }, [props.data.department_id, props.categories, props.data.id])
 
   return (
-    <form id="admin-category-form" className="max-w-xl space-y-4" onSubmit={props.handleSubmit}>
+    <form id="admin-category-form" className="max-w-3xl space-y-4" onSubmit={props.handleSubmit}>
+      <div>
+        <Label htmlFor="image">Category Image</Label>
+        <ImageUploader
+          destination="/categories"
+          image={props.data.image}
+          onChange={(url) => handleChange('image', url)}
+        />
+        <InputError message={props.errors.image} />
+      </div>
+
       <div>
         <Label htmlFor="name">Category Name</Label>
         <Input

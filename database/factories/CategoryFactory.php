@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\{Category, Department};
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\{Category, Department};
 use Illuminate\Support\Str;
 
 class CategoryFactory extends Factory
@@ -19,6 +19,7 @@ class CategoryFactory extends Factory
             'parent_id' => $this->faker->boolean(80) ? Category::inRandomOrder()->value('id') : null,
             'slug' => Str::slug($name),
             'name' => ucfirst($name),
+            'image' => 'https://placehold.co/1200x600?text=Category',
             'meta_title' => $this->faker->sentence(2),
             'meta_description' => $this->faker->sentence(6),
             'active' => $this->faker->boolean(80),

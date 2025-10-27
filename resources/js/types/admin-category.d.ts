@@ -6,6 +6,7 @@ export interface IAdminCategory {
   meta_description: string
   name: string
   slug: string
+  image: string
   active: boolean
   created_at?: string
 }
