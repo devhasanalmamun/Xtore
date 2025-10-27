@@ -9,17 +9,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { IHeroImage } from '@/types/landing-home'
 import { cn } from '@/lib/utils'
-
-interface IHeroImage {
-  image: string
-  title: string
-}
 
 interface IProps {
   hero_images: IHeroImage[]
 }
-export default function Hero(props: IProps) {
+export default function HomepageHeroSection(props: IProps) {
   const [api, setApi] = useState<CarouselApi>()
   const [, setCurrent] = useState(0)
   const plugin = useRef(Autoplay({ delay: 6000, stopOnInteraction: true }))
