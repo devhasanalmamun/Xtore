@@ -18,7 +18,7 @@ class HomeController extends Controller
                 ['page', BannerPlacementPagesEnum::HOMEPAGE->value],
                 ['section', BannerPlacementSectionsEnum::HERO->value],
             ])->select('title', 'image')->get(),
-             'categories' => Category::where('active', true)->select('name', 'slug', 'image')->get(),
+             'categories' => Category::where('active', true)->select('name', 'slug', 'image')->take(16)->get(),
         ]);
     }
 }
