@@ -13,7 +13,7 @@ export default function HomepageCategoriesSection(props: IProps) {
 
       <div className="grid grid-cols-8 items-center gap-2">
         {props.categories.map((category) => {
-          return <CardCategory key={category.slug} url="" name={category.name} />
+          return <CardCategory key={category.slug} category={category} />
         })}
       </div>
 

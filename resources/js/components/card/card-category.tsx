@@ -1,15 +1,16 @@
+import { ICategory } from '@/types/landing-home'
+
 interface IProps {
-  url: string
-  name: string
+  category: ICategory
 }
 
 export default function CardCategory(props: IProps) {
+  const name = props.category.name.length >= 16 ? props.category.name.slice(0, 14) + ' ...' : props.category.name
+
   return (
     <div className="cursor-pointer overflow-hidden rounded bg-gray-50 px-2.5 py-2 shadow-xs hover:shadow-sm">
-      <img className="h-20 w-full object-cover" src="" alt={props.name} />
-      <h3 className="mt-1.5 text-sm font-semibold">
-        {props.name.length >= 16 ? props.name.slice(0, 14) + ' ...' : props.name}
-      </h3>
+      <img className="h-20 w-full object-cover" src="" alt={props.category.name} />
+      <h3 className="mt-1.5 text-sm font-semibold">{name}</h3>
     </div>
   )
 }
