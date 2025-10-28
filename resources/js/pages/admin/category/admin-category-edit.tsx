@@ -1,12 +1,13 @@
 import { Head, useForm } from '@inertiajs/react'
+import React from 'react'
 
+import AdminCategoryForm from '@/pages/admin/category/admin-category-form'
+import { IAdminDepartment } from '@/types/admin-department'
 import { IAdminCategory } from '@/types/admin-category'
 import AdminLayout from '@/layouts/admin/admin-layout'
+import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
-import AdminCategoryForm from './admin-category-form'
-import { Button } from '@/components/ui/button'
-import { IAdminDepartment } from '@/types/admin-department'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -30,6 +31,7 @@ export default function AdminCategoryEdit(props: IProps) {
     id: props.category.id,
     parent_id: props.category.parent_id ?? undefined,
     department_id: props.category.department_id,
+    image: props.category.image,
     name: props.category.name,
     slug: props.category.slug,
     meta_title: props.category.meta_title,

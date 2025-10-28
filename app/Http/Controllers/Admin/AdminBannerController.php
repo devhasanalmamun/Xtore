@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminBannerResource;
 use App\Models\{Banner, User};
 use Illuminate\Container\Attributes\Authenticated;
-use Illuminate\Http\{RedirectResponse, Request};
+use Illuminate\Http\{RedirectResponse};
 use Inertia\{Inertia, Response};
 
 class AdminBannerController extends Controller
@@ -46,14 +46,23 @@ class AdminBannerController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit(Banner $banner): Response
     {
-        //
+      return Inertia::render('admin/banner/admin-banner-edit', [
+        'banner' => new AdminBannerResource($banner),
+        'pages' => BannerPlacementPagesEnum::labels(),
+        'sections' => BannerPlacementSectionsEnum::labels(),
+      ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(AdminBannerData $data, Banner $banner, #[Authenticated] User $user): RedirectResponse
     {
-        //
+        $banner->update([
+            ...$data->toArray(),
+            'updated_by' => $user->id,
+          ]
+        );
+        return redirect(route('admin.banners.index'));
     }
 
     public function destroy(Banner $banner): RedirectResponse

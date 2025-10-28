@@ -50,7 +50,7 @@ export default function HomepageHeroSection(props: IProps) {
             key={i}
             onClick={() => api?.scrollTo(i)}
             className={cn(
-              'h-2.5 w-2.5 cursor-pointer rounded-full bg-primary/20',
+              'h-2.5 w-2.5 cursor-pointer rounded-full bg-primary/50',
               api?.selectedScrollSnap() === i && 'bg-primary',
             )}
           />
