@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Enums\{BannerPlacementPagesEnum, BannerPlacementSectionsEnum};
-use App\Models\{Banner, Category};
+use App\Enums\{BannerPlacementPagesEnum, BannerPlacementSectionsEnum, UserRoleEnum};
+use App\Models\{Banner, Category, User};
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -18,7 +18,8 @@ class HomeController extends Controller
                 ['page', BannerPlacementPagesEnum::HOMEPAGE->value],
                 ['section', BannerPlacementSectionsEnum::HERO->value],
             ])->select('title', 'image')->get(),
-             'categories' => Category::where('active', true)->select('name', 'slug', 'image')->take(16)->get(),
+            'categories' => Category::where('active', true)->select('name', 'slug', 'image')->take(16)->get(),
+            'vendors' => User::where('role', UserRoleEnum::VENDOR->value)->get(),
         ]);
     }
 }

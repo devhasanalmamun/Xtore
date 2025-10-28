@@ -1,4 +1,5 @@
 import HomepageCategoriesSection from '@/pages/landings/homepage/sections/homepage-categories-section'
+import HomepageVendorsSection from '@/pages/landings/homepage/sections/homepage-vendors-section'
 import HomepageHeroSection from '@/pages/landings/homepage/sections/homepage-hero-section'
 import LandingsLayout from '@/layouts/landings/landings-layout'
 import { ICategory, IHeroImage } from '@/types/landing-home'
@@ -24,7 +25,12 @@ export default function HomepageIndex(props: IProps) {
       </section>
 
       {/* TODO: Top sold products */}
+
       {/* TODO: Top Vendors */}
+      <section className="relative px-0 pb-8 sm:px-6 lg:px-8 lg:pb-16">
+        <HomepageVendorsSection categories={props.categories} />
+      </section>
+
       {/* TODO: Recommended Product Based on Browsing History: Daraz */}
     </LandingsLayout>
   )
