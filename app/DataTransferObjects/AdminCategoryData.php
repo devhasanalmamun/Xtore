@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
-use Spatie\LaravelData\Attributes\Validation\{Max, Min, Required, Rule as ValidationRuleSpatie};
 use Illuminate\Validation\Rule;
+use Spatie\LaravelData\Attributes\Validation\{Max, Min, Required, Rule as ValidationRuleSpatie};
 use Spatie\LaravelData\Data;
 
 final class AdminCategoryData extends Data
@@ -43,10 +43,10 @@ final class AdminCategoryData extends Data
         ];
     }
 
-    public static function messages() : array
+    public static function messages(): array
     {
         return [
-          'image.required' => 'Please upload a category image.',
+            'image.required' => 'Please upload a category image.',
         ];
     }
 }

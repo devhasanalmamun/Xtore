@@ -1,21 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminBannerResource;
 use App\Models\Banner;
 use Illuminate\Http\Request;
-use Inertia\Response;
-use Inertia\Inertia;
+use Inertia\{Inertia, Response};
 
 class AdminBannerController extends Controller
 {
-
     public function index(): Response
     {
         return Inertia::render('admin/banner/admin-banner-index', [
-          'banners' => AdminBannerResource::collection(Banner::orderBy('created_at')->paginate(10)),
+            'banners' => AdminBannerResource::collection(Banner::orderBy('created_at')->paginate(10)),
         ]);
     }
 

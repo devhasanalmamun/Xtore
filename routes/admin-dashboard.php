@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-  use App\Http\Controllers\Admin\{AdminBannerController,
+use App\Http\Controllers\Admin\{AdminBannerController,
     AdminCategoryController,
     AdminDashboardController,
     AdminDepartmentController,
     AdminVariationTypeController};
-
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'admin'])
