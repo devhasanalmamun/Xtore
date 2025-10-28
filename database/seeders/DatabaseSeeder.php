@@ -13,12 +13,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            BannerSeeder::class,
             DepartmentSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
             VariationTypeSeeder::class,
         ]);
 
-        Banner::factory(20)->create();
+        Banner::factory(10)->create();
     }
 }

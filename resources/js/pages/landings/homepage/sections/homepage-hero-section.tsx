@@ -22,7 +22,6 @@ export default function HomepageHeroSection(props: IProps) {
 
   useEffect(() => {
     if (!api) return
-
     api.on('select', () => setCurrent(api?.selectedScrollSnap()))
   }, [api])
 
@@ -35,7 +34,7 @@ export default function HomepageHeroSection(props: IProps) {
       onMouseEnter={() => plugin.current.stop()}
       onMouseLeave={() => plugin.current.play()}
     >
-      <CarouselContent className="h-[40dvh] sm:h-[50dvh] md:h-[70dvh]">
+      <CarouselContent className="h-[28dvh] sm:h-[42dvh] md:h-[520px]">
         {props.hero_images.map((item, i) => (
           <CarouselItem key={i}>
             <img className="h-full w-full object-cover" src={item.image} alt={item.title} />
