@@ -31,7 +31,7 @@ interface IProps {
 }
 
 export default function AdminBannerForm(props: IProps) {
-  function handleChange(key: string, value: string | number | boolean | undefined) {
+  function handleChange(key: string, value: string | boolean) {
     props.onDataChange({
       ...props.data,
       [key]: value,

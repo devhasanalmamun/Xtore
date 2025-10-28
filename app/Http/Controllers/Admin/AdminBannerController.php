@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\BannerPlacementPagesEnum;
-use App\Enums\BannerPlacementSectionsEnum;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminBannerResource;
-use App\Models\Banner;
-use Illuminate\Http\Request;
+use App\Enums\BannerPlacementSectionsEnum;
+use App\Enums\BannerPlacementPagesEnum;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Controller;
 use Inertia\{Inertia, Response};
+use Illuminate\Http\Request;
+use App\Models\Banner;
 
 class AdminBannerController extends Controller
 {
@@ -49,8 +50,9 @@ class AdminBannerController extends Controller
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(Banner $banner): RedirectResponse
     {
-        //
+        $banner->delete();
+        return redirect(route('admin.banners.index'));
     }
 }

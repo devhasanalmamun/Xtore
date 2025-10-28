@@ -18,18 +18,18 @@ interface IProps {
   slug: string
 }
 
-export default function AdminCategoryDelete(props: IProps) {
+export default function AdminBannerDelete(props: IProps) {
   const { delete: destroy, processing } = useForm()
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false)
 
   function handleDelete(slug: string) {
-    destroy(route('admin.categories.destroy', slug), {
+    destroy(route('admin.banners.destroy', slug), {
       onSuccess: () => {
         setIsAlertDialogOpen(false)
-        console.log('Category Deleted Successfully')
+        console.log('Banner Deleted Successfully')
       },
       onError: () => {
-        console.error('failed to delete the category')
+        console.error('Failed to delete the banner')
       },
     })
   }
@@ -44,10 +44,9 @@ export default function AdminCategoryDelete(props: IProps) {
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Do you want to delete this category permanently?</AlertDialogTitle>
+          <AlertDialogTitle>Do you want to delete this banner permanently?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the category and all child categories will become
-            the root category or the child of the deleted category's parent.
+            This action cannot be undone. This will permanently delete the banner.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

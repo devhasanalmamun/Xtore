@@ -2,8 +2,8 @@ import { CheckCircleIcon, CircleXIcon, EditIcon, MoveRightIcon, PlusIcon } from 
 import { ColumnDef } from '@tanstack/react-table'
 import { router } from '@inertiajs/react'
 
-import AdminCategoryDelete from '@/pages/admin/category/admin-category-delete'
 import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
+import AdminBannerDelete from '@/pages/admin/banner/admin-banner-delete'
 import { DataTable } from '@/components/ui/data-table'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { IAdminBanner } from '@/types/admin-banner'
@@ -34,7 +34,6 @@ const columns: ColumnDef<IAdminBanner>[] = [
     cell: ({ row }) =>
       row.original.active ? <CheckCircleIcon className="text-primary" /> : <CircleXIcon className="text-red-500" />,
   },
-
   {
     header: 'Actions',
     cell: ({ row }) => (
@@ -42,7 +41,7 @@ const columns: ColumnDef<IAdminBanner>[] = [
         <Button variant="outline" onClick={() => router.get(route('admin.banners.edit', row.original.slug))}>
           <EditIcon />
         </Button>
-        <AdminCategoryDelete slug={row.original.slug} />
+        <AdminBannerDelete slug={row.original.slug} />
       </div>
     ),
   },
