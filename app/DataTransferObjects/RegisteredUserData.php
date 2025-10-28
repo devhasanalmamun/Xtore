@@ -21,7 +21,7 @@ final class RegisteredUserData extends Data
         #[Required, Max(255), Email(Email::NoRfcWarningsValidation), Unique(User::class, 'email')]
         public readonly string $email,
 
-        #[Required, Max(255), Confirmed, Password(min: 8, numbers: true, letters: true)]
+        #[Required, Max(255), Confirmed, Password(min: 8, letters: true, numbers: true)]
         public readonly string $password,
 
         #[Hidden]

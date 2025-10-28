@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Container\Attributes\Authenticated;
 use App\Http\Resources\Admin\AdminBannerResource;
+use App\DataTransferObjects\AdminBannerData;
 use App\Enums\BannerPlacementSectionsEnum;
 use App\Enums\BannerPlacementPagesEnum;
 use Illuminate\Http\RedirectResponse;
@@ -12,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Inertia\{Inertia, Response};
 use Illuminate\Http\Request;
 use App\Models\Banner;
+use App\Models\User;
 
 class AdminBannerController extends Controller
 {
@@ -30,9 +33,14 @@ class AdminBannerController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(#[Authenticated] User $user, AdminBannerData $data): RedirectResponse
     {
-        //
+        Banner::create([
+          ...$data->toArray(),
+          'created_by' => $user->id,
+          'updated_by' => $user->id,
+        ]);
+        return redirect(route('admin.banners.index'));
     }
 
     public function show(string $id)
