@@ -1,5 +1,5 @@
 export interface IAdminBanner {
-  title: string
+  title?: string
   image: string
   slug: string
   page: string

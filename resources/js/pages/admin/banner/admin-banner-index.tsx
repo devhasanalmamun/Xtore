@@ -26,8 +26,8 @@ const columns: ColumnDef<IAdminBanner>[] = [
     ),
   },
   {
-    header: 'Title',
-    accessorKey: 'title',
+    header: 'Created At',
+    accessorKey: 'created_at',
   },
   {
     header: 'Active',
@@ -71,7 +71,7 @@ export default function AdminBannerIndex(props: IProps) {
           <h1 className="text-xl font-medium">All Banners</h1>
           <Button onClick={() => router.get(route('admin.banners.create'))}>
             <PlusIcon />
-            <span>Create new category</span>
+            <span>Create new banner</span>
           </Button>
         </div>
 

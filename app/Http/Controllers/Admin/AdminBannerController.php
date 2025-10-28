@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\BannerPlacementPagesEnum;
+use App\Enums\BannerPlacementSectionsEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminBannerResource;
 use App\Models\Banner;
@@ -21,7 +23,10 @@ class AdminBannerController extends Controller
 
     public function create()
     {
-        //
+        return Inertia::render('admin/banner/admin-banner-create', [
+          'pages' => BannerPlacementPagesEnum::labels(),
+          'sections'=> BannerPlacementSectionsEnum::labels(),
+        ]);
     }
 
     public function store(Request $request)

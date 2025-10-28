@@ -17,7 +17,7 @@ enum BannerPlacementSectionsEnum: string
         };
     }
 
-    public function labels(): array
+    public static function labels(): array
     {
         return array_map(fn (self $case) => [
             'value' => $case->value,
