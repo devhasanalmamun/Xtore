@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Resources\Admin\AdminCategoryResource;
 use App\DataTransferObjects\AdminCategoryData;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\AdminCategoryResource;
 use App\Models\{Category, Department};
 use Illuminate\Http\RedirectResponse;
-use App\Http\Controllers\Controller;
 use Inertia\{Inertia, Response};
 
 class AdminCategoryController extends Controller
@@ -33,6 +33,7 @@ class AdminCategoryController extends Controller
     public function store(AdminCategoryData $data): RedirectResponse
     {
         Category::create($data->toArray());
+
         return redirect(route('admin.categories.index'));
     }
 

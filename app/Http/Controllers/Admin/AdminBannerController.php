@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Container\Attributes\Authenticated;
-use App\Http\Resources\Admin\AdminBannerResource;
 use App\DataTransferObjects\AdminBannerData;
-use App\Enums\BannerPlacementSectionsEnum;
-use App\Enums\BannerPlacementPagesEnum;
-use Illuminate\Http\RedirectResponse;
+use App\Enums\{BannerPlacementPagesEnum, BannerPlacementSectionsEnum};
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\AdminBannerResource;
+use App\Models\{Banner, User};
+use Illuminate\Container\Attributes\Authenticated;
+use Illuminate\Http\{RedirectResponse, Request};
 use Inertia\{Inertia, Response};
-use Illuminate\Http\Request;
-use App\Models\Banner;
-use App\Models\User;
 
 class AdminBannerController extends Controller
 {
@@ -28,18 +25,19 @@ class AdminBannerController extends Controller
     public function create()
     {
         return Inertia::render('admin/banner/admin-banner-create', [
-          'pages' => BannerPlacementPagesEnum::labels(),
-          'sections'=> BannerPlacementSectionsEnum::labels(),
+            'pages' => BannerPlacementPagesEnum::labels(),
+            'sections' => BannerPlacementSectionsEnum::labels(),
         ]);
     }
 
     public function store(#[Authenticated] User $user, AdminBannerData $data): RedirectResponse
     {
         Banner::create([
-          ...$data->toArray(),
-          'created_by' => $user->id,
-          'updated_by' => $user->id,
+            ...$data->toArray(),
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
         ]);
+
         return redirect(route('admin.banners.index'));
     }
 
@@ -61,6 +59,7 @@ class AdminBannerController extends Controller
     public function destroy(Banner $banner): RedirectResponse
     {
         $banner->delete();
+
         return redirect(route('admin.banners.index'));
     }
 }
