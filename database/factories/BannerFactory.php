@@ -13,6 +13,7 @@ class BannerFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(3),
+            'slug' => $this->faker->slug(),
             'page' => $this->faker->randomElement(BannerPlacementPagesEnum::cases())->value,
             'section' => $this->faker->randomElement(BannerPlacementSectionsEnum::cases())->value,
             'image' => 'https://placehold.co/1200x600?text=Banner',

@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Admin\{AdminCategoryController, AdminDashboardController, AdminDepartmentController, AdminVariationTypeController};
+  use App\Http\Controllers\Admin\{AdminBannerController,
+    AdminCategoryController,
+    AdminDashboardController,
+    AdminDepartmentController,
+    AdminVariationTypeController};
+
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'admin'])
@@ -13,4 +18,5 @@ Route::middleware(['auth', 'verified', 'admin'])
         Route::resource('departments', AdminDepartmentController::class);
         Route::resource('categories', AdminCategoryController::class);
         Route::resource('variation-types', AdminVariationTypeController::class);
+        Route::resource('banners', AdminBannerController::class);
     });
