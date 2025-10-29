@@ -128,7 +128,7 @@ class CategorySeeder extends Seeder
                     'department_id' => 2,
                     'parent_id' => 8, // Assuming parent category Women's Clothing
                     'name' => "Women's Shoes",
-                    'image' => "https://pub-25a3dabe9c864589b873ad988ec26819.r2.dev/categories/women's-shoes.png",
+                    'image' => "https://pub-25a3dabe9c864589b873ad988ec26819.r2.dev/categories/women's-shoes.webp",
                 ],
             ]
         );

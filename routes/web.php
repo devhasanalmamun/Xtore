@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\{DetermineDashboardController, EditorMediaController, FileUploadController, HomeController};
+  use App\Http\Controllers\{DetermineDashboardController,
+    EditorMediaController,
+    FileUploadController,
+    HomeController,
+    Landing\LandingCategoryController};
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', HomeController::class)->name('home');
+Route::resource('/categories', LandingCategoryController::class);
 
 Route::get('/contact-us', function () {
     return Inertia::render('landings/contact-us/contact-us-index');

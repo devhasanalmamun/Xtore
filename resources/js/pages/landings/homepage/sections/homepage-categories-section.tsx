@@ -1,3 +1,5 @@
+import { router } from '@inertiajs/react'
+
 import CardCategory from '@/components/card/card-category'
 import { ICategory } from '@/types/landing-home'
 import { Button } from '@/components/ui/button'
@@ -17,7 +19,11 @@ export default function HomepageCategoriesSection(props: IProps) {
         })}
       </div>
 
-      <Button className="mx-auto block justify-center px-16 font-medium" variant="outline">
+      <Button
+        className="mx-auto block justify-center px-16 font-medium"
+        variant="outline"
+        onClick={() => router.get(route('categories.index'))}
+      >
         View all categories
       </Button>
     </div>
