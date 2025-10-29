@@ -2,3 +2,4 @@ TODO--->
   1) Admin Dashboard banner and category images are not same by count in cloudflare
       Bug Arises: when we create or update the image and we change the images again without saving it to DB. Cause the image uploads as soon
                   as we select an image to make the saving to DB Faster.
+  2) Need to save optimized conversions of the images that are being saved to cloudflare ex: original, medium, cover these sizes
