@@ -11,16 +11,16 @@ export function cartesianProduct<T>(...arrays: T[][]): T[][] {
   return arrays.reduce<T[][]>((acc, cur) => acc.flatMap((a) => cur.map((b) => [...a, b])), [[]])
 }
 
-interface CategoryNode extends ILandingCategoryIndex {
-  children: CategoryNode[]
+interface ICategoryNode extends ILandingCategoryIndex {
+  children: ICategoryNode[]
 }
 export function buildCategoryTree(categories: ILandingCategoryIndex[]) {
   // Init map with all categories
-  const map: Record<number, CategoryNode> = {}
+  const map: Record<number, ICategoryNode> = {}
   categories.forEach((cat) => (map[cat.id] = { ...cat, children: [] }))
 
   // Build tree
-  const roots: CategoryNode[] = []
+  const roots: ICategoryNode[] = []
   categories.forEach((cat) => {
     if (cat.parent_id !== null) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
