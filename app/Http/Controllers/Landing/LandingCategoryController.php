@@ -12,7 +12,7 @@ class LandingCategoryController extends Controller
     public function index()
     {
         return Inertia::render('landings/category/category-index', [
-          'categories' => Category::all()
+          'categories' => Category::select('id', 'parent_id', 'name', 'image', 'slug')->where('active', true)->get()
         ]);
     }
 

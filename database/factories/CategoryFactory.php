@@ -22,7 +22,7 @@ class CategoryFactory extends Factory
             'image' => 'https://placehold.co/1200x600?text=Category',
             'meta_title' => $this->faker->sentence(2),
             'meta_description' => $this->faker->sentence(6),
-            'active' => $this->faker->boolean(80),
+            'active' => true,
         ];
     }
 }
