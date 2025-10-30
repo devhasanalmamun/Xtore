@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { ILandingCategoryIndex } from '@/types/landing-category'
+
+import { ICategoryNode, ILandingCategory } from '@/types/landing-category'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -11,10 +12,7 @@ export function cartesianProduct<T>(...arrays: T[][]): T[][] {
   return arrays.reduce<T[][]>((acc, cur) => acc.flatMap((a) => cur.map((b) => [...a, b])), [[]])
 }
 
-interface ICategoryNode extends ILandingCategoryIndex {
-  children: ICategoryNode[]
-}
-export function buildCategoryTree(categories: ILandingCategoryIndex[]) {
+export function buildCategoryTree(categories: ILandingCategory[]) {
   // Init map with all categories
   const map: Record<number, ICategoryNode> = {}
   categories.forEach((cat) => (map[cat.id] = { ...cat, children: [] }))

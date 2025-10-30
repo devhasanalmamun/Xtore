@@ -14,7 +14,7 @@ class LandingCategoryController extends Controller
     public function index(): Response
     {
         return Inertia::render('landings/category/category-index', [
-          'categories' => Category::select('id', 'parent_id', 'name', 'image', 'slug')->where('active', true)->get()
+          'categories' => Category::where('active', true)->select('id', 'parent_id', 'name', 'image', 'slug')->get(),
         ]);
     }
 
@@ -32,11 +32,10 @@ class LandingCategoryController extends Controller
     {
         $category_ids = $category->allCategoryIds();
         $products = Product::WhereIn('category_id', $category_ids)->select('id', 'title', 'slug', 'price', 'quantity', 'thumbnail_image')->get();
-        $tree = $category->children;
 
         return Inertia::render('landings/category/category-show', [
           'products' => $products,
-          'category_tree' => $tree->isNotEmpty() ? $tree : null
+          'categories' => Category::where('active', true)->select('id', 'parent_id', 'name', 'image', 'slug')->get(),
         ]);
     }
 
