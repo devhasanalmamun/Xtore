@@ -1,5 +1,6 @@
 import { ICategory } from '@/types/landing-home'
 import { cn } from '@/lib/utils'
+import { router } from '@inertiajs/react'
 
 interface IProps {
   className?: string
@@ -11,6 +12,7 @@ export default function CardCategory(props: IProps) {
 
   return (
     <div
+      onClick={() => router.get(route('categories.show', props.category.slug))}
       className={cn(
         'cursor-pointer overflow-hidden rounded bg-gray-50 px-2.5 py-2 shadow-xs hover:shadow-sm',
         props.className,

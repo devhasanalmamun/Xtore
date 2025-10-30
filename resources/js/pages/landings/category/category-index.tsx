@@ -1,6 +1,4 @@
 import { SlidersHorizontalIcon } from 'lucide-react'
-import { Link } from '@inertiajs/react'
-import { route } from 'ziggy-js'
 
 import {
   Drawer,
@@ -10,19 +8,18 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { ILandingCategoryIndex } from '@/types/landing-category-index'
+import CategoryTreeNode from '@/pages/landings/category/partials/category-tree-node'
 import LandingsLayout from '@/layouts/landings/landings-layout'
+import { ILandingCategory } from '@/types/landing-category'
 import CardCategory from '@/components/card/card-category'
 import { buildCategoryTree } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
 
 interface IProps {
-  categories: ILandingCategoryIndex[]
+  categories: ILandingCategory[]
 }
+
 export default function CategoryIndex(props: IProps) {
   const category_tree = buildCategoryTree(props.categories)
-
   return (
     <LandingsLayout title="Categories" description="This is the categories page">
       <section className="relative px-4 py-8 sm:px-6 lg:py-16 xl:px-8">
@@ -31,7 +28,7 @@ export default function CategoryIndex(props: IProps) {
             <p className="mb-3 text-lg font-semibold">All Categories</p>
             <ul className="space-y-4">
               {category_tree.map((root_node) => (
-                <CategoryNode key={root_node.id} node={root_node} />
+                <CategoryTreeNode key={root_node.id} node={root_node} />
               ))}
             </ul>
           </div>
@@ -53,7 +50,7 @@ export default function CategoryIndex(props: IProps) {
 
                     <ul className="-ml-1 space-y-4 overflow-y-auto pb-8">
                       {category_tree.map((root_node) => (
-                        <CategoryNode key={root_node.id} node={root_node} />
+                        <CategoryTreeNode key={root_node.id} node={root_node} />
                       ))}
                     </ul>
                   </DrawerContent>
@@ -69,51 +66,5 @@ export default function CategoryIndex(props: IProps) {
         </div>
       </section>
     </LandingsLayout>
-  )
-}
-
-interface ICategoryNode extends ILandingCategoryIndex {
-  children: ICategoryNode[]
-}
-
-interface ICategoryNodeProps {
-  node: ICategoryNode
-}
-
-function CategoryNode({ node }: ICategoryNodeProps) {
-  const has_children = node.children && node.children.length > 0
-
-  if (!has_children) {
-    return (
-      <li className="cursor-pointer text-sm hover:underline">
-        <Link className="pl-1 font-medium" href={route('categories.show', node.slug)}>
-          {node.name}
-        </Link>
-      </li>
-    )
-  }
-
-  return (
-    <Accordion type="multiple" className="ml-1">
-      <AccordionItem value={`category-${node.id}`}>
-        <AccordionTrigger className="hover:underline">
-          <Button
-            variant="ghost"
-            className="h-fit p-0 hover:bg-transparent"
-            onClick={(e) => e.stopPropagation()}
-            asChild
-          >
-            <Link href={route('categories.show', node.slug)}>{node.name}</Link>
-          </Button>
-        </AccordionTrigger>
-        <AccordionContent className="ml-2 cursor-pointer pb-0">
-          <ul className="mt-0.5 space-y-0.5">
-            {node.children.map((child) => (
-              <CategoryNode key={child.id} node={child} />
-            ))}
-          </ul>
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
   )
 }

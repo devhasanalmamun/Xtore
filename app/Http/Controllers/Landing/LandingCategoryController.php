@@ -31,7 +31,7 @@ class LandingCategoryController extends Controller
     public function show(Category $category): Response
     {
         $category_ids = $category->allCategoryIds();
-        $products = Product::WhereIn('category_id', $category_ids)->get();
+        $products = Product::WhereIn('category_id', $category_ids)->select('id', 'title', 'slug', 'price', 'quantity', 'thumbnail_image')->get();
         $tree = $category->children;
 
         return Inertia::render('landings/category/category-show', [

@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { ILandingCategoryIndex } from '@/types/landing-category-index'
+import { ILandingCategoryIndex } from '@/types/landing-category'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
