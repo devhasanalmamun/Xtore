@@ -1,6 +1,15 @@
+import { SlidersHorizontalIcon } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 import { route } from 'ziggy-js'
 
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { ILandingCategoryIndex } from '@/types/landing-category-index'
 import LandingsLayout from '@/layouts/landings/landings-layout'
@@ -16,9 +25,9 @@ export default function CategoryIndex(props: IProps) {
 
   return (
     <LandingsLayout title="Categories" description="This is the categories page">
-      <section className="relative px-4 py-8 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid grid-cols-6">
-          <div className="col-span-1 border-r">
+      <section className="relative px-4 py-8 sm:px-6 lg:py-16 xl:px-8">
+        <div className="grid grid-cols-12">
+          <div className="hidden border-r lg:col-span-2 lg:block">
             <p className="mb-3 text-lg font-semibold">All Categories</p>
             <ul className="space-y-4">
               {category_tree.map((root_node) => (
@@ -26,10 +35,32 @@ export default function CategoryIndex(props: IProps) {
               ))}
             </ul>
           </div>
-          <div className="col-span-5">
-            <h1 className="mb-8 text-center font-mono text-4xl font-semibold">Shop By All Categories</h1>
+          <div className="col-span-12 mx-auto max-w-7xl px-0 lg:col-span-10 lg:px-4">
+            <div className="mb-4 flex items-center justify-between gap-2">
+              <h1 className="font-mono text-2xl font-semibold lg:mb-8 lg:text-3xl xl:text-4xl">
+                Shop By All Categories
+              </h1>
+              <div className="lg:hidden">
+                <Drawer direction="right">
+                  <DrawerTrigger asChild>
+                    <SlidersHorizontalIcon />
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <DrawerHeader className="mb-6">
+                      <DrawerTitle>All Categories</DrawerTitle>
+                      <DrawerDescription>Browse Categories to find more accurate product.</DrawerDescription>
+                    </DrawerHeader>
 
-            <div className="grid grid-cols-6 gap-2.5 px-4">
+                    <ul className="-ml-1 space-y-4 overflow-y-auto pb-8">
+                      {category_tree.map((root_node) => (
+                        <CategoryNode key={root_node.id} node={root_node} />
+                      ))}
+                    </ul>
+                  </DrawerContent>
+                </Drawer>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
               {props.categories.map((category) => (
                 <CardCategory key={category.id} category={category} className="border" />
               ))}
