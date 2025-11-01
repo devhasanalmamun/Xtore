@@ -100,6 +100,19 @@ export default function VendorProductForm(props: IProps) {
         </div>
       </div>
 
+      <div>
+        <Label htmlFor="discount_percentage">Discount Percentage</Label>
+        <Input
+          type="number"
+          id="discount_percentage"
+          name="discount_percentage"
+          value={props.data.discount_percentage}
+          onChange={(e) => props.onDataChange('discount_percentage', parseFloat(e.target.value))}
+          required
+        />
+        <InputError message={props.errors.discount_percentage} />
+      </div>
+
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="department">Department</Label>

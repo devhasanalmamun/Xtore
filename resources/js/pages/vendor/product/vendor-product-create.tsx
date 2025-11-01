@@ -40,6 +40,7 @@ export default function VendorProductCreate(props: IProps) {
     description: 'Description will be added later',
     price: 100,
     quantity: 1,
+    discount_percentage: 0,
     status: VendorProductStatusEnum.PUBLISHED,
     thumbnail_image: '',
     product_images: [],

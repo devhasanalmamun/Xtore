@@ -15,6 +15,7 @@ class VendorProductIndexResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'price' => $this->price,
+            'discount_percentage' => $this->discount_percentage,
             'quantity' => $this->quantity,
             'status' => $this->status,
             'thumbnail_image' => $this->thumbnail_image,

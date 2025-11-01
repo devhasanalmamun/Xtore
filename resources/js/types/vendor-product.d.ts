@@ -9,6 +9,7 @@ export interface IVendorProduct {
   slug: string
   description: string
   price: number
+  discount_percentage: number
   quantity: number
   status: VendorProductStatusEnum
   product_images: string[]

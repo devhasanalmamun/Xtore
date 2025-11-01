@@ -26,6 +26,8 @@ final class VendorProductData extends Data
         #[Required, Min(1)]
         public readonly int $price,
 
+        public readonly float $discount_percentage,
+
         #[Required]
         public readonly int $department_id,
 

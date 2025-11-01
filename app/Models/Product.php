@@ -22,6 +22,7 @@ class Product extends Model
         'description',
         'quantity',
         'price',
+        'discount_percentage',
         'status',
         'thumbnail_image',
         'product_images',

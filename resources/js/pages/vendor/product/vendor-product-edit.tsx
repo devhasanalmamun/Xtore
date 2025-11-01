@@ -40,6 +40,7 @@ export default function VendorProductEdit(props: IProps) {
     slug: props.product.slug,
     description: props.product.description,
     price: props.product.price,
+    discount_percentage: props.product.discount_percentage,
     quantity: props.product.quantity,
     status: props.product.status,
     thumbnail_image: props.product.thumbnail_image,

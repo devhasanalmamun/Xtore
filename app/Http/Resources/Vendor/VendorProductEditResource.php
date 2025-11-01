@@ -19,6 +19,7 @@ class VendorProductEditResource extends JsonResource
             'description' => $this->description,
             'description_html' => Str::markdown($this->description),
             'price' => $this->price,
+            'discount_percentage' => $this->discount_percentage,
             'quantity' => $this->quantity,
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,

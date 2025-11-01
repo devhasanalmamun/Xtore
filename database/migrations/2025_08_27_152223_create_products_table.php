@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->longText('description');
             $table->decimal('price', 20);
+            $table->decimal('discount_percentage', 20)->default(0);
             $table->integer('quantity')->nullable();
             $table->string('status')->index();
 
