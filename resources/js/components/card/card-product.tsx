@@ -12,7 +12,7 @@ export default function CardProduct(props: IProps) {
 
   return (
     <div className="rounded border">
-      <img className="h-60 w-200 object-cover" src={props.product.thumbnail_image} alt={props.product.title} />
+      <img className="h-40 w-full object-cover" src={props.product.thumbnail_image} alt={props.product.title} />
       <div className="space-y-1.5 px-1 py-2 text-sm font-medium">
         <p className="line-clamp-2 h-10 text-gray-700">{props.product.title}</p>
         <div className="flex items-center justify-between">
