@@ -71,7 +71,7 @@ export default function CategoryShow(props: IProps) {
                 props.products.map((product) => <CardProduct key={product.id} product={product} />)}
 
               {props.products.length === 0 && (
-                <p className="col-span-12 text-lg font-medium text-red-400">No Product found on this category</p>
+                <p className="col-span-12 h-52 text-lg font-medium text-red-400">No Product found on this category</p>
               )}
             </div>
           </div>
