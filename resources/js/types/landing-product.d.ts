@@ -2,8 +2,9 @@ export interface ILandingProductIndex {
   id: string
   slug: string
   title: string
-  price: string
-  quantity: string
+  price: number
+  discount_percentage: number
+  quantity: number
   thumbnail_image: string
 }
 

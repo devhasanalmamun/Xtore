@@ -38,6 +38,8 @@ class Product extends Model
     {
         return [
             'status' => ProductStatusEnum::class,
+            'price' => 'float',
+            'discount_percentage' => 'float',
             'product_images' => 'array',
             'product_image_public_ids' => 'array',
         ];
