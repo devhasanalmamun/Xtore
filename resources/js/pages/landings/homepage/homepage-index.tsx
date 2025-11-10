@@ -1,12 +1,15 @@
 import HomepageCategoriesSection from '@/pages/landings/homepage/sections/homepage-categories-section'
 import HomepageVendorsSection from '@/pages/landings/homepage/sections/homepage-vendors-section'
 import HomepageHeroSection from '@/pages/landings/homepage/sections/homepage-hero-section'
+import HomepageFlashSale from '@/pages/landings/homepage/sections/homepage-flash-sale'
 import LandingsLayout from '@/layouts/landings/landings-layout'
+import { ILandingProductIndex } from '@/types/landing-product'
 import { ICategory, IHeroImage } from '@/types/landing-home'
 
 interface IProps {
   banner_hero_images: IHeroImage[]
   categories: ICategory[]
+  flash_sales: ILandingProductIndex[]
 }
 
 export default function HomepageIndex(props: IProps) {
@@ -18,6 +21,11 @@ export default function HomepageIndex(props: IProps) {
       </section>
 
       {/* TODO: Flash Sale Ref: Daraz*/}
+      {props.flash_sales && (
+        <section className="relative px-0 pb-8 sm:px-6 lg:px-8 lg:pb-16">
+          <HomepageFlashSale products={props.flash_sales} />
+        </section>
+      )}
 
       {/* Top Categories Section */}
       <section className="relative px-0 pb-8 sm:px-6 lg:px-8 lg:pb-16">
