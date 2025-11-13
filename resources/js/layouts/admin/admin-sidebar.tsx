@@ -1,11 +1,4 @@
-import {
-  BookOpenIcon,
-  LayoutGridIcon,
-  StoreIcon,
-  ListOrderedIcon,
-  ImageIcon,
-  GalleryHorizontalIcon,
-} from 'lucide-react'
+import { BookOpenIcon, LayoutGridIcon, StoreIcon, ListOrderedIcon, GalleryHorizontalIcon } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
 import {

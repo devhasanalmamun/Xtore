@@ -1,37 +1,41 @@
-import { type PropsWithChildren } from 'react'
 import { Link, usePage } from '@inertiajs/react'
+import { ReactNode } from 'react'
 
+import { SharedData, type NavItem, BreadcrumbItem } from '@/types'
+import VendorLayout from '@/layouts/vendor/vendor-layout'
+import AdminLayout from '@/layouts/admin/admin-layout'
 import { Separator } from '@/components/ui/separator'
+import UserRoleEnum from '@/enums/user-role-enums'
 import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
-import { SharedData, type NavItem } from '@/types'
 import { cn } from '@/lib/utils'
-import UserRoleEnum from '@/enums/user-role-enums'
-import AdminLayout from '../admin/admin-layout'
-import VendorLayout from '../vendor/vendor-layout'
 
 const sidebarNavItems: NavItem[] = [
   {
     title: 'Profile',
-    routeName: '/settings/profile',
-    icon: null,
+    baseRoute: 'profile.',
+    routeName: 'profile.edit',
   },
   {
     title: 'Password',
-    routeName: '/settings/password',
-    icon: null,
+    baseRoute: 'password.',
+    routeName: 'password.edit',
   },
   {
     title: 'Appearance',
-    routeName: '/settings/appearance',
-    icon: null,
+    baseRoute: 'appearance.',
+    routeName: 'appearance',
   },
 ]
 
-export default function SettingsLayout({ children }: PropsWithChildren) {
+interface IProps {
+  breadcrumbs?: BreadcrumbItem[]
+  children: ReactNode
+}
+
+export default function SettingsLayout(props: IProps) {
   const { auth } = usePage<SharedData>().props
 
-  // When server-side rendering, we only render the layout on the client...
   if (typeof window === 'undefined') {
     return null
   }
@@ -40,7 +44,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
   const Layout = auth.user.role === UserRoleEnum.ADMIN ? AdminLayout : VendorLayout
 
   return (
-    <Layout>
+    <Layout breadcrumbs={props.breadcrumbs}>
       <div className="px-4 py-6">
         <Heading title="Settings" description="Manage your profile and account settings" />
 
@@ -53,11 +57,12 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                   size="sm"
                   variant="ghost"
                   asChild
-                  className={cn('w-full justify-start', {
-                    'bg-muted': currentPath === item.routeName,
-                  })}
+                  className={cn(
+                    'w-full justify-start',
+                    currentPath.startsWith(new URL(route(item.routeName)).pathname) && 'bg-muted',
+                  )}
                 >
-                  <Link href={item.routeName} prefetch>
+                  <Link href={route(item.routeName)} prefetch>
                     {item.title}
                   </Link>
                 </Button>
@@ -68,7 +73,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
           <Separator className="my-6 md:hidden" />
 
           <div className="flex-1 md:max-w-2xl">
-            <section className="max-w-xl space-y-12">{children}</section>
+            <section className="max-w-xl space-y-12">{props.children}</section>
           </div>
         </div>
       </div>
