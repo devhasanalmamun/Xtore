@@ -13,8 +13,8 @@ export default function HomepageFlashSale(props: IProps) {
     <div className="mx-auto max-w-7xl space-y-4 bg-gray-100 px-4 py-8">
       <h2 className="font-mono text-2xl font-semibold">Flash Sales</h2>
       <div className="mx-auto max-w-xs space-y-4 overflow-hidden sm:grid sm:max-w-7xl sm:grid-cols-3 sm:gap-2.5 sm:space-y-0 md:grid-cols-4 xl:grid-cols-4">
-        {props.products.map((product) => (
-          <CardProductSale product={product} />
+        {props.products.map((product, index) => (
+          <CardProductSale key={index} product={product} />
         ))}
       </div>
 
