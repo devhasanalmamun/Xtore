@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Settings;
 
+use App\Helpers\FileMover;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Models\User;
+use Illuminate\Container\Attributes\Authenticated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\{RedirectResponse, Request};
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +27,16 @@ class ProfileController extends Controller
     /**
      * Update the user's profile settings.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request, #[Authenticated] User $user): RedirectResponse
     {
+        $profile_data = $request->validated();
+
+        if ($profile_data['image'] !== $user->image) {
+            if($profile_data['image']) {
+              FileMover::removeFile($user->image);
+            }
+        }
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {

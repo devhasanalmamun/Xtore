@@ -57,6 +57,7 @@ export interface User {
   first_name: string
   last_name: string
   email: string
+  image: string
   role: UserRoleEnum
   avatar?: string
   email_verified_at: string | null

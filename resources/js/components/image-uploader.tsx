@@ -5,8 +5,10 @@ import axios from 'axios'
 import InputError from '@/components/ui/input-error'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 
 interface IProps {
+  className?: string
   destination: string
   image: string
   onChange: (image: string) => void
@@ -71,7 +73,10 @@ export default function ImageUploader(props: IProps) {
   return (
     <>
       <div
-        className="relative flex h-60 cursor-pointer items-center justify-center rounded-md border border-dashed"
+        className={cn(
+          'relative flex h-60 cursor-pointer items-center justify-center rounded-md border border-dashed',
+          props.className,
+        )}
         onClick={() => {
           if (progress === 0 || progress === 100) {
             inputRef.current?.click()

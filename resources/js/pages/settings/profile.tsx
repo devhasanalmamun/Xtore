@@ -10,6 +10,7 @@ import DeleteUser from '@/components/delete-user'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import ImageUploader from '@/components/image-uploader'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -34,6 +35,7 @@ export default function Profile(props: IProps) {
     first_name: auth.user.first_name,
     last_name: auth.user.last_name,
     email: auth.user.email,
+    image: auth.user.image,
   })
 
   const submit: FormEventHandler = (e) => {
@@ -48,7 +50,16 @@ export default function Profile(props: IProps) {
     <SettingsLayout breadcrumbs={breadcrumbs}>
       <Head title="Profile settings" />
       <div className="space-y-6">
-        <HeadingSmall title="Profile information" description="Update your name and email address" />
+        <HeadingSmall title="Profile information" description="Update your photo, name and email address" />
+        {/*destination={props.data.id ? `/products/${props.data.id}/thumbnail` : '/temp'}*/}
+        <ImageUploader
+          className="h-40 w-40"
+          destination={`/users/${auth.user.role}s`}
+          image={data.image}
+          onChange={(url) => setData('image', url)}
+        />
+
+        <InputError message={errors.image} />
 
         <form onSubmit={submit} className="space-y-4">
           <div>
