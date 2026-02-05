@@ -56,14 +56,15 @@ class Category extends Model
 
     public function products(): HasMany
     {
-      return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class);
     }
 
-    public function allCategoryIds() {
+    public function allCategoryIds()
+    {
         $ids = collect([$this->id]);
 
         foreach ($this->children as $child) {
-          $ids = $ids->merge($child->allCategoryIds());
+            $ids = $ids->merge($child->allCategoryIds());
         }
 
         return $ids;

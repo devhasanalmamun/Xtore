@@ -43,7 +43,7 @@ class User extends Authenticatable
     protected function image(): Attribute
     {
         return Attribute::make(
-          get: fn ($value) => $value ?: asset('assets/images/default-user-girl.png')
+            get: fn ($value) => $value ?: asset('assets/images/default-user-girl.png')
         );
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-  use App\Http\Controllers\{DetermineDashboardController,
+use App\Http\Controllers\{DetermineDashboardController,
     EditorMediaController,
     FileUploadController,
     HomeController,
@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('/flash-sales');
+
 Route::resource('/categories', LandingCategoryController::class);
 
 Route::get('/contact-us', function () {

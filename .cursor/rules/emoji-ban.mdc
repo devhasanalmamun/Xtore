@@ -1,0 +1,8 @@
+---
+name: emoji-ban
+description: This is a new rule
+---
+
+# Overview
+
+Never add emojies anywhere, including in your text response unless explicitly requested. If this exists already, please fix it wherever it exists.

@@ -8,8 +8,7 @@ use Inertia\Inertia;
 
 Route::middleware('auth')->group(function () {
 
-
-    Route::prefix("/settings")->group(function() {
+    Route::prefix('/settings')->group(function () {
         Route::redirect('/', '/settings/profile');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -19,11 +18,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/password', [PasswordController::class, 'edit'])->name('password.edit');
 
         Route::put('/password', [PasswordController::class, 'update'])
-          ->middleware('throttle:6,1')
-          ->name('password.update');
+            ->middleware('throttle:6,1')
+            ->name('password.update');
 
         Route::get('/appearance', function () {
-          return Inertia::render('settings/appearance');
+            return Inertia::render('settings/appearance');
         })->name('appearance');
     });
 });

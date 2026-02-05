@@ -32,8 +32,8 @@ class ProfileController extends Controller
         $profile_data = $request->validated();
 
         if ($profile_data['image'] !== $user->image) {
-            if($profile_data['image']) {
-              FileMover::removeFile($user->image);
+            if ($profile_data['image']) {
+                FileMover::removeFile($user->image);
             }
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources\Landing;
 
 use Illuminate\Http\Request;
@@ -9,13 +11,13 @@ class LandingProductResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-      return [
-        'title' => $this->title,
-        'slug' => $this->slug,
-        'price' => $this->price,
-        'discount_percentage' => $this->discount_percentage,
-        'quantity' => $this->quantity,
-        'thumbnail_image' => $this->thumbnail_image,
-      ];
+        return [
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'price' => $this->price,
+            'discount_percentage' => $this->discount_percentage,
+            'quantity' => $this->quantity,
+            'thumbnail_image' => $this->thumbnail_image,
+        ];
     }
 }

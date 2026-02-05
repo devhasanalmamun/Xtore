@@ -48,11 +48,11 @@ class AdminBannerController extends Controller
 
     public function edit(Banner $banner): Response
     {
-      return Inertia::render('admin/banner/admin-banner-edit', [
-        'banner' => new AdminBannerResource($banner),
-        'pages' => BannerPlacementPagesEnum::labels(),
-        'sections' => BannerPlacementSectionsEnum::labels(),
-      ]);
+        return Inertia::render('admin/banner/admin-banner-edit', [
+            'banner' => new AdminBannerResource($banner),
+            'pages' => BannerPlacementPagesEnum::labels(),
+            'sections' => BannerPlacementSectionsEnum::labels(),
+        ]);
     }
 
     public function update(AdminBannerData $data, Banner $banner, #[Authenticated] User $user): RedirectResponse
@@ -60,8 +60,9 @@ class AdminBannerController extends Controller
         $banner->update([
             ...$data->toArray(),
             'updated_by' => $user->id,
-          ]
+        ]
         );
+
         return redirect(route('admin.banners.index'));
     }
 

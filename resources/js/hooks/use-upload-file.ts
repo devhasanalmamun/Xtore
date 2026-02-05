@@ -12,11 +12,10 @@ import { IVendorProduct } from '@/types/vendor-product'
 
 export type UploadedFile<T = unknown> = ClientUploadedFileData<T>
 
-interface UseUploadFileProps
-  extends Pick<
-    UploadFilesOptions<OurFileRouter['editorUploader']>,
-    'headers' | 'onUploadBegin' | 'onUploadProgress' | 'skipPolling'
-  > {
+interface UseUploadFileProps extends Pick<
+  UploadFilesOptions<OurFileRouter['editorUploader']>,
+  'headers' | 'onUploadBegin' | 'onUploadProgress' | 'skipPolling'
+> {
   onUploadComplete?: (file: UploadedFile) => void
   onUploadError?: (error: unknown) => void
 }

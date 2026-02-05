@@ -1,21 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Landing;
 
-use App\Http\Controllers\Controller;
 use App\Enums\ProductStatusEnum;
+use App\Http\Controllers\Controller;
+use App\Models\{Category, Product};
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Product;
-use Inertia\Response;
-use Inertia\Inertia;
+use Inertia\{Inertia, Response};
 
 class LandingCategoryController extends Controller
 {
     public function index(): Response
     {
         return Inertia::render('landings/category/category-index', [
-          'categories' => Category::where('active', true)->select('id', 'parent_id', 'name', 'image', 'slug')->get(),
+            'categories' => Category::where('active', true)->select('id', 'parent_id', 'name', 'image', 'slug')->get(),
         ]);
     }
 
@@ -33,13 +33,13 @@ class LandingCategoryController extends Controller
     {
         $category_ids = $category->allCategoryIds();
         $products = Product::WhereIn('category_id', $category_ids)
-          ->where('status', ProductStatusEnum::PUBLISHED->value)
-          ->select('id', 'title', 'slug', 'price', 'discount_percentage', 'quantity', 'thumbnail_image')
-          ->get();
+            ->where('status', ProductStatusEnum::PUBLISHED->value)
+            ->select('id', 'title', 'slug', 'price', 'discount_percentage', 'quantity', 'thumbnail_image')
+            ->get();
 
         return Inertia::render('landings/category/category-show', [
-          'products' => $products,
-          'categories' => Category::where('active', true)->select('id', 'parent_id', 'name', 'image', 'slug')->get(),
+            'products' => $products,
+            'categories' => Category::where('active', true)->select('id', 'parent_id', 'name', 'image', 'slug')->get(),
         ]);
     }
 
