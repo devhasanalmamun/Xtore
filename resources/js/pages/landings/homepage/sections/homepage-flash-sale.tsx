@@ -21,7 +21,7 @@ export default function HomepageFlashSale(props: IProps) {
       <Button
         className="mx-auto block justify-center px-16 font-medium"
         variant="outline"
-        onClick={() => router.get(route('categories.index'))}
+        onClick={() => router.get(route('flash-sales.index'))}
       >
         View all flash sales
       </Button>

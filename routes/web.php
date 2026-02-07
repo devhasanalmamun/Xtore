@@ -2,23 +2,21 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\{DetermineDashboardController,
+use App\Http\Controllers\{
+    DetermineDashboardController,
     EditorMediaController,
     FileUploadController,
     HomeController,
-    Landing\LandingCategoryController};
+    Landing\LandingCategoryController,
+    Landing\LandingContactPageController,
+    Landing\LandingFlashSaleController
+};
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', HomeController::class)->name('home');
-
-Route::get('/flash-sales');
-
-Route::resource('/categories', LandingCategoryController::class);
-
-Route::get('/contact-us', function () {
-    return Inertia::render('landings/contact-us/contact-us-index');
-})->name('contact-us.index');
+Route::get('/flash-sales', LandingFlashSaleController::class)->name('flash-sales.index');
+Route::resource('/categories', LandingCategoryController::class)->only('index', 'show');
+Route::get('/contact-us', LandingContactPageController::class)->name('contact-us.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('determine-dashboard', DetermineDashboardController::class)->name('determine-dashboard');
