@@ -2,30 +2,22 @@ import { StarIcon, XIcon } from 'lucide-react'
 import { Label } from '@radix-ui/react-label'
 import { useState } from 'react'
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
+import { Slider } from '@/components/ui/slider'
 import { cn } from '@/lib/utils'
+
+const MAX_PRICE = 100000
+const MIN_PRICE = 0
 
 export default function ProductFilter() {
   const [filters, setFilters] = useState({
-    minPrice: '0',
-    maxPrice: '1000',
+    minPrice: MIN_PRICE,
+    maxPrice: MAX_PRICE,
     selectedCategories: [] as string[],
     selectedRatings: [] as number[],
   })
-
-  // Price options
-  const priceOptions = [
-    { value: '0', label: '$0' },
-    { value: '50', label: '$50' },
-    { value: '100', label: '$100' },
-    { value: '200', label: '$200' },
-    { value: '300', label: '$300' },
-    { value: '500', label: '$500' },
-    { value: '1000', label: '$1000+' },
-  ]
 
   // Mock data - replace with actual data from props
   const categories = [
@@ -57,8 +49,8 @@ export default function ProductFilter() {
   const clearAllFilters = () => {
     setFilters((prev) => ({
       ...prev,
-      minPrice: '0',
-      maxPrice: '1000',
+      minPrice: MIN_PRICE,
+      maxPrice: MAX_PRICE,
       selectedCategories: [],
       selectedRatings: [],
     }))
@@ -69,48 +61,17 @@ export default function ProductFilter() {
       {/* Price Range Filter */}
       <div className="space-y-3 px-4">
         <h3 className="text-sm font-semibold">Price Range</h3>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="space-y-2">
-            <Label htmlFor="min-price" className="text-xs text-muted-foreground">
-              Min Price
-            </Label>
-            <Select
-              value={filters.minPrice}
-              onValueChange={(value) => setFilters((prev) => ({ ...prev, minPrice: value }))}
-            >
-              <SelectTrigger id="min-price">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {priceOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="max-price" className="text-xs text-muted-foreground">
-              Max Price
-            </Label>
-            <Select
-              value={filters.maxPrice}
-              onValueChange={(value) => setFilters((prev) => ({ ...prev, maxPrice: value }))}
-            >
-              <SelectTrigger id="max-price">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {priceOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="flex items-center justify-between text-xs text-gray-700">
+          <span>$ {filters.minPrice}</span>
+          <span>$ {filters.maxPrice}</span>
         </div>
+        <Slider
+          defaultValue={[MIN_PRICE, MAX_PRICE]}
+          value={[filters.minPrice, filters.maxPrice]}
+          min={MIN_PRICE}
+          max={MAX_PRICE}
+          onValueChange={(value) => setFilters((prev) => ({ ...prev, minPrice: value[0], maxPrice: value[1] }))}
+        />
       </div>
 
       <Separator />

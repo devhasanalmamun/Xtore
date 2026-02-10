@@ -6,5 +6,3 @@ Commit my changes to git.
 4. format code with prettier `prettier --write .`
 5. Stage all changes using `git add .`
 6. Write a short but meaningful commit message that accurately describes the code changes
-7. Do NOT include co-author tags
-8. Commit
