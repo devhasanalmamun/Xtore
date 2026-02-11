@@ -25,8 +25,11 @@ export default function CardProductSale(props: IProps) {
               </>
             )}
           </div>
-          <p className={cn('text-primary/60', !props.product.quantity && 'text-red-400')}>
-            {props.product.quantity ? `stock ${props.product.quantity}` : 'stock out'}
+          <p
+            className={cn('flex items-center gap-1 text-xs text-primary/60', !props.product.quantity && 'text-red-400')}
+          >
+            <span className="font-medium text-gray-800">stock</span>
+            <span className="mt-0.5">{props.product.quantity ? ` ${props.product.quantity}` : 'out'}</span>
           </p>
         </div>
         <div>
@@ -36,7 +39,7 @@ export default function CardProductSale(props: IProps) {
               .map((star, i) => {
                 return <StarIcon key={i} className="w-3 text-primary" fill="currentColor" />
               })}
-            <span className="ml-1 text-xs">(19)</span>
+            <span className="mt-0.5 ml-0.5 text-[11px]">(19)</span>
           </p>
         </div>
       </div>

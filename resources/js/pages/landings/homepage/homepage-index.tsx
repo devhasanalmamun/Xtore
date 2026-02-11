@@ -4,11 +4,11 @@ import HomepageHeroSection from '@/pages/landings/homepage/sections/homepage-her
 import HomepageFlashSale from '@/pages/landings/homepage/sections/homepage-flash-sale'
 import LandingsLayout from '@/layouts/landings/landings-layout'
 import { ILandingProductIndex } from '@/types/landing-product'
-import { ICategory, IHeroImage } from '@/types/landing-home'
+import { ILandingCategory, IHeroImage } from '@/types/landing-home'
 
 interface IProps {
   banner_hero_images: IHeroImage[]
-  categories: ICategory[]
+  categories: ILandingCategory[]
   flash_sales: ILandingProductIndex[]
 }
 

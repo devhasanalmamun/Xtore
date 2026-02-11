@@ -1,11 +1,11 @@
 import { router } from '@inertiajs/react'
 
 import CardCategory from '@/components/card/card-category'
-import { ICategory } from '@/types/landing-home'
+import { ILandingCategory } from '@/types/landing-home'
 import { Button } from '@/components/ui/button'
 
 interface IProps {
-  categories: ICategory[]
+  categories: ILandingCategory[]
 }
 
 export default function HomepageCategoriesSection(props: IProps) {

@@ -3,6 +3,8 @@ import { useState } from 'react'
 
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ILandingCategory, ILandingProductOverview } from '@/types/landing-home'
+import CardProductSale from '@/components/card/card-product-sale'
 import LandingsLayout from '@/layouts/landings/landings-layout'
 import ProductFilter from '@/components/ui/product-filter'
 import { Button } from '@/components/ui/button'
@@ -14,7 +16,12 @@ const sortByOptions = [
   { value: 'discount', label: 'Highest Discount' },
 ]
 
-export default function FlashSalesIndex() {
+interface IProps {
+  products: ILandingProductOverview[]
+  categories: ILandingCategory[]
+}
+
+export default function FlashSalesIndex(props: IProps) {
   const [sortBy, setSortBy] = useState('')
 
   return (
@@ -50,14 +57,18 @@ export default function FlashSalesIndex() {
                 <SheetTitle>Filters</SheetTitle>
                 <SheetDescription>Refine your search with filters below</SheetDescription>
               </SheetHeader>
-              <ProductFilter />
+              <ProductFilter categories={props.categories} />
             </SheetContent>
           </Sheet>
         </div>
       </div>
 
       {/* Products */}
-      <div className="mx-auto max-w-7xl space-y-4 px-4 py-8">Products</div>
+      <div className="mx-auto grid max-w-7xl grid-cols-4 gap-4 px-4 py-8">
+        {props.products.map((product) => (
+          <CardProductSale key={product.id} product={product} />
+        ))}
+      </div>
 
       {/* Pagination */}
       <div className="mx-auto max-w-7xl space-y-4 px-4 py-8">Pagination</div>

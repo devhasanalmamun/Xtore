@@ -2,31 +2,28 @@ import { StarIcon, XIcon } from 'lucide-react'
 import { Label } from '@radix-ui/react-label'
 import { useState } from 'react'
 
+import { ILandingCategory } from '@/types/landing-home'
 import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
+import { IFilters } from '@/types/filters'
 import { cn } from '@/lib/utils'
+
+interface IProps {
+  categories: ILandingCategory[]
+}
 
 const MAX_PRICE = 100000
 const MIN_PRICE = 0
 
-export default function ProductFilter() {
+export default function ProductFilter(props: IProps) {
   const [filters, setFilters] = useState({
     minPrice: MIN_PRICE,
     maxPrice: MAX_PRICE,
     selectedCategories: [] as string[],
     selectedRatings: [] as number[],
   })
-
-  // Mock data - replace with actual data from props
-  const categories = [
-    { id: '1', name: 'Electronics', count: 45 },
-    { id: '2', name: 'Fashion', count: 32 },
-    { id: '3', name: 'Home & Garden', count: 28 },
-    { id: '4', name: 'Sports', count: 19 },
-    { id: '5', name: 'Books', count: 15 },
-  ]
 
   const handleCategoryToggle = (categoryId: string) => {
     setFilters((prev) => ({
@@ -56,6 +53,10 @@ export default function ProductFilter() {
     }))
   }
 
+  function handleFilterSubmit(filters: IFilters) {
+    console.log(filters)
+  }
+
   return (
     <div className="space-y-6">
       {/* Price Range Filter */}
@@ -77,10 +78,10 @@ export default function ProductFilter() {
       <Separator />
 
       {/* Categories Filter */}
-      <div className="space-y-3 px-4">
+      <div className="h-48 space-y-3 overflow-y-auto px-4">
         <h3 className="text-sm font-semibold">Categories</h3>
         <div className="space-y-2">
-          {categories.map((category) => (
+          {props.categories.map((category) => (
             <div key={category.id} className="flex items-center space-x-2">
               <Checkbox
                 id={`category-${category.id}`}
@@ -92,7 +93,7 @@ export default function ProductFilter() {
                 className="flex flex-1 cursor-pointer items-center justify-between text-sm font-normal"
               >
                 <span>{category.name}</span>
-                <span className="text-xs text-muted-foreground">({category.count})</span>
+                <span className="text-xs text-muted-foreground">({category.products_count})</span>
               </Label>
             </div>
           ))}
@@ -132,7 +133,7 @@ export default function ProductFilter() {
       <Separator />
 
       <div className="space-y-2 px-4">
-        <Button onClick={clearAllFilters} className="w-full">
+        <Button onClick={() => handleFilterSubmit(filters)} className="w-full">
           Apply Filters
         </Button>
         <Button variant="secondary" onClick={clearAllFilters} className="w-full">
