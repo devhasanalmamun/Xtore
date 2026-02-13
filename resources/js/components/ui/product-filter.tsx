@@ -1,5 +1,6 @@
 import { StarIcon, XIcon } from 'lucide-react'
 import { Label } from '@radix-ui/react-label'
+import { router } from '@inertiajs/react'
 import { useState } from 'react'
 
 import { ILandingCategory } from '@/types/landing-home'
@@ -44,17 +45,36 @@ export default function ProductFilter(props: IProps) {
   }
 
   const clearAllFilters = () => {
-    setFilters((prev) => ({
-      ...prev,
+    const cleardFilters = {
       minPrice: MIN_PRICE,
       maxPrice: MAX_PRICE,
       selectedCategories: [],
       selectedRatings: [],
-    }))
+    }
+
+    setFilters(cleardFilters)
+
+    router.get(
+      route('flash-sales.index'),
+      {
+        minPrice: cleardFilters.minPrice,
+        maxPrice: cleardFilters.maxPrice,
+        categories: '',
+      },
+      { preserveState: true, preserveScroll: true, replace: true },
+    )
   }
 
   function handleFilterSubmit(filters: IFilters) {
-    console.log(filters)
+    router.get(
+      route('flash-sales.index'),
+      {
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice,
+        categories: filters.selectedCategories.join(','),
+      },
+      { preserveState: true, preserveScroll: true, replace: true },
+    )
   }
 
   return (
