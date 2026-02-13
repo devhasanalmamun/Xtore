@@ -10,6 +10,7 @@ use Spatie\LaravelData\Data;
 final class LandingFiltersData extends Data
 {
     private const MIN_PRICE = 0;
+
     private const MAX_PRICE = 100000;
 
     public function __construct(
