@@ -1,6 +1,6 @@
-import { StarIcon, XIcon } from 'lucide-react'
 import { Label } from '@radix-ui/react-label'
 import { router } from '@inertiajs/react'
+import { XIcon } from 'lucide-react'
 import { useState } from 'react'
 
 import { ILandingCategory } from '@/types/landing-home'
@@ -9,10 +9,11 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import { IFilters } from '@/types/filters'
-import { cn } from '@/lib/utils'
 
 interface IProps {
   categories: ILandingCategory[]
+  filters: IFilters
+  onClose: (isOpen: boolean) => void
 }
 
 const MAX_PRICE = 100000
@@ -20,27 +21,17 @@ const MIN_PRICE = 0
 
 export default function ProductFilter(props: IProps) {
   const [filters, setFilters] = useState({
-    minPrice: MIN_PRICE,
-    maxPrice: MAX_PRICE,
-    selectedCategories: [] as string[],
-    selectedRatings: [] as number[],
+    minPrice: props.filters.minPrice ?? MIN_PRICE,
+    maxPrice: props.filters.maxPrice ?? MAX_PRICE,
+    categories: props.filters.categories ?? [],
   })
 
-  const handleCategoryToggle = (categoryId: string) => {
+  const handleCategoryToggle = (categoryId: number) => {
     setFilters((prev) => ({
       ...prev,
-      selectedCategories: prev.selectedCategories.includes(categoryId)
-        ? prev.selectedCategories.filter((id) => id !== categoryId)
-        : [...prev.selectedCategories, categoryId],
-    }))
-  }
-
-  const handleRatingToggle = (rating: number) => {
-    setFilters((prev) => ({
-      ...prev,
-      selectedRatings: prev.selectedRatings.includes(rating)
-        ? prev.selectedRatings.filter((r) => r !== rating)
-        : [...prev.selectedRatings, rating],
+      categories: prev.categories.includes(categoryId)
+        ? prev.categories.filter((id) => id !== categoryId)
+        : [...prev.categories, categoryId],
     }))
   }
 
@@ -48,8 +39,7 @@ export default function ProductFilter(props: IProps) {
     const cleardFilters = {
       minPrice: MIN_PRICE,
       maxPrice: MAX_PRICE,
-      selectedCategories: [],
-      selectedRatings: [],
+      categories: [],
     }
 
     setFilters(cleardFilters)
@@ -71,7 +61,7 @@ export default function ProductFilter(props: IProps) {
       {
         minPrice: filters.minPrice,
         maxPrice: filters.maxPrice,
-        categories: filters.selectedCategories.join(','),
+        categories: filters.categories?.join(','),
       },
       { preserveState: true, preserveScroll: true, replace: true },
     )
@@ -105,8 +95,8 @@ export default function ProductFilter(props: IProps) {
             <div key={category.id} className="flex items-center space-x-2">
               <Checkbox
                 id={`category-${category.id}`}
-                checked={filters.selectedCategories.includes(category.id)}
-                onCheckedChange={() => handleCategoryToggle(category.id)}
+                checked={filters.categories?.includes(Number(category.id))}
+                onCheckedChange={() => handleCategoryToggle(Number(category.id))}
               />
               <Label
                 htmlFor={`category-${category.id}`}
@@ -124,39 +114,29 @@ export default function ProductFilter(props: IProps) {
 
       {/* Rating Filter */}
       <div className="space-y-3 px-4">
-        <h3 className="text-sm font-semibold">Customer Rating</h3>
-        <div className="space-y-2">
-          {[5, 4, 3, 2, 1].map((rating) => (
-            <div key={rating} className="flex items-center space-x-2">
-              <Checkbox
-                id={`rating-${rating}`}
-                checked={filters.selectedRatings.includes(rating)}
-                onCheckedChange={() => handleRatingToggle(rating)}
-              />
-              <Label
-                htmlFor={`rating-${rating}`}
-                className="flex cursor-pointer items-center gap-1 text-sm font-normal"
-              >
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <StarIcon
-                    key={index}
-                    className={cn('h-3.5 w-3.5', index < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300')}
-                  />
-                ))}
-                <span className="ml-1 text-xs text-muted-foreground">& up</span>
-              </Label>
-            </div>
-          ))}
-        </div>
+        <p>Ratings are not available yet</p>
       </div>
 
       <Separator />
 
       <div className="space-y-2 px-4">
-        <Button onClick={() => handleFilterSubmit(filters)} className="w-full">
+        <Button
+          onClick={() => {
+            handleFilterSubmit(filters)
+            props.onClose(false)
+          }}
+          className="w-full"
+        >
           Apply Filters
         </Button>
-        <Button variant="secondary" onClick={clearAllFilters} className="w-full">
+        <Button
+          variant="secondary"
+          onClick={() => {
+            clearAllFilters()
+            props.onClose(false)
+          }}
+          className="w-full"
+        >
           <XIcon className="h-4 w-4" />
           Clear All Filters
         </Button>

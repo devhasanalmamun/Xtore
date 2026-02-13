@@ -1,8 +1,7 @@
 interface IFilters {
-  minPrice: number
-  maxPrice: number
-  selectedCategories: string[]
-  selectedRatings: number[]
+  minPrice?: number
+  maxPrice?: number
+  categories?: number[]
 }
 
 export type { IFilters }

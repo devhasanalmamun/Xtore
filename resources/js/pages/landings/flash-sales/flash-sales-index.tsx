@@ -8,6 +8,7 @@ import CardProductSale from '@/components/card/card-product-sale'
 import LandingsLayout from '@/layouts/landings/landings-layout'
 import ProductFilter from '@/components/ui/product-filter'
 import { Button } from '@/components/ui/button'
+import { IFilters } from '@/types/filters'
 
 const sortByOptions = [
   { value: 'price-low', label: 'Price: Low to High' },
@@ -19,10 +20,12 @@ const sortByOptions = [
 interface IProps {
   products: ILandingProductOverview[]
   categories: ILandingCategory[]
+  filters: IFilters
 }
 
 export default function FlashSalesIndex(props: IProps) {
   const [sortBy, setSortBy] = useState('')
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 
   return (
     <LandingsLayout title="Flash Sales" description="This is the flash sales page">
@@ -45,7 +48,7 @@ export default function FlashSalesIndex(props: IProps) {
             </SelectContent>
           </Select>
 
-          <Sheet>
+          <Sheet open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
             <SheetTrigger asChild>
               <Button variant="secondary" className="gap-2">
                 <SlidersHorizontalIcon className="h-4 w-4" />
@@ -57,7 +60,9 @@ export default function FlashSalesIndex(props: IProps) {
                 <SheetTitle>Filters</SheetTitle>
                 <SheetDescription>Refine your search with filters below</SheetDescription>
               </SheetHeader>
-              <ProductFilter categories={props.categories} />
+
+              {/* Filters Section */}
+              <ProductFilter categories={props.categories} filters={props.filters} onClose={setIsFiltersOpen} />
             </SheetContent>
           </Sheet>
         </div>

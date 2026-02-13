@@ -38,6 +38,7 @@ class LandingFlashSaleController extends Controller
         return Inertia::render('landings/flash-sales/flash-sales-index', [
             'products' => $products,
             'categories' => $categories,
+            'filters' => $filters,
         ]);
     }
 }
