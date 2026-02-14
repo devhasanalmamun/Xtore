@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\{AdminBannerController,
     AdminCategoryController,
     AdminDashboardController,
     AdminDepartmentController,
+    AdminUserQueryController,
     AdminVariationTypeController};
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,5 @@ Route::middleware(['auth', 'verified', 'admin'])
         Route::resource('categories', AdminCategoryController::class);
         Route::resource('variation-types', AdminVariationTypeController::class);
         Route::resource('banners', AdminBannerController::class);
+        Route::resource('user-queries', AdminUserQueryController::class);
     });

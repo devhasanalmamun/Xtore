@@ -1,4 +1,11 @@
-import { BookOpenIcon, LayoutGridIcon, StoreIcon, ListOrderedIcon, GalleryHorizontalIcon } from 'lucide-react'
+import {
+  BookOpenIcon,
+  LayoutGridIcon,
+  StoreIcon,
+  ListOrderedIcon,
+  GalleryHorizontalIcon,
+  MessageCircleWarningIcon,
+} from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
 import {
@@ -45,6 +52,12 @@ const mainNavItems: NavItem[] = [
     baseRoute: 'admin.banners.',
     routeName: 'admin.banners.index',
     icon: GalleryHorizontalIcon,
+  },
+  {
+    title: 'User Queries',
+    baseRoute: 'admin.user-queries.',
+    routeName: 'admin.user-queries.index',
+    icon: MessageCircleWarningIcon,
   },
 ]
 
