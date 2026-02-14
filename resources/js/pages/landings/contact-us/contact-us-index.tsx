@@ -1,21 +1,35 @@
-import { useForm } from '@inertiajs/react'
+import { useForm, router } from '@inertiajs/react'
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ISupportTicketCategory } from '@/types/landing-support-ticket'
 import LandingsLayout from '@/layouts/landings/landings-layout'
+import UserRoleEnum from '@/enums/user-role-enums'
 import Textarea from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
+import { Auth } from '@/types'
 
-export default function ContactUsIndex() {
+interface IProps {
+  support_ticket_categories: ISupportTicketCategory[]
+  auth: Auth
+}
+
+export default function ContactUsIndex(props: IProps) {
   const { data, setData } = useForm({
     full_name: '',
     email: '',
-    subject: '',
+    ticket_category: undefined as number | undefined,
     message: '',
   })
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!props.auth.user) {
+      router.visit('/login')
+      return
+    }
+    console.log(data)
     // TODO: wire to contact form submission endpoint
   }
 
@@ -39,70 +53,76 @@ export default function ContactUsIndex() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="relative px-0 pb-8 sm:px-6 lg:px-8 lg:pb-16">
-        <div className="mx-auto max-w-7xl px-4 py-8">
-          <div className="mx-auto max-w-2xl">
-            <h2 className="mb-6 font-mono text-2xl font-semibold text-gray-800">Send a Message</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-gray-800">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Your full name"
-                  value={data.full_name}
-                  onChange={(e) => setData('full_name', e.target.value)}
-                  className="border-gray-300 text-gray-800"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-gray-800">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={data.email}
-                  onChange={(e) => setData('email', e.target.value)}
-                  className="border-gray-300 text-gray-800"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="subject" className="text-gray-800">
-                  Subject
-                </Label>
-                <Input
-                  id="subject"
-                  type="text"
-                  placeholder="What is this about?"
-                  value={data.subject}
-                  onChange={(e) => setData('subject', e.target.value)}
-                  className="border-gray-300 text-gray-800"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message" className="text-gray-800">
-                  Message
-                </Label>
-                <Textarea
-                  id="message"
-                  placeholder="Your message..."
-                  value={data.message}
-                  onChange={(e) => setData('message', e.target.value)}
-                  rows={5}
-                  className="border-gray-300 text-gray-800"
-                />
-              </div>
-              <Button type="submit" className="mt-4 font-medium">
-                Send Message
-              </Button>
-            </form>
+      {props.auth.user?.role !== UserRoleEnum.ADMIN && (
+        <section className="relative px-0 pb-8 sm:px-6 lg:px-8 lg:pb-16">
+          <div className="mx-auto max-w-7xl px-4 py-8">
+            <div className="mx-auto max-w-2xl">
+              <h2 className="mb-6 font-mono text-2xl font-semibold text-gray-800">Send a Message</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-gray-800">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="Your full name"
+                    value={data.full_name}
+                    onChange={(e) => setData('full_name', e.target.value)}
+                    className="border-gray-300 text-gray-800"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-gray-800">
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    className="border-gray-300 text-gray-800"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="subject" className="text-gray-800">
+                    Subject
+                  </Label>
+                  <Select onValueChange={(value) => setData('ticket_category', Number(value))}>
+                    <SelectTrigger className="border-gray-300 text-gray-800">
+                      <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {props.support_ticket_categories.map((category) => (
+                        <SelectItem key={category.id} value={String(category.id)}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message" className="text-gray-800">
+                    Message
+                  </Label>
+                  <Textarea
+                    id="message"
+                    placeholder="Your message..."
+                    value={data.message}
+                    onChange={(e) => setData('message', e.target.value)}
+                    rows={5}
+                    className="border-gray-300 text-gray-800"
+                  />
+                </div>
+                <Button type="submit" className="mt-4 font-medium">
+                  Send Message
+                </Button>
+              </form>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Contact Info */}
       <section className="relative bg-gray-100 px-0 pb-8 sm:px-6 lg:px-8 lg:pb-16">

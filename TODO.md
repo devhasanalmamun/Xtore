@@ -1,4 +1,4 @@
-#### TODO:: 1
+#### TODO: 1 (Flash-Sales)
 
 /\*\*
 
@@ -35,4 +35,25 @@
 - This approach mirrors real-world e-commerce systems
 - (Amazon, Daraz, Shopify) where pricing belongs to sellable units
 - (variations), not parent products.
+  \*/
+
+#### TODO: 2 (Support Ticket System)
+
+/\*\*
+
+- Support ticket system: track all support requests from logged-in users.
+-
+- Admin-configured (set from admin panel):
+- ***
+- Ticket category (e.g. technical support, billing, account, etc.)
+- Ticket status (e.g. open, closed, pending, etc.)
+- Priority (e.g. low, medium, high, etc.)
+-
+- Optional:
+- ***
+- Attachment (e.g. image) from sender.
+-
+- Back and forth remarks:
+- ***
+- Admin and sender exchange remarks (e.g. admin replies needing more information, user replies with the information; after solving the issue, admin closes the ticket and sends a thank you message to the user).
   \*/
