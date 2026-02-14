@@ -70,9 +70,9 @@ export default function LandingsFooter() {
           <h4 className="mb-4 text-base text-white">Information</h4>
           <ul className="space-y-4">
             <li>
-              <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
+              <Link href={route('about-us.index')} className="text-sm text-slate-400 hover:text-white">
                 About Us
-              </a>
+              </Link>
             </li>
             <li>
               <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
