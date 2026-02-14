@@ -75,6 +75,11 @@ export default function LandingsFooter() {
               </Link>
             </li>
             <li>
+              <Link href={route('contact-us.index')} className="text-sm text-slate-400 hover:text-white">
+                Contact Us
+              </Link>
+            </li>
+            <li>
               <a href="javascript:void(0)" className="text-sm text-slate-400 hover:text-white">
                 Terms &amp; Conditions
               </a>

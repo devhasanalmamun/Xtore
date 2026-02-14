@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 Route::get('/flash-sales', LandingFlashSaleController::class)->name('flash-sales.index');
 Route::resource('/categories', LandingCategoryController::class)->only('index', 'show');
+
 Route::get('/contact-us', LandingContactPageController::class)->name('contact-us.index');
 Route::get('/about-us', LandingAboutUsController::class)->name('about-us.index');
 
