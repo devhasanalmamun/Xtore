@@ -1,11 +1,15 @@
-import { Head } from '@inertiajs/react'
+import { Head, useForm } from '@inertiajs/react'
 
+import SupportTicketCategoryForm from '@/pages/admin/support-ticket/support-ticket-category-form'
+import { IAdminSupportTicketCategory } from '@/types/admin-support-ticket'
 import AdminLayout from '@/layouts/admin/admin-layout'
+import { Button } from '@/components/ui/button'
+import Heading from '@/components/heading'
 import { BreadcrumbItem } from '@/types'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
-    title: 'Support Ticket Categories',
+    title: 'Ticket Categories',
     routeName: 'admin.support-ticket-categories.index',
   },
   {
@@ -14,14 +18,44 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ]
 
-export default function SupportTicketCategoryCreate() {
+interface IProps {
+  visibility_options: string[]
+}
+
+export default function SupportTicketCategoryCreate(props: IProps) {
+  const { data, setData, errors, processing } = useForm<IAdminSupportTicketCategory>({
+    name: '',
+    visibility: '',
+    active: true,
+    sort_order: 0,
+  })
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    console.log(data)
+  }
+
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
       <Head title="Create Support Ticket's Category" />
+
       <section className="px-4 py-8 md:px-4 md:py-8">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-medium">Create Support Ticket Category</h1>
-        </div>
+        <Heading
+          title="Create Support Ticket Category"
+          description="This category will be shown in support ticket categories when users create a support ticket"
+        />
+
+        <SupportTicketCategoryForm
+          visibility_options={props.visibility_options}
+          data={data}
+          onDataChange={setData}
+          onSubmit={handleSubmit}
+          errors={errors}
+        />
+
+        <Button type="submit" className="mt-6" form="support-ticket-category-form" disabled={processing}>
+          Create Support Ticket Category
+        </Button>
       </section>
     </AdminLayout>
   )

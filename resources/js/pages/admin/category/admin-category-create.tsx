@@ -1,4 +1,4 @@
-import { useForm } from '@inertiajs/react'
+import { Head, useForm } from '@inertiajs/react'
 import { useEffect } from 'react'
 
 import AdminCategoryForm from '@/pages/admin/category/admin-category-form'
@@ -49,6 +49,8 @@ export default function AdminCategoryCreate(props: IProps) {
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
       <section className="px-4 py-8 md:px-4 md:py-8">
+        <Head title="Create product category" />
+
         <Heading
           title="Create a category"
           description="This category will be shown in vendors dashboard when they create a product"
