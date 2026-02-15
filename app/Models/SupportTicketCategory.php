@@ -18,4 +18,13 @@ class SupportTicketCategory extends Model
         'active',
         'sort_order',
     ];
+
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
