@@ -4,7 +4,7 @@ import {
   StoreIcon,
   ListOrderedIcon,
   GalleryHorizontalIcon,
-  MessageCircleWarningIcon,
+  TicketIcon,
 } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
@@ -54,10 +54,10 @@ const mainNavItems: NavItem[] = [
     icon: GalleryHorizontalIcon,
   },
   {
-    title: 'User Queries',
-    baseRoute: 'admin.user-queries.',
-    routeName: 'admin.user-queries.index',
-    icon: MessageCircleWarningIcon,
+    title: 'Support Tickets',
+    baseRoute: 'admin.support-tickets.',
+    routeName: 'admin.support-tickets.index',
+    icon: TicketIcon,
   },
 ]
 

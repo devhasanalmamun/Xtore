@@ -5,17 +5,17 @@ import { BreadcrumbItem } from '@/types'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
-    title: 'User Queries',
-    routeName: 'admin.user-queries.index',
+    title: 'Support Tickets',
+    routeName: 'admin.support-tickets.index',
   },
 ]
 
-export default function UserQueryIndex() {
+export default function SupportTicketIndex() {
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
-      <Head title="User Queries" />
+      <Head title="Support Tickets" />
       <section className="px-4 py-8 md:px-4 md:py-8">
-        <div>User Queries</div>
+        <div>Support Tickets</div>
       </section>
     </AdminLayout>
   )
