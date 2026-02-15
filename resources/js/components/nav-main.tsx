@@ -16,14 +16,16 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
     <SidebarGroup className="px-2 py-0">
       <SidebarMenu>
         {items.map((item) => {
-          const isActive = route().current(`${item.baseRoute}*`)
           const hasSubMenu = item.items && item.items.length > 0
+          const isActive = hasSubMenu
+            ? item.items?.some((sub) => route().current(`${sub.baseRoute}*`))
+            : route().current(`${item.baseRoute}*`)
 
           if (!hasSubMenu) {
             return (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild isActive={isActive} tooltip={{ children: item.title }}>
-                  <Link href={route(item.routeName)} prefetch>
+                  <Link href={route(item.routeName ?? '')} prefetch>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                   </Link>
@@ -47,8 +49,8 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                     <SidebarMenuSub>
                       {item.items?.map((sub) => (
                         <SidebarMenuItem key={sub.title}>
-                          <SidebarMenuSubButton asChild>
-                            <Link href={route(sub.routeName)} prefetch>
+                          <SidebarMenuSubButton asChild isActive={route().current(`${sub.baseRoute}*`)}>
+                            <Link href={route(sub.routeName ?? '')} prefetch>
                               {sub.icon && <sub.icon />}
                               <span>{sub.title}</span>
                             </Link>

@@ -17,8 +17,8 @@ export interface NavGroup {
 
 export interface NavItem {
   title: string
-  baseRoute: string
-  routeName: string
+  baseRoute?: string
+  routeName?: string
   icon?: LucideIcon | null
   items?: NavItem[]
 }
