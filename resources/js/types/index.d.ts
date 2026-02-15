@@ -20,7 +20,7 @@ export interface NavItem {
   baseRoute: string
   routeName: string
   icon?: LucideIcon | null
-  isActive?: boolean
+  items?: NavItem[]
 }
 
 export interface SharedData {

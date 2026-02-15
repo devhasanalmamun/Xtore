@@ -53,11 +53,25 @@ const mainNavItems: NavItem[] = [
     routeName: 'admin.banners.index',
     icon: GalleryHorizontalIcon,
   },
+
+  // Support Tickets sub-menu
   {
     title: 'Support Tickets',
     baseRoute: 'admin.support-tickets.',
     routeName: 'admin.support-tickets.index',
     icon: TicketIcon,
+    items: [
+      {
+        title: 'Categories',
+        baseRoute: 'admin.support-tickets.',
+        routeName: 'admin.support-tickets.index',
+      },
+      {
+        title: 'Tickets',
+        baseRoute: 'admin.support-tickets.',
+        routeName: 'admin.support-tickets.index',
+      },
+    ],
   },
 ]
 
