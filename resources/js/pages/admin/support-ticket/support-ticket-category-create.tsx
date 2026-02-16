@@ -23,7 +23,7 @@ interface IProps {
 }
 
 export default function SupportTicketCategoryCreate(props: IProps) {
-  const { data, setData, errors, processing } = useForm<IAdminSupportTicketCategory>({
+  const { data, setData, post, errors, processing } = useForm<IAdminSupportTicketCategory>({
     name: '',
     visibility: '',
     active: true,
@@ -32,6 +32,12 @@ export default function SupportTicketCategoryCreate(props: IProps) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    post(route('admin.support-ticket-categories.store'), {
+      onSuccess: () => console.log('success'),
+      onError: (errors) => console.log(errors),
+    })
+
     console.log(data)
   }
 
