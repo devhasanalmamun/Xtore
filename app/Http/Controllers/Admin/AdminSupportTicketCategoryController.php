@@ -43,4 +43,9 @@ class AdminSupportTicketCategoryController extends Controller
 
         return redirect()->route('admin.support-ticket-categories.index');
     }
+
+    public function edit(SupportTicketCategory $category)
+    {
+        dd($category);
+    }
 }
