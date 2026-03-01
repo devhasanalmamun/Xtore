@@ -25,10 +25,8 @@ class AdminSupportTicketCategoryController extends Controller
 
     public function create()
     {
-        $visibilityOptions = SupportTicketVisibilityEnum::values();
-
         return Inertia::render('admin/support-ticket/support-ticket-category-create', [
-            'visibility_options' => $visibilityOptions,
+            'visibility_options' => SupportTicketVisibilityEnum::values(),
         ]);
     }
 
@@ -44,8 +42,11 @@ class AdminSupportTicketCategoryController extends Controller
         return redirect()->route('admin.support-ticket-categories.index');
     }
 
-    public function edit(SupportTicketCategory $category)
+    public function edit(SupportTicketCategory $support_ticket_category)
     {
-        dd($category);
+        return Inertia::render('admin/support-ticket/support-ticket-category-edit', [
+            'category' => AdminSupportCategoryResource::make($support_ticket_category),
+            'visibility_options' => SupportTicketVisibilityEnum::values(),
+        ]);
     }
 }

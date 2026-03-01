@@ -1,5 +1,6 @@
 interface IAdminSupportTicketCategory {
   id?: number
+  slug?: string
   name: string
   visibility: string
   active: boolean

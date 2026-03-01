@@ -39,11 +39,16 @@ const columns: ColumnDef<IAdminSupportTicketCategory>[] = [
   {
     header: 'Actions',
     accessorKey: 'actions',
-    cell: () => (
+    cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="icon">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => router.get(route('admin.support-ticket-categories.edit', row.original.slug))}
+        >
           <PencilIcon className="h-4 w-4" />
         </Button>
+
         <Button variant="destructive" size="icon">
           <TrashIcon className="h-4 w-4" />
         </Button>

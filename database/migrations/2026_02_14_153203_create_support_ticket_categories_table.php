@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('support_ticket_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('visibility')->default(SupportTicketVisibilityEnum::BOTH->value);
             $table->boolean('active')->default(true);
