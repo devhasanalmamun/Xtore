@@ -2,7 +2,7 @@ import { CheckCircleIcon, CircleXIcon, PencilIcon, PlusIcon } from 'lucide-react
 import { ColumnDef } from '@tanstack/react-table'
 import { Head, router } from '@inertiajs/react'
 
-import SupportTicketCategoryDelete from '@/pages/admin/support-ticket/support-ticket-category-delete'
+import SupportTicketCategoryDelete from '@/pages/admin/support-ticket/category/admin-support-ticket-category-delete'
 import { IAdminSupportTicketCategory } from '@/types/admin-support-ticket'
 import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
 import AdminLayout from '@/layouts/admin/admin-layout'

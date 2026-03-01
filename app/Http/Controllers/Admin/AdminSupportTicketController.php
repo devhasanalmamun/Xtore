@@ -11,6 +11,6 @@ class AdminSupportTicketController extends Controller
 {
     public function index()
     {
-        return Inertia::render('admin/support-ticket/support-ticket-index');
+        return Inertia::render('admin/support-ticket/admin-support-ticket-index');
     }
 }

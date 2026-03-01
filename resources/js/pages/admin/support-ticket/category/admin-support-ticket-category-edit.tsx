@@ -1,6 +1,6 @@
 import { Head, useForm } from '@inertiajs/react'
 
-import SupportTicketCategoryForm from '@/pages/admin/support-ticket/support-ticket-category-form'
+import SupportTicketCategoryForm from '@/pages/admin/support-ticket/category/admin-support-ticket-category-form'
 import { IAdminSupportTicketCategory } from '@/types/admin-support-ticket'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { Button } from '@/components/ui/button'
