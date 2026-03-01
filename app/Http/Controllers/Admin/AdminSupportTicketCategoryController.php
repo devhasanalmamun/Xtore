@@ -11,11 +11,11 @@ use App\Http\Resources\Admin\AdminSupportCategoryResource;
 use App\Models\SupportTicketCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
-use Inertia\Inertia;
+use Inertia\{Inertia, Response};
 
 class AdminSupportTicketCategoryController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         $categories = SupportTicketCategory::orderBy('sort_order', 'asc')->paginate(10);
 
@@ -24,14 +24,14 @@ class AdminSupportTicketCategoryController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('admin/support-ticket/support-ticket-category-create', [
             'visibility_options' => SupportTicketVisibilityEnum::values(),
         ]);
     }
 
-    public function store(AdminSupportTicketCategoryData $data)
+    public function store(AdminSupportTicketCategoryData $data): RedirectResponse
     {
         $transformedData = $data->toArray();
 
@@ -43,7 +43,7 @@ class AdminSupportTicketCategoryController extends Controller
         return redirect()->route('admin.support-ticket-categories.index');
     }
 
-    public function edit(SupportTicketCategory $support_ticket_category)
+    public function edit(SupportTicketCategory $support_ticket_category): Response
     {
         return Inertia::render('admin/support-ticket/support-ticket-category-edit', [
             'category' => AdminSupportCategoryResource::make($support_ticket_category),
@@ -59,6 +59,13 @@ class AdminSupportTicketCategoryController extends Controller
             ...$transformedData,
             'slug' => Str::slug($transformedData['name']),
         ]);
+
+        return redirect()->route('admin.support-ticket-categories.index');
+    }
+
+    public function destroy(SupportTicketCategory $support_ticket_category): RedirectResponse
+    {
+        $support_ticket_category->delete();
 
         return redirect()->route('admin.support-ticket-categories.index');
     }
