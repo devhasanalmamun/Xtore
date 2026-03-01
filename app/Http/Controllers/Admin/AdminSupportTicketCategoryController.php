@@ -9,6 +9,7 @@ use App\Enums\SupportTicketVisibilityEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminSupportCategoryResource;
 use App\Models\SupportTicketCategory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -48,5 +49,17 @@ class AdminSupportTicketCategoryController extends Controller
             'category' => AdminSupportCategoryResource::make($support_ticket_category),
             'visibility_options' => SupportTicketVisibilityEnum::values(),
         ]);
+    }
+
+    public function update(AdminSupportTicketCategoryData $data, SupportTicketCategory $support_ticket_category): RedirectResponse
+    {
+        $transformedData = $data->toArray();
+
+        $support_ticket_category->update([
+            ...$transformedData,
+            'slug' => Str::slug($transformedData['name']),
+        ]);
+
+        return redirect()->route('admin.support-ticket-categories.index');
     }
 }

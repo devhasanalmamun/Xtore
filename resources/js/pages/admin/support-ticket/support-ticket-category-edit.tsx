@@ -24,7 +24,7 @@ interface IProps {
 }
 
 export default function SupportTicketCategoryEdit(props: IProps) {
-  const { data, setData, post, errors, processing } = useForm<IAdminSupportTicketCategory>({
+  const { data, setData, patch, errors, processing } = useForm<IAdminSupportTicketCategory>({
     name: props.category.name,
     visibility: props.category.visibility,
     active: props.category.active,
@@ -34,12 +34,10 @@ export default function SupportTicketCategoryEdit(props: IProps) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    post(route('admin.support-ticket-categories.store'), {
-      onSuccess: () => console.log('success'),
-      onError: (errors) => console.log(errors),
+    patch(route('admin.support-ticket-categories.update', props.category.slug), {
+      onSuccess: () => console.log('Support ticket category updated successfully'),
+      onError: () => console.log('Failed to update the support ticket category :' + errors),
     })
-
-    console.log(data)
   }
 
   return (
