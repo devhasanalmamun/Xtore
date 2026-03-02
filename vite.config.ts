@@ -22,13 +22,14 @@ export default defineConfig({
       'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
     },
   },
+
   server: {
-    host: '127.0.0.1',
+    host: 'xtore.test',
     port: 5173,
     strictPort: true,
     hmr: {
-      protocol: 'ws',
-      host: '127.0.0.1',
+      host: 'xtore.test',
+      protocol: 'wss',
       clientPort: 5173,
     },
   },

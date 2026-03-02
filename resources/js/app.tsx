@@ -1,10 +1,15 @@
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
+import { configureEcho } from '@laravel/echo-react'
+import { createInertiaApp } from '@inertiajs/react'
+import { createRoot } from 'react-dom/client'
+import { StrictMode } from 'react'
+
+import { initializeTheme } from '@/hooks/use-appearance'
 import '../css/app.css'
 
-import { createInertiaApp } from '@inertiajs/react'
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { createRoot } from 'react-dom/client'
-import { initializeTheme } from './hooks/use-appearance'
-import { StrictMode } from 'react'
+configureEcho({
+  broadcaster: 'reverb',
+})
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
