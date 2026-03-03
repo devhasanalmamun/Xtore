@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             VariationTypeSeeder::class,
             SupportTicketCategorySeeder::class,
+            SupportTicketSeeder::class,
         ]);
 
         Banner::factory(10)->create();
