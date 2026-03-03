@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Enums\SupportTicketVisibilityEnum;
+use App\Enums\SupportTicketCategoryVisibilityEnum;
 use App\Models\SupportTicketCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -15,26 +15,26 @@ class SupportTicketCategorySeeder extends Seeder
     {
         $items = [
             // BOTH (buyer + vendor)
-            ['Technical Support', SupportTicketVisibilityEnum::BOTH],
-            ['Payment Issues', SupportTicketVisibilityEnum::BOTH],
-            ['Account Access Problems', SupportTicketVisibilityEnum::BOTH],
-            ['Coupon & Promotion Issues', SupportTicketVisibilityEnum::BOTH],
-            ['Policy & Compliance', SupportTicketVisibilityEnum::BOTH],
-            ['Verification & KYC', SupportTicketVisibilityEnum::BOTH],
-            ['Feature Request', SupportTicketVisibilityEnum::BOTH],
-            ['Other', SupportTicketVisibilityEnum::BOTH],
+            ['Technical Support', SupportTicketCategoryVisibilityEnum::BOTH],
+            ['Payment Issues', SupportTicketCategoryVisibilityEnum::BOTH],
+            ['Account Access Problems', SupportTicketCategoryVisibilityEnum::BOTH],
+            ['Coupon & Promotion Issues', SupportTicketCategoryVisibilityEnum::BOTH],
+            ['Policy & Compliance', SupportTicketCategoryVisibilityEnum::BOTH],
+            ['Verification & KYC', SupportTicketCategoryVisibilityEnum::BOTH],
+            ['Feature Request', SupportTicketCategoryVisibilityEnum::BOTH],
+            ['Other', SupportTicketCategoryVisibilityEnum::BOTH],
 
             // BUYER-only
-            ['Order Issues', SupportTicketVisibilityEnum::CUSTOMER],
-            ['Shipping & Delivery', SupportTicketVisibilityEnum::CUSTOMER],
-            ['Refund & Returns', SupportTicketVisibilityEnum::CUSTOMER],
-            ['Report a Seller', SupportTicketVisibilityEnum::CUSTOMER],
+            ['Order Issues', SupportTicketCategoryVisibilityEnum::CUSTOMER],
+            ['Shipping & Delivery', SupportTicketCategoryVisibilityEnum::CUSTOMER],
+            ['Refund & Returns', SupportTicketCategoryVisibilityEnum::CUSTOMER],
+            ['Report a Seller', SupportTicketCategoryVisibilityEnum::CUSTOMER],
 
             // VENDOR-only
-            ['Vendor Account Support', SupportTicketVisibilityEnum::VENDOR],
-            ['Product Listing Issues', SupportTicketVisibilityEnum::VENDOR],
-            ['Commission & Payout Issues', SupportTicketVisibilityEnum::VENDOR],
-            ['Report a Buyer', SupportTicketVisibilityEnum::VENDOR],
+            ['Vendor Account Support', SupportTicketCategoryVisibilityEnum::VENDOR],
+            ['Product Listing Issues', SupportTicketCategoryVisibilityEnum::VENDOR],
+            ['Commission & Payout Issues', SupportTicketCategoryVisibilityEnum::VENDOR],
+            ['Report a Buyer', SupportTicketCategoryVisibilityEnum::VENDOR],
         ];
 
         foreach ($items as $index => [$name, $visibility]) {

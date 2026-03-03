@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
-use App\Enums\SupportTicketVisibilityEnum;
+use App\Enums\SupportTicketCategoryVisibilityEnum;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Attributes\Validation\{BooleanType, IntegerType, Min, Required};
 use Spatie\LaravelData\Data;
@@ -15,7 +15,7 @@ final class AdminSupportTicketCategoryData extends Data
         public readonly string $name,
 
         #[Required]
-        public readonly SupportTicketVisibilityEnum $visibility,
+        public readonly SupportTicketCategoryVisibilityEnum $visibility,
 
         #[Required, IntegerType, Min(0)]
         public readonly int $sort_order,

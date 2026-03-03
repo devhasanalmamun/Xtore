@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Enums\SupportTicketVisibilityEnum;
+use App\Enums\SupportTicketCategoryVisibilityEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('visibility')->default(SupportTicketVisibilityEnum::BOTH->value);
+            $table->string('visibility')->default(SupportTicketCategoryVisibilityEnum::BOTH->value);
             $table->boolean('active')->default(true);
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\DataTransferObjects\AdminSupportTicketCategoryData;
-use App\Enums\SupportTicketVisibilityEnum;
+use App\Enums\SupportTicketCategoryVisibilityEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Admin\AdminSupportCategoryResource;
+use App\Http\Resources\Admin\AdminSupportTicketCategoryResource;
 use App\Models\SupportTicketCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
@@ -20,14 +20,14 @@ class AdminSupportTicketCategoryController extends Controller
         $categories = SupportTicketCategory::orderBy('sort_order', 'asc')->paginate(10);
 
         return Inertia::render('admin/support-ticket/category/admin-support-ticket-category-index', [
-            'categories' => AdminSupportCategoryResource::collection($categories),
+            'categories' => AdminSupportTicketCategoryResource::collection($categories),
         ]);
     }
 
     public function create(): Response
     {
         return Inertia::render('admin/support-ticket/category/admin-support-ticket-category-create', [
-            'visibility_options' => SupportTicketVisibilityEnum::values(),
+            'visibility_options' => SupportTicketCategoryVisibilityEnum::values(),
         ]);
     }
 
@@ -46,8 +46,8 @@ class AdminSupportTicketCategoryController extends Controller
     public function edit(SupportTicketCategory $support_ticket_category): Response
     {
         return Inertia::render('admin/support-ticket/category/admin-support-ticket-category-edit', [
-            'category' => AdminSupportCategoryResource::make($support_ticket_category),
-            'visibility_options' => SupportTicketVisibilityEnum::values(),
+            'category' => AdminSupportTicketCategoryResource::make($support_ticket_category),
+            'visibility_options' => SupportTicketCategoryVisibilityEnum::values(),
         ]);
     }
 

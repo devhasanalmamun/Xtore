@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\SupportTicketVisibilityEnum;
+use App\Enums\SupportTicketCategoryVisibilityEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,7 +21,7 @@ class SupportTicketCategory extends Model
     ];
 
     protected $casts = [
-        'visibility' => SupportTicketVisibilityEnum::class,
+        'visibility' => SupportTicketCategoryVisibilityEnum::class,
         'active' => 'boolean',
     ];
 

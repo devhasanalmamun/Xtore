@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum SupportTicketVisibilityEnum: string
+enum SupportTicketCategoryVisibilityEnum: string
 {
     case CUSTOMER = 'customer';
     case VENDOR = 'vendor';
