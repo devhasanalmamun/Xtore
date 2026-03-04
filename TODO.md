@@ -57,3 +57,5 @@
 - ***
 - Admin and sender exchange remarks (e.g. admin replies needing more information, user replies with the information; after solving the issue, admin closes the ticket and sends a thank you message to the user).
   \*/
+
+#### TODO: 3 (Polymorphic attachments table Replaces attachments handling for whole site)
