@@ -15,7 +15,7 @@ class AdminSupportTicketCategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'visibility' => $this->visibility,
+            'visibility' => ucwords($this->visibility->value),
             'active' => $this->active,
             'sort_order' => $this->sort_order,
             'created_at' => $this->created_at->diffForHumans(),

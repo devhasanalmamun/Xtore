@@ -8,4 +8,20 @@ interface IAdminSupportTicketCategory {
   created_at?: string
 }
 
-export { IAdminSupportTicketCategory }
+interface IAdminSupportTicket {
+  id?: number
+  created_by: {
+    name: string
+    role: string
+  }
+  asssigned_to?: string
+  category: {
+    name: string
+  }
+  attachment?: string
+  status: string
+  created_at?: string
+  updated_at?: string
+}
+
+export { IAdminSupportTicketCategory, IAdminSupportTicket }

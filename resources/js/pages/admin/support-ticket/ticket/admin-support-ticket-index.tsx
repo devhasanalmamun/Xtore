@@ -1,0 +1,86 @@
+import { ColumnDef } from '@tanstack/react-table'
+import { Head } from '@inertiajs/react'
+import { EyeIcon } from 'lucide-react'
+
+import AdminSupportTicketFilters from '@/pages/admin/support-ticket/ticket/admin-support-ticket-filters'
+import { BreadcrumbItem, PaginationLinks, PaginationMeta } from '@/types'
+import { IAdminSupportTicket } from '@/types/admin-support-ticket'
+import AdminLayout from '@/layouts/admin/admin-layout'
+import { DataTable } from '@/components/ui/data-table'
+import Pagination from '@/components/ui/pagination'
+import { Button } from '@/components/ui/button'
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Support Tickets',
+    routeName: 'admin.support-tickets.index',
+  },
+]
+
+const columns: ColumnDef<IAdminSupportTicket>[] = [
+  {
+    header: 'Created By',
+    accessorKey: 'created_by.name',
+  },
+  {
+    header: 'Role',
+    accessorKey: 'created_by.role',
+  },
+  {
+    header: 'Category',
+    accessorKey: 'category.name',
+  },
+  {
+    header: 'Status',
+    accessorKey: 'status',
+  },
+  {
+    header: 'Created At',
+    accessorKey: 'created_at',
+  },
+  {
+    header: 'Updated At',
+    accessorKey: 'updated_at',
+  },
+  {
+    header: 'Actions',
+    accessorKey: 'actions',
+    cell: () => (
+      <Button variant="outline" size="icon">
+        <EyeIcon />
+      </Button>
+    ),
+  },
+]
+
+interface IProps {
+  ticket_status_options: string[]
+  support_tickets: {
+    data: IAdminSupportTicket[]
+    meta: PaginationMeta
+    links: PaginationLinks
+  }
+}
+
+export default function SupportTicketIndex(props: IProps) {
+  return (
+    <AdminLayout breadcrumbs={breadcrumbs}>
+      <Head title="Support Tickets" />
+      <section className="px-4 py-8 md:px-4 md:py-8">
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-medium">All Tickets</h1>
+          <AdminSupportTicketFilters ticket_status_options={props.ticket_status_options} />
+        </div>
+
+        <div className="mt-8">
+          <DataTable columns={columns} data={props.support_tickets.data} />
+          <Pagination
+            meta={props.support_tickets.meta}
+            pagination_links={props.support_tickets.links}
+            totalRows={props.support_tickets.data.length}
+          />
+        </div>
+      </section>
+    </AdminLayout>
+  )
+}

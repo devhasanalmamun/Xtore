@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\SupportTicketStatusEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SupportTicket extends Model
 {
@@ -16,11 +17,18 @@ class SupportTicket extends Model
         'status',
     ];
 
-    public function casts(): array 
+    protected $casts = [
+        'status' => SupportTicketStatusEnum::class,
+        'attachments' => 'array'
+    ];
+
+    public function createdBy(): BelongsTo
     {
-        return [
-            'status' => SupportTicketStatusEnum::class,
-            'attachments' => 'array'
-        ];
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(SupportTicketCategory::class, 'category_id');
     }
 }
