@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { Head } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { EyeIcon } from 'lucide-react'
 
 import AdminSupportTicketFilters from '@/pages/admin/support-ticket/ticket/admin-support-ticket-filters'
@@ -46,8 +46,12 @@ const columns: ColumnDef<IAdminSupportTicket>[] = [
   {
     header: 'Actions',
     accessorKey: 'actions',
-    cell: () => (
-      <Button variant="outline" size="icon">
+    cell: ({ row }) => (
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() => router.get(route('admin.support-tickets.show', row.original.id))}
+      >
         <EyeIcon />
       </Button>
     ),

@@ -27,4 +27,11 @@ class AdminSupportTicketController extends Controller
             'ticket_status_options' => SupportTicketStatusEnum::values(),
         ]);
     }
+
+    public function show(SupportTicket $supportTicket)
+    {
+        return Inertia::render('admin/support-ticket/ticket/admin-support-ticket-show', [
+            'support_ticket' => new AdminSupportTicketResource($supportTicket),
+        ]);
+    }
 }
