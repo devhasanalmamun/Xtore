@@ -42,4 +42,17 @@ function limitWords(text: string, limit: number) {
   return words.slice(0, limit).join(' ') + ' ...'
 }
 
-export { limitWords }
+function statusBadgeVariant(status: string): 'default' | 'success' | 'outline' | 'destructive' {
+  switch (status?.toLowerCase()) {
+    case 'open':
+      return 'default'
+    case 'closed':
+      return 'destructive'
+    case 'resolved':
+      return 'success'
+    default:
+      return 'outline'
+  }
+}
+
+export { limitWords, statusBadgeVariant }

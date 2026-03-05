@@ -14,7 +14,7 @@ interface IAdminSupportTicket {
     name: string
     role: string
   }
-  asssigned_to?: string
+  assigned_to: string
   category: {
     name: string
   }
@@ -22,8 +22,8 @@ interface IAdminSupportTicket {
   description: string
   attachment?: string
   status: string
-  created_at?: string
-  updated_at?: string
+  created_at: string
+  updated_at: string
 }
 
 export { IAdminSupportTicketCategory, IAdminSupportTicket }

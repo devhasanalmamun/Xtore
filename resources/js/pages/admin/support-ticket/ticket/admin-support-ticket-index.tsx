@@ -10,7 +10,7 @@ import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { limitWords } from '@/lib/utils'
+import { limitWords, statusBadgeVariant } from '@/lib/utils'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -44,6 +44,11 @@ const columns: ColumnDef<IAdminSupportTicket>[] = [
   {
     header: 'Status',
     accessorKey: 'status',
+    cell: ({ row }) => (
+      <Badge variant={statusBadgeVariant(row.original.status)} className="py-0 text-xs capitalize">
+        {row.original.status}
+      </Badge>
+    ),
   },
   {
     header: 'Created At',
