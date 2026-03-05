@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('category_id')->constrained('support_ticket_categories')->restrictOnDelete();
 
+            $table->string('subject');
             $table->longText('description');
             $table->json('attachments')->nullable();
             $table->string('status')->default(SupportTicketStatusEnum::OPEN->value);

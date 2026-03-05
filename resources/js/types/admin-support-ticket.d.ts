@@ -18,6 +18,8 @@ interface IAdminSupportTicket {
   category: {
     name: string
   }
+  subject: string
+  description: string
   attachment?: string
   status: string
   created_at?: string

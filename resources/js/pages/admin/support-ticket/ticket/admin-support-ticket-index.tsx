@@ -9,6 +9,7 @@ import AdminLayout from '@/layouts/admin/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { limitWords } from '@/lib/utils'
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -22,14 +23,23 @@ const columns: ColumnDef<IAdminSupportTicket>[] = [
   {
     header: 'Created By',
     accessorKey: 'created_by.name',
-  },
-  {
-    header: 'Role',
-    accessorKey: 'created_by.role',
+    cell: ({ row }) => (
+      <div className="flex items-center gap-2">
+        <span className="text-truncate">{row.original.created_by.name}</span>
+        <Badge variant={row.original.created_by.role === 'Customer' ? 'default' : 'outline'} className="py-0 text-xs">
+          {row.original.created_by.role.toLowerCase()}
+        </Badge>
+      </div>
+    ),
   },
   {
     header: 'Category',
     cell: ({ row }) => <span className="text-truncate">{limitWords(row.original.category.name, 2)}</span>,
+  },
+  {
+    header: 'Subject',
+    accessorKey: 'subject',
+    cell: ({ row }) => <span className="text-truncate">{limitWords(row.original.subject, 7)}</span>,
   },
   {
     header: 'Status',

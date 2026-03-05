@@ -20,6 +20,8 @@ class AdminSupportTicketResource extends JsonResource
             'category' => $this->whenLoaded('category', [
                 'name' => $this->category->name,
             ]),
+            'subject' => $this->subject,
+            'description' => $this->description,
             'attachment' => $this->attachment,
             'status' => ucwords($this->status->value),
             'created_at' => $this->created_at->diffForHumans(),
