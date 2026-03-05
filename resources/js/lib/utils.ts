@@ -31,3 +31,15 @@ export function buildCategoryTree(categories: ILandingCategory[]) {
 
   return roots
 }
+
+function limitWords(text: string, limit: number) {
+  const words = text.split(' ')
+
+  if (words.length <= limit) {
+    return text
+  }
+
+  return words.slice(0, limit).join(' ') + ' ...'
+}
+
+export { limitWords }

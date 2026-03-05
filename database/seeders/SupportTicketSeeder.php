@@ -33,8 +33,7 @@ class SupportTicketSeeder extends Seeder
             ],
         ];
 
-        foreach ($tickets as $ticket) 
-        {
+        foreach ($tickets as $ticket) {
             SupportTicket::create($ticket);
         }
     }

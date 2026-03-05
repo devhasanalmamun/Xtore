@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->longText('message');
             $table->json('attachments')->nullable();
-            
+
             $table->timestamps();
         });
     }

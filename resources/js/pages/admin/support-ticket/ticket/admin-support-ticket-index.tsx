@@ -9,6 +9,7 @@ import AdminLayout from '@/layouts/admin/admin-layout'
 import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
 import { Button } from '@/components/ui/button'
+import { limitWords } from '@/lib/utils'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -28,7 +29,7 @@ const columns: ColumnDef<IAdminSupportTicket>[] = [
   },
   {
     header: 'Category',
-    accessorKey: 'category.name',
+    cell: ({ row }) => <span className="text-truncate">{limitWords(row.original.category.name, 2)}</span>,
   },
   {
     header: 'Status',

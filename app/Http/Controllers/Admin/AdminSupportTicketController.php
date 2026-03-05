@@ -16,9 +16,9 @@ class AdminSupportTicketController extends Controller
     {
         $supportTickets = SupportTicket::query()
             ->with([
-                'createdBy:id,first_name,last_name,role', 
+                'createdBy:id,first_name,last_name,role',
                 'category:id,name',
-                ])
+            ])
             ->latest()
             ->paginate(10);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Request;
@@ -12,7 +14,7 @@ class AdminSupportTicketResource extends JsonResource
         return [
             'id' => $this->id,
             'created_by' => $this->whenLoaded('createdBy', [
-                'name' => $this->createdBy->first_name . ' ' . $this->createdBy->last_name,
+                'name' => $this->createdBy->first_name.' '.$this->createdBy->last_name,
                 'role' => ucwords($this->createdBy->role->value),
             ]),
             'category' => $this->whenLoaded('category', [

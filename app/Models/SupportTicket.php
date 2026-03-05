@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\SupportTicketStatusEnum;
@@ -19,7 +21,7 @@ class SupportTicket extends Model
 
     protected $casts = [
         'status' => SupportTicketStatusEnum::class,
-        'attachments' => 'array'
+        'attachments' => 'array',
     ];
 
     public function createdBy(): BelongsTo
