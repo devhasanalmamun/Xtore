@@ -1,4 +1,4 @@
-import { LayoutGridIcon, PackageIcon } from 'lucide-react'
+import { LayoutGridIcon, PackageIcon, TicketIcon } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
 import {
@@ -27,6 +27,12 @@ const mainNavItems: NavItem[] = [
     baseRoute: 'vendor.products.',
     routeName: 'vendor.products.index',
     icon: PackageIcon,
+  },
+  {
+    title: 'Support Tickets',
+    baseRoute: 'vendor.support-tickets.',
+    routeName: 'vendor.support-tickets.index',
+    icon: TicketIcon,
   },
 ]
 
