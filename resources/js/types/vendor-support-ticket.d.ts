@@ -1,4 +1,4 @@
-interface IVendorSupportTicket {
+interface IVendorSupportTicketIndex {
   id: number
   category: {
     name: string
@@ -10,4 +10,11 @@ interface IVendorSupportTicket {
   updated_at: string
 }
 
-export { IVendorSupportTicket }
+interface IVendorSupportTicketCreate {
+  subject: string
+  category: string
+  description: string
+  attachment: null
+}
+
+export { IVendorSupportTicketIndex, IVendorSupportTicketCreate }

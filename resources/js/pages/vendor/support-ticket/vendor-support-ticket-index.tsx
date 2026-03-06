@@ -3,7 +3,7 @@ import { Head, Link, router } from '@inertiajs/react'
 import { EyeIcon, PlusIcon } from 'lucide-react'
 
 import { PaginationMeta, PaginationLinks, BreadcrumbItem } from '@/types'
-import { IVendorSupportTicket } from '@/types/vendor-support-ticket'
+import { IVendorSupportTicketIndex } from '@/types/vendor-support-ticket'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
 import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ]
 
-const columns: ColumnDef<IVendorSupportTicket>[] = [
+const columns: ColumnDef<IVendorSupportTicketIndex>[] = [
   {
     header: 'Subject',
     accessorKey: 'subject',
@@ -30,7 +30,7 @@ const columns: ColumnDef<IVendorSupportTicket>[] = [
   {
     header: 'Status',
     cell: ({ row }) => (
-      <Badge variant={statusBadgeVariant(row.original.status)} className="py-0 text-xs capitalize">
+      <Badge variant={statusBadgeVariant(row.original.status ?? '')} className="py-0 text-xs capitalize">
         {row.original.status}
       </Badge>
     ),
@@ -60,7 +60,7 @@ const columns: ColumnDef<IVendorSupportTicket>[] = [
 
 interface IProps {
   support_tickets: {
-    data: IVendorSupportTicket[]
+    data: IVendorSupportTicketIndex[]
     meta: PaginationMeta
     links: PaginationLinks
   }
