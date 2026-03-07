@@ -13,7 +13,7 @@ class SupportTicket extends Model
     protected $fillable = [
         'created_by',
         'assigned_to',
-        'support_ticket_category_id',
+        'category_id',
         'subject',
         'description',
         'attachments',

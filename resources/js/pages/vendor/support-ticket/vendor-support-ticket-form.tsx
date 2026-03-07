@@ -27,7 +27,7 @@ export default function VendorSupportTicketForm(props: IProps) {
             value={props.data.subject}
             onChange={(e) => props.setData('subject', e.target.value)}
           />
-          {props.errors.subject && <InputError>{props.errors.subject}</InputError>}
+          {props.errors.subject && <InputError message={props.errors.subject} />}
         </div>
 
         <div>
@@ -44,7 +44,7 @@ export default function VendorSupportTicketForm(props: IProps) {
               ))}
             </SelectContent>
           </Select>
-          {props.errors.category && <InputError>{props.errors.category}</InputError>}
+          {props.errors.category && <InputError message={props.errors.category} />}
         </div>
       </div>
 
@@ -58,13 +58,13 @@ export default function VendorSupportTicketForm(props: IProps) {
           onChange={(e) => props.setData('description', e.target.value)}
           placeholder="Describe your issue in detail"
         />
-        {props.errors.description && <InputError>{props.errors.description}</InputError>}
+        {props.errors.description && <InputError message={props.errors.description} />}
       </div>
 
       <div>
         <Label htmlFor="attachment">Attachment</Label>
         <Input id="attachment" name="attachment" type="file" />
-        {props.errors.attachment && <InputError>{props.errors.attachment}</InputError>}
+        {props.errors.attachment && <InputError message={props.errors.attachment} />}
       </div>
     </form>
   )

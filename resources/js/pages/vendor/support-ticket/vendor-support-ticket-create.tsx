@@ -23,7 +23,7 @@ interface IProps {
 }
 
 export default function VendorSupportTicketCreate(props: IProps) {
-  const { data, setData, processing, errors } = useForm<IVendorSupportTicketCreate>({
+  const { data, setData, post, processing, errors } = useForm<IVendorSupportTicketCreate>({
     subject: '',
     description: '',
     category: '',
@@ -32,7 +32,11 @@ export default function VendorSupportTicketCreate(props: IProps) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log(data)
+
+    post(route('vendor.support-tickets.store'), {
+      onSuccess: () => console.log('success'),
+      onError: (errors) => console.log(errors),
+    })
   }
 
   return (
