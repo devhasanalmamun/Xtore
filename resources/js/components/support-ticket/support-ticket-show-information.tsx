@@ -9,7 +9,7 @@ interface IProps {
   attachment: string
 }
 
-export default function AdminSupportTicketShowInformation(props: IProps) {
+export default function SupportTicketShowInformation(props: IProps) {
   return (
     <Card>
       <CardHeader>

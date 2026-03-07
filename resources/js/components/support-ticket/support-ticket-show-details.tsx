@@ -12,7 +12,7 @@ interface IProps {
   ticket_updated_at: string
 }
 
-export default function AdminSupportTicketShowDetails(props: IProps) {
+export default function SupportTicketShowDetails(props: IProps) {
   return (
     <Card>
       <CardHeader>

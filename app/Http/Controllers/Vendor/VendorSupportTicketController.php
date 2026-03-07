@@ -30,7 +30,7 @@ class VendorSupportTicketController extends Controller
     public function show(SupportTicket $supportTicket) : Response
     {
         return Inertia::render('vendor/support-ticket/vendor-support-ticket-show', [
-            'support_ticket' => new VendorSupportTicketResource($supportTicket),
+            'support_ticket' => new VendorSupportTicketResource($supportTicket->load('category:id,name')),
         ]);
     }
 

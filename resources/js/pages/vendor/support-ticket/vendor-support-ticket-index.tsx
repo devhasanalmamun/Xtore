@@ -67,7 +67,6 @@ interface IProps {
 }
 
 export default function VendorSupportTicketIndex(props: IProps) {
-  console.log(props.support_tickets)
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
       <Head title="Support Tickets" />

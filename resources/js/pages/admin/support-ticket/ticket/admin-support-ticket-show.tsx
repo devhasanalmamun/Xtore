@@ -2,11 +2,11 @@ import { Head, router } from '@inertiajs/react'
 import { ArrowLeftIcon } from 'lucide-react'
 
 import AdminSupportTicketShowSubmittedBy from '@/pages/admin/support-ticket/ticket/partials/admin-support-ticket-show-submitted-by'
-import AdminSupportTicketShowInformation from '@/pages/admin/support-ticket/ticket/partials/admin-support-ticket-show-information'
 import AdminSupportTicketShowAssignedTo from '@/pages/admin/support-ticket/ticket/partials/admin-support-ticket-show-assigned-to'
 import AdminSupportTicketShowActions from '@/pages/admin/support-ticket/ticket/partials/admin-support-ticket-show-actions'
-import AdminSupportTicketShowDetails from '@/pages/admin/support-ticket/ticket/partials/admin-support-ticket-show-details'
-import ConversationThread from '@/pages/admin/support-ticket/ticket/partials/conversation-thread'
+import SupportTicketShowInformation from '@/components/support-ticket/support-ticket-show-information'
+import SupportTicketShowDetails from '@/components/support-ticket/support-ticket-show-details'
+import ConversationThread from '@/components/support-ticket/conversation-thread'
 import { IAdminSupportTicket } from '@/types/admin-support-ticket'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { statusBadgeVariant } from '@/lib/utils'
@@ -52,7 +52,7 @@ export default function AdminSupportTicketShow({ support_ticket }: IProps) {
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Left column */}
           <div className="space-y-6 lg:col-span-2">
-            <AdminSupportTicketShowInformation
+            <SupportTicketShowInformation
               subject={support_ticket.subject}
               description={support_ticket.description}
               attachment={support_ticket.attachment ?? ''}
@@ -69,7 +69,7 @@ export default function AdminSupportTicketShow({ support_ticket }: IProps) {
 
           {/* Right column */}
           <div className="space-y-4">
-            <AdminSupportTicketShowDetails
+            <SupportTicketShowDetails
               ticket_status={support_ticket.status}
               ticket_category={support_ticket.category.name}
               ticket_created_at={support_ticket.created_at}

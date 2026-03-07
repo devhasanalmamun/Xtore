@@ -8,10 +8,12 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 interface IProps {
-  created_by: {
-    name: string
-    role: string
-  }
+  created_by:
+    | {
+        name: string
+        role: string
+      }
+    | string
   created_at: string
 }
 
@@ -28,13 +30,19 @@ export default function ConversationThread(props: IProps) {
         {/* Customer message */}
         <div className="flex gap-3">
           <Avatar className="mt-0.5 shrink-0">
-            <AvatarFallback className="text-xs">{props.created_by.name?.charAt(0).toUpperCase()}</AvatarFallback>
+            <AvatarFallback className="text-xs">
+              {typeof props.created_by === 'string'
+                ? props.created_by.charAt(0).toUpperCase()
+                : props.created_by?.name?.charAt(0).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <p className="text-sm font-medium">{props.created_by.name}</p>
+              <p className="text-sm font-medium">
+                {typeof props.created_by === 'string' ? props.created_by : props.created_by?.name}
+              </p>
               <Badge variant="outline" className="py-0 text-xs capitalize">
-                {props.created_by.role}
+                {typeof props.created_by === 'string' ? '' : props.created_by?.role}
               </Badge>
               <span className="text-xs text-muted-foreground">{props.created_at}</span>
             </div>
