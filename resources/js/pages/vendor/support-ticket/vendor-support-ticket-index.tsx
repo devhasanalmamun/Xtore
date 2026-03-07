@@ -1,5 +1,5 @@
-import { ColumnDef } from '@tanstack/react-table'
 import { Head, Link, router } from '@inertiajs/react'
+import { ColumnDef } from '@tanstack/react-table'
 import { EyeIcon, PlusIcon } from 'lucide-react'
 
 import { PaginationMeta, PaginationLinks, BreadcrumbItem } from '@/types'
@@ -7,9 +7,9 @@ import { IVendorSupportTicketIndex } from '@/types/vendor-support-ticket'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
 import { DataTable } from '@/components/ui/data-table'
 import Pagination from '@/components/ui/pagination'
+import { statusBadgeVariant } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { statusBadgeVariant } from '@/lib/utils'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
