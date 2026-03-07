@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SupportTicketMessage extends Model
 {
@@ -15,10 +16,17 @@ class SupportTicketMessage extends Model
         'attachments',
     ];
 
-    public function casts(): array
+    protected $casts = [
+        'attachments' => 'array',
+    ];
+
+    public function supportTicket(): BelongsTo
     {
-        return [
-            'attachments' => 'array',
-        ];
+        return $this->belongsTo(SupportTicket::class);
+    }
+
+    public function sender(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'sender_id');
     }
 }

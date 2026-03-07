@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\SupportTicketStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SupportTicket extends Model
 {
@@ -33,5 +34,10 @@ class SupportTicket extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(SupportTicketCategory::class, 'category_id');
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(SupportTicketMessage::class);
     }
 }
