@@ -9,7 +9,7 @@ use App\Http\Controllers\{
     HomeController,
     Landing\LandingCategoryController,
     Landing\LandingContactPageController,
-    Landing\LandingFlashSaleController
+    Landing\LandingFlashSaleController,
 };
 use App\Http\Controllers\Landing\LandingAboutUsController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +29,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/editor-media', EditorMediaController::class)->name('editor-media.store');
     Route::post('/upload/product-image', FileUploadController::class)->name('upload.product-image');
 });
+
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::post('/support-tickets/{ticket}/messages', [SupportTicketMessageController::class, 'store'])->name('support-tickets.messages.store');
+// });
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

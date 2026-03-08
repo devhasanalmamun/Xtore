@@ -1,20 +1,15 @@
 import { PaperclipIcon, MessageSquareIcon } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { ISupportTicketMessage } from '@/types/support-ticket-messages'
 import { Separator } from '@/components/ui/separator'
 import Textarea from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 interface IProps {
-  created_by:
-    | {
-        name: string
-        role: string
-      }
-    | string
-  created_at: string
+  messages: ISupportTicketMessage[]
 }
 
 export default function ConversationThread(props: IProps) {
@@ -27,49 +22,29 @@ export default function ConversationThread(props: IProps) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-5">
-        {/* Customer message */}
-        <div className="flex gap-3">
-          <Avatar className="mt-0.5 shrink-0">
-            <AvatarFallback className="text-xs">
-              {typeof props.created_by === 'string'
-                ? props.created_by.charAt(0).toUpperCase()
-                : props.created_by?.name?.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <p className="text-sm font-medium">
-                {typeof props.created_by === 'string' ? props.created_by : props.created_by?.name}
-              </p>
-              <Badge variant="outline" className="py-0 text-xs capitalize">
-                {typeof props.created_by === 'string' ? '' : props.created_by?.role}
-              </Badge>
-              <span className="text-xs text-muted-foreground">{props.created_at}</span>
-            </div>
-            <div className="mt-2 rounded-lg border bg-muted/40 px-4 py-3 text-sm leading-relaxed">
-              I placed an order and the payment was deducted but I haven't received any confirmation email. Could you
-              please check the status of my order?
-            </div>
-          </div>
-        </div>
+        {props.messages.map((message) => (
+          <div key={message.id}>
+            <div className="flex gap-3">
+              <Avatar className="mt-0.5 shrink-0">
+                <AvatarImage src={message.sender.image} />
+                <AvatarFallback className="text-xs">{message.sender.name.charAt(0).toUpperCase()}</AvatarFallback>
+              </Avatar>
 
-        {/* Admin reply (static example) */}
-        <div className="flex gap-3">
-          <Avatar className="mt-0.5 shrink-0">
-            <AvatarFallback className="bg-primary text-xs text-primary-foreground">A</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <p className="text-sm font-medium">Admin Support</p>
-              <span className="text-xs text-muted-foreground">2 hours ago</span>
-            </div>
-            <div className="mt-2 rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 text-sm leading-relaxed">
-              Thank you for reaching out. We have located your order and found a temporary processing delay on our
-              payment gateway. Your confirmation email will be sent within the next 30 minutes. We apologize for the
-              inconvenience.
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="text-sm font-medium">{message.sender.name}</p>
+                  <Badge variant="outline" className="py-0 text-xs capitalize">
+                    {message.sender.role}
+                  </Badge>
+                  <span className="text-xs text-muted-foreground">{message.created_at}</span>
+                </div>
+                <div className="mt-2 rounded-lg border bg-muted/40 px-4 py-3 text-sm leading-relaxed">
+                  {message.message}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
 
         <Separator />
 

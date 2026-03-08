@@ -7,6 +7,7 @@ import AdminSupportTicketShowActions from '@/pages/admin/support-ticket/ticket/p
 import SupportTicketShowInformation from '@/components/support-ticket/support-ticket-show-information'
 import SupportTicketShowDetails from '@/components/support-ticket/support-ticket-show-details'
 import ConversationThread from '@/components/support-ticket/conversation-thread'
+import { ISupportTicketMessage } from '@/types/support-ticket-messages'
 import { IAdminSupportTicket } from '@/types/admin-support-ticket'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { statusBadgeVariant } from '@/lib/utils'
@@ -27,9 +28,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface IProps {
   support_ticket: IAdminSupportTicket
+  support_ticket_messages: ISupportTicketMessage[]
 }
 
-export default function AdminSupportTicketShow({ support_ticket }: IProps) {
+export default function AdminSupportTicketShow(props: IProps) {
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
       <Head title="Support Ticket Details" />
@@ -38,9 +40,9 @@ export default function AdminSupportTicketShow({ support_ticket }: IProps) {
         {/* Page header */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <h1 className="text-xl font-medium">Ticket #{support_ticket.id}</h1>
-            <Badge variant={statusBadgeVariant(support_ticket.status)} className="capitalize">
-              {support_ticket.status}
+            <h1 className="text-xl font-medium">Ticket #{props.support_ticket.id}</h1>
+            <Badge variant={statusBadgeVariant(props.support_ticket.status)} className="capitalize">
+              {props.support_ticket.status}
             </Badge>
           </div>
           <Button variant="outline" size="sm" onClick={() => router.get(route('admin.support-tickets.index'))}>
@@ -53,31 +55,25 @@ export default function AdminSupportTicketShow({ support_ticket }: IProps) {
           {/* Left column */}
           <div className="space-y-6 lg:col-span-2">
             <SupportTicketShowInformation
-              subject={support_ticket.subject}
-              description={support_ticket.description}
-              attachment={support_ticket.attachment ?? ''}
+              subject={props.support_ticket.subject}
+              description={props.support_ticket.description}
+              attachment={props.support_ticket.attachment ?? ''}
             />
 
-            <ConversationThread
-              created_by={{
-                name: support_ticket.created_by.name ?? '',
-                role: support_ticket.created_by.role ?? '',
-              }}
-              created_at={support_ticket.created_at}
-            />
+            <ConversationThread messages={props.support_ticket_messages} />
           </div>
 
           {/* Right column */}
           <div className="space-y-4">
             <SupportTicketShowDetails
-              ticket_status={support_ticket.status}
-              ticket_category={support_ticket.category.name}
-              ticket_created_at={support_ticket.created_at}
-              ticket_updated_at={support_ticket.updated_at}
+              ticket_status={props.support_ticket.status}
+              ticket_category={props.support_ticket.category.name}
+              ticket_created_at={props.support_ticket.created_at}
+              ticket_updated_at={props.support_ticket.updated_at}
             />
 
-            <AdminSupportTicketShowSubmittedBy created_by={support_ticket.created_by} />
-            <AdminSupportTicketShowAssignedTo assigned_to={support_ticket.assigned_to} />
+            <AdminSupportTicketShowSubmittedBy created_by={props.support_ticket.created_by} />
+            <AdminSupportTicketShowAssignedTo assigned_to={props.support_ticket.assigned_to} />
             <AdminSupportTicketShowActions />
           </div>
         </div>

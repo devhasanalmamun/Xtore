@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\SupportTicketStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminSupportTicketResource;
+use App\Http\Resources\SupportTicketMessageResource;
 use App\Models\SupportTicket;
 use Inertia\Inertia;
 
@@ -30,8 +31,11 @@ class AdminSupportTicketController extends Controller
 
     public function show(SupportTicket $supportTicket)
     {
+        $messages = $supportTicket->load('messages')->messages;
+
         return Inertia::render('admin/support-ticket/ticket/admin-support-ticket-show', [
             'support_ticket' => new AdminSupportTicketResource($supportTicket),
+            'support_ticket_messages' => SupportTicketMessageResource::collection($messages),
         ]);
     }
 }

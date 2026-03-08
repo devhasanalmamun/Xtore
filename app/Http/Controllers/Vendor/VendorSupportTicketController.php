@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Vendor;
 use App\DataTransferObjects\SupportTicketData;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminSupportTicketCategoryResource;
+use App\Http\Resources\SupportTicketMessageResource;
 use App\Http\Resources\Vendor\VendorSupportTicketResource;
 use App\Models\SupportTicket;
 use App\Models\SupportTicketCategory;
@@ -29,8 +30,11 @@ class VendorSupportTicketController extends Controller
 
     public function show(SupportTicket $supportTicket) : Response
     {
+        $messages = $supportTicket->load('messages')->messages;
+
         return Inertia::render('vendor/support-ticket/vendor-support-ticket-show', [
             'support_ticket' => new VendorSupportTicketResource($supportTicket->load('category:id,name')),
+            'support_ticket_messages' => SupportTicketMessageResource::collection($messages),
         ]);
     }
 
