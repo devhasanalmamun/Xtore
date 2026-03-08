@@ -34,20 +34,19 @@ export default function ConversationThread(props: IProps) {
       </CardHeader>
       <CardContent className="space-y-5">
         <div ref={scrollRef} className="h-100 space-y-5 overflow-y-auto">
-          {props.messages.map((message) => (
-            <div key={message.id}>
-              <div className="flex gap-3">
+          {props.messages.map((message) => {
+            const isMine = isThisMessageFromCurrentUser(message, props.auth_user)
+            return (
+              <div key={message.id} className={cn('flex gap-3', isMine ? 'flex-row-reverse' : 'flex-row')}>
                 <Avatar className="mt-0.5 shrink-0">
                   <AvatarImage src={message.sender.image} />
                   <AvatarFallback className="text-xs">{message.sender.name.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
 
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-sm font-medium">
-                      {isThisMessageFromCurrentUser(message, props.auth_user) ? 'You' : message.sender.name}
-                    </p>
-                    {!isThisMessageFromCurrentUser(message, props.auth_user) && (
+                <div className={cn('flex max-w-[60%] flex-col', isMine ? 'items-end' : 'items-start')}>
+                  <div className={cn('flex flex-wrap items-center gap-2', isMine && 'flex-row-reverse')}>
+                    <p className="text-sm font-medium">{isMine ? 'You' : message.sender.name}</p>
+                    {!isMine && (
                       <Badge variant="outline" className="py-0 text-xs capitalize">
                         {message.sender.role}
                       </Badge>
@@ -57,15 +56,15 @@ export default function ConversationThread(props: IProps) {
                   <div
                     className={cn(
                       'mt-2 rounded-lg border px-4 py-3 text-sm leading-relaxed',
-                      isThisMessageFromCurrentUser(message, props.auth_user) ? 'bg-primary/15' : 'text-gray-700',
+                      isMine ? 'bg-primary/15' : 'text-gray-700',
                     )}
                   >
                     {message.message}
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <Separator />
