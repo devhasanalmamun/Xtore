@@ -1,4 +1,5 @@
 import { PaperclipIcon, MessageSquareIcon } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -16,6 +17,13 @@ interface IProps {
 }
 
 export default function ConversationThread(props: IProps) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+    }
+  }, [])
   return (
     <Card>
       <CardHeader>
@@ -25,7 +33,7 @@ export default function ConversationThread(props: IProps) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-5">
-        <div className="h-100 space-y-5 overflow-y-auto">
+        <div ref={scrollRef} className="h-100 space-y-5 overflow-y-auto">
           {props.messages.map((message) => (
             <div key={message.id}>
               <div className="flex gap-3">
