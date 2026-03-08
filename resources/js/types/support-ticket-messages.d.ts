@@ -1,6 +1,7 @@
 interface ISupportTicketMessage {
   id: number
   sender: {
+    id: number
     name: string
     role: string
     isAdmin: boolean

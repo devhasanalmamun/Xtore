@@ -7,7 +7,7 @@ import ConversationThread from '@/components/support-ticket/conversation-thread'
 import { IVendorSupportTicketIndex } from '@/types/vendor-support-ticket'
 import { ISupportTicketMessage } from '@/types/support-ticket-messages'
 import VendorLayout from '@/layouts/vendor/vendor-layout'
-import { BreadcrumbItem } from '@/types'
+import { Auth, BreadcrumbItem } from '@/types'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -23,10 +23,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface IProps {
   support_ticket: IVendorSupportTicketIndex
   support_ticket_messages: ISupportTicketMessage[]
+  auth: Auth
 }
 
 export default function VendorSupportTicketShow(props: IProps) {
-  console.log(props.support_ticket_messages)
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
       <Head title="Support Ticket Details" />
@@ -52,7 +52,7 @@ export default function VendorSupportTicketShow(props: IProps) {
           />
         </div>
 
-        <ConversationThread messages={props.support_ticket_messages} />
+        <ConversationThread messages={props.support_ticket_messages} auth_user={props.auth.user} />
       </section>
     </VendorLayout>
   )

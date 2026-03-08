@@ -12,6 +12,7 @@ class SupportTicketMessageResource extends JsonResource
         return [
             'id' => $this->id,
             'sender' => $this->whenLoaded('sender', [
+                'id' => $this->sender->id,
                 'name' => $this->sender->isAdmin() ? 'Admin Support' : $this->sender->first_name.' '.$this->sender->last_name,
                 'role' => $this->sender->role->value,
                 'isAdmin' => $this->sender->isAdmin(),

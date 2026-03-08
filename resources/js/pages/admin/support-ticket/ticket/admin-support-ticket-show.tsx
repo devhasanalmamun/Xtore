@@ -12,8 +12,8 @@ import { IAdminSupportTicket } from '@/types/admin-support-ticket'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { statusBadgeVariant } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { Auth, BreadcrumbItem } from '@/types'
 import { Badge } from '@/components/ui/badge'
-import { BreadcrumbItem } from '@/types'
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -29,6 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface IProps {
   support_ticket: IAdminSupportTicket
   support_ticket_messages: ISupportTicketMessage[]
+  auth: Auth
 }
 
 export default function AdminSupportTicketShow(props: IProps) {
@@ -60,7 +61,7 @@ export default function AdminSupportTicketShow(props: IProps) {
               attachment={props.support_ticket.attachment ?? ''}
             />
 
-            <ConversationThread messages={props.support_ticket_messages} />
+            <ConversationThread messages={props.support_ticket_messages} auth_user={props.auth.user} />
           </div>
 
           {/* Right column */}

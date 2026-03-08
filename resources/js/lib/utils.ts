@@ -2,6 +2,8 @@ import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 import { ICategoryNode, ILandingCategory } from '@/types/landing-category'
+import { ISupportTicketMessage } from '@/types/support-ticket-messages'
+import { User } from '@/types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -55,4 +57,8 @@ function statusBadgeVariant(status: string): 'default' | 'success' | 'outline' |
   }
 }
 
-export { limitWords, statusBadgeVariant }
+function isThisMessageFromCurrentUser(message: ISupportTicketMessage, auth_user: User) {
+  return message.sender.id === auth_user.id
+}
+
+export { limitWords, statusBadgeVariant, isThisMessageFromCurrentUser }
