@@ -1,5 +1,7 @@
 import { Head, router } from '@inertiajs/react'
+import { useEcho } from '@laravel/echo-react'
 import { ArrowLeftIcon } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 import AdminSupportTicketShowSubmittedBy from '@/pages/admin/support-ticket/ticket/partials/admin-support-ticket-show-submitted-by'
 import AdminSupportTicketShowAssignedTo from '@/pages/admin/support-ticket/ticket/partials/admin-support-ticket-show-assigned-to'
@@ -33,6 +35,8 @@ interface IProps {
 }
 
 export default function AdminSupportTicketShow(props: IProps) {
+  const [messages, setMessages] = useState<ISupportTicketMessage[]>(props.support_ticket_messages)
+
   function handleSendReply(message: string) {
     if (!message.trim()) return
 
@@ -50,6 +54,24 @@ export default function AdminSupportTicketShow(props: IProps) {
       },
     )
   }
+
+  useEcho(
+    `support.ticket.${props.support_ticket.id}`,
+    'support.ticket.message.created',
+    (event: ISupportTicketMessage) => {
+      setMessages((prevMessages) => {
+        const exists = prevMessages.some((message) => message.id === event.id)
+
+        if (exists) return prevMessages
+
+        return [...prevMessages, event]
+      })
+    },
+  )
+
+  useEffect(() => {
+    setMessages(props.support_ticket_messages)
+  }, [props.support_ticket_messages])
 
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
@@ -79,11 +101,7 @@ export default function AdminSupportTicketShow(props: IProps) {
               attachment={props.support_ticket.attachment ?? ''}
             />
 
-            <ConversationThread
-              handleSendReply={handleSendReply}
-              messages={props.support_ticket_messages}
-              auth_user={props.auth.user}
-            />
+            <ConversationThread handleSendReply={handleSendReply} messages={messages} auth_user={props.auth.user} />
           </div>
 
           {/* Right column */}

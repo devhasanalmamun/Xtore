@@ -29,7 +29,7 @@ export default defineConfig({
     strictPort: true,
     hmr: {
       host: 'xtore.test',
-      protocol: 'wss',
+      protocol: 'ws',
       clientPort: 5173,
     },
   },

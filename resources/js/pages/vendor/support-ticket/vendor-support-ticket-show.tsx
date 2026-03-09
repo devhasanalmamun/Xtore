@@ -1,4 +1,6 @@
 import { Head, router } from '@inertiajs/react'
+import { useEcho } from '@laravel/echo-react'
+import { useEffect, useState } from 'react'
 
 import SupportTicketShowInformation from '@/components/support-ticket/support-ticket-show-information'
 import SupportTicketShowDetails from '@/components/support-ticket/support-ticket-show-details'
@@ -27,6 +29,8 @@ interface IProps {
 }
 
 export default function VendorSupportTicketShow(props: IProps) {
+  const [messages, setMessages] = useState<ISupportTicketMessage[]>(props.support_ticket_messages)
+
   function handleSendReply(message: string) {
     if (!message.trim()) return
 
@@ -44,6 +48,24 @@ export default function VendorSupportTicketShow(props: IProps) {
       },
     )
   }
+
+  useEcho(
+    `support.ticket.${props.support_ticket.id}`,
+    'support.ticket.message.created',
+    (event: ISupportTicketMessage) => {
+      setMessages((prevMessages) => {
+        const exists = prevMessages.some((message) => message.id === event.id)
+
+        if (exists) return prevMessages
+
+        return [...prevMessages, event]
+      })
+    },
+  )
+
+  useEffect(() => {
+    setMessages(props.support_ticket_messages)
+  }, [props.support_ticket_messages])
 
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
@@ -70,11 +92,7 @@ export default function VendorSupportTicketShow(props: IProps) {
           />
         </div>
 
-        <ConversationThread
-          messages={props.support_ticket_messages}
-          auth_user={props.auth.user}
-          handleSendReply={handleSendReply}
-        />
+        <ConversationThread messages={messages} auth_user={props.auth.user} handleSendReply={handleSendReply} />
       </section>
     </VendorLayout>
   )
