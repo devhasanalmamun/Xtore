@@ -10,6 +10,7 @@ use App\Http\Controllers\{
     Landing\LandingCategoryController,
     Landing\LandingContactPageController,
     Landing\LandingFlashSaleController,
+    SupportTicketMessageController,
 };
 use App\Http\Controllers\Landing\LandingAboutUsController;
 use Illuminate\Support\Facades\Route;
@@ -23,16 +24,12 @@ Route::get('/about-us', LandingAboutUsController::class)->name('about-us.index')
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('determine-dashboard', DetermineDashboardController::class)->name('determine-dashboard');
-});
 
-Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/support-tickets/{ticket}/messages', [SupportTicketMessageController::class, 'store'])->name('support-tickets.messages.store');
+
     Route::post('/editor-media', EditorMediaController::class)->name('editor-media.store');
     Route::post('/upload/product-image', FileUploadController::class)->name('upload.product-image');
 });
-
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::post('/support-tickets/{ticket}/messages', [SupportTicketMessageController::class, 'store'])->name('support-tickets.messages.store');
-// });
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

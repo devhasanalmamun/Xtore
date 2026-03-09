@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 
 import SupportTicketShowInformation from '@/components/support-ticket/support-ticket-show-information'
 import SupportTicketShowDetails from '@/components/support-ticket/support-ticket-show-details'
@@ -27,6 +27,24 @@ interface IProps {
 }
 
 export default function VendorSupportTicketShow(props: IProps) {
+  function handleSendReply(message: string) {
+    if (!message.trim()) return
+
+    router.post(
+      route('support-tickets.messages.store', { ticket: props.support_ticket.id }),
+      { message },
+      {
+        onSuccess: () => {
+          console.log('Message sent successfully')
+        },
+        onError: () => {
+          console.log('Failed to send message')
+        },
+        preserveScroll: true,
+      },
+    )
+  }
+
   return (
     <VendorLayout breadcrumbs={breadcrumbs}>
       <Head title="Support Ticket Details" />
@@ -52,7 +70,11 @@ export default function VendorSupportTicketShow(props: IProps) {
           />
         </div>
 
-        <ConversationThread messages={props.support_ticket_messages} auth_user={props.auth.user} />
+        <ConversationThread
+          messages={props.support_ticket_messages}
+          auth_user={props.auth.user}
+          handleSendReply={handleSendReply}
+        />
       </section>
     </VendorLayout>
   )

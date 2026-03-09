@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Vendor;
 
 use App\DataTransferObjects\SupportTicketData;
@@ -7,8 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminSupportTicketCategoryResource;
 use App\Http\Resources\SupportTicketMessageResource;
 use App\Http\Resources\Vendor\VendorSupportTicketResource;
-use App\Models\SupportTicket;
-use App\Models\SupportTicketCategory;
+use App\Models\{SupportTicket, SupportTicketCategory};
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\{Inertia, Response};
@@ -28,7 +29,7 @@ class VendorSupportTicketController extends Controller
         ]);
     }
 
-    public function show(SupportTicket $supportTicket) : Response
+    public function show(SupportTicket $supportTicket): Response
     {
         $messages = $supportTicket->load('messages')->messages;
 
@@ -38,7 +39,7 @@ class VendorSupportTicketController extends Controller
         ]);
     }
 
-    public function create() : Response
+    public function create(): Response
     {
         $supportTicketCategories = SupportTicketCategory::whereNot('visibility', 'customer')->get();
 
@@ -47,7 +48,7 @@ class VendorSupportTicketController extends Controller
         ]);
     }
 
-    public function store(SupportTicketData $data) : RedirectResponse
+    public function store(SupportTicketData $data): RedirectResponse
     {
         $transformedData = $data->toArray();
 

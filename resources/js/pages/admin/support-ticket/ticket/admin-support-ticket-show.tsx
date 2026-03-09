@@ -33,6 +33,24 @@ interface IProps {
 }
 
 export default function AdminSupportTicketShow(props: IProps) {
+  function handleSendReply(message: string) {
+    if (!message.trim()) return
+
+    router.post(
+      route('support-tickets.messages.store', { ticket: props.support_ticket.id }),
+      { message },
+      {
+        onSuccess: () => {
+          console.log('Message sent successfully')
+        },
+        onError: () => {
+          console.log('Failed to send message')
+        },
+        preserveScroll: true,
+      },
+    )
+  }
+
   return (
     <AdminLayout breadcrumbs={breadcrumbs}>
       <Head title="Support Ticket Details" />
@@ -61,7 +79,11 @@ export default function AdminSupportTicketShow(props: IProps) {
               attachment={props.support_ticket.attachment ?? ''}
             />
 
-            <ConversationThread messages={props.support_ticket_messages} auth_user={props.auth.user} />
+            <ConversationThread
+              handleSendReply={handleSendReply}
+              messages={props.support_ticket_messages}
+              auth_user={props.auth.user}
+            />
           </div>
 
           {/* Right column */}

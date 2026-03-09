@@ -1,5 +1,5 @@
 import { PaperclipIcon, MessageSquareIcon } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -9,21 +9,30 @@ import { Separator } from '@/components/ui/separator'
 import Textarea from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Label } from '@/components/ui/label'
 import { User } from '@/types'
 
 interface IProps {
   messages: ISupportTicketMessage[]
   auth_user: User
+  handleSendReply: (message: string) => void
 }
 
 export default function ConversationThread(props: IProps) {
+  const [message, setMessage] = useState('')
   const scrollRef = useRef<HTMLDivElement>(null)
+
+  function handleChange() {
+    props.handleSendReply(message)
+    setMessage('')
+  }
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  }, [])
+  }, [props.messages])
+
   return (
     <Card>
       <CardHeader>
@@ -71,18 +80,28 @@ export default function ConversationThread(props: IProps) {
 
         {/* Reply box */}
         <div className="space-y-3">
-          <p className="text-sm font-medium">Add Reply</p>
-          <Textarea placeholder="Type your reply here..." rows={4} />
+          <Label htmlFor="reply-message" className="text-sm font-medium">
+            Add Reply
+          </Label>
+          <Textarea
+            id="reply-message"
+            placeholder="Type your reply here..."
+            rows={4}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <div className="flex items-center justify-between">
-            <label
+            <Label
               htmlFor="reply-attachment"
               className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
             >
               <PaperclipIcon className="h-4 w-4" />
               Attach file
               <input id="reply-attachment" type="file" className="sr-only" />
-            </label>
-            <Button>Send Reply</Button>
+            </Label>
+            <Button onClick={handleChange} disabled={!message.trim()}>
+              Send Reply
+            </Button>
           </div>
         </div>
       </CardContent>
