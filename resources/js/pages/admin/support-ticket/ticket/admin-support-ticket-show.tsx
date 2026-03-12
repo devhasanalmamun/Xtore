@@ -57,7 +57,7 @@ export default function AdminSupportTicketShow(props: IProps) {
 
   useEcho(
     `support.ticket.${props.support_ticket.id}`,
-    'support.ticket.message.created',
+    '.support.ticket.message.created',
     (event: ISupportTicketMessage) => {
       setMessages((prevMessages) => {
         const exists = prevMessages.some((message) => message.id === event.id)
