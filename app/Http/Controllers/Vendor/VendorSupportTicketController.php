@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Vendor;
 
 use App\DataTransferObjects\SupportTicketData;
+use App\Enums\UserRoleEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminSupportTicketCategoryResource;
 use App\Http\Resources\SupportTicketMessageResource;
 use App\Http\Resources\Vendor\VendorSupportTicketResource;
-use App\Models\{SupportTicket, SupportTicketCategory};
+use App\Models\{SupportTicket, SupportTicketCategory, User};
+use App\Notifications\SupportTicketCreatedNotification;
 use Illuminate\Http\RedirectResponse;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Inertia\{Inertia, Response};
 
 class VendorSupportTicketController extends Controller
@@ -52,11 +56,17 @@ class VendorSupportTicketController extends Controller
     {
         $transformedData = $data->toArray();
 
-        SupportTicket::create([
+        $ticket = SupportTicket::create([
             ...$transformedData,
             'category_id' => $transformedData['category'],
             'created_by' => Auth::id(),
         ]);
+        
+        $admins = User::where('role', UserRoleEnum::ADMIN)->get();
+
+        if ($admins->isNotEmpty()) {
+            Notification::send($admins, new SupportTicketCreatedNotification($ticket));
+        }
 
         return redirect()->route('vendor.support-tickets.index');
     }
