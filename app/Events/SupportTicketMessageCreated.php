@@ -20,7 +20,7 @@ class SupportTicketMessageCreated implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('support.ticket.' . $this->message->support_ticket_id),
+            new PrivateChannel('support.ticket.'.$this->message->support_ticket_id),
         ];
     }
 
@@ -29,11 +29,10 @@ class SupportTicketMessageCreated implements ShouldBroadcastNow
         return 'support.ticket.message.created';
     }
 
-    public function broadcastWith(): array 
+    public function broadcastWith(): array
     {
         $this->message->loadMissing('sender');
 
         return SupportTicketMessageResource::make($this->message)->resolve();
     }
-
 }

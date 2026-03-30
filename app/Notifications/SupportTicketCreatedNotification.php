@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use App\Models\SupportTicket;
@@ -13,6 +15,7 @@ class SupportTicketCreatedNotification extends Notification implements ShouldQue
     use Queueable;
 
     public int $tries = 5;
+
     public int $timeout = 120;
 
     public function __construct(public readonly SupportTicket $ticket) {}
@@ -22,7 +25,7 @@ class SupportTicketCreatedNotification extends Notification implements ShouldQue
         return ['mail', 'database'];
     }
 
-    public function viaQueues(): array 
+    public function viaQueues(): array
     {
         return [
             'mail' => 'mail-queue',
@@ -33,7 +36,7 @@ class SupportTicketCreatedNotification extends Notification implements ShouldQue
     public function toMail(object $notifiable): MailMessage
     {
         $ticket = $this->ticket->loadMissing(['category:id,name', 'createdBy:id,first_name,last_name']);
-        
+
         return (new MailMessage)
             ->subject("New Support Ticket #{$ticket->id}")
             ->line("Subject: {$ticket->subject}")

@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Events\SupportTicketMessageCreated;
-use App\Models\SupportTicket;
-use App\Models\SupportTicketMessage;
+use App\Models\{SupportTicket, SupportTicketMessage};
 use Illuminate\Http\{RedirectResponse, Request};
 use Illuminate\Support\Facades\Auth;
 

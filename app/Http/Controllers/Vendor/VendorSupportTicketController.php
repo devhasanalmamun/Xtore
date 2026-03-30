@@ -13,9 +13,7 @@ use App\Http\Resources\Vendor\VendorSupportTicketResource;
 use App\Models\{SupportTicket, SupportTicketCategory, User};
 use App\Notifications\SupportTicketCreatedNotification;
 use Illuminate\Http\RedirectResponse;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\{Auth, Notification};
 use Inertia\{Inertia, Response};
 
 class VendorSupportTicketController extends Controller
@@ -61,7 +59,7 @@ class VendorSupportTicketController extends Controller
             'category_id' => $transformedData['category'],
             'created_by' => Auth::id(),
         ]);
-        
+
         $admins = User::where('role', UserRoleEnum::ADMIN)->get();
 
         if ($admins->isNotEmpty()) {
