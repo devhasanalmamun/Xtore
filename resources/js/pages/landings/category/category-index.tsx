@@ -28,7 +28,6 @@ export default function CategoryIndex(props: IProps) {
             <p className="mb-3 text-lg font-semibold">All Categories</p>
             <ul className="space-y-4">
               {category_tree.map((root_node) => {
-                console.log(root_node)
                 return <CategoryTreeNode key={root_node.id} node={root_node} />
               })}
             </ul>
