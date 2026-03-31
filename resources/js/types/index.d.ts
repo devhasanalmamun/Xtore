@@ -66,3 +66,12 @@ export interface User {
 
   [key: string]: unknown // This allows for additional properties...
 }
+
+export interface Notification {
+  id: number
+  avatar: string
+  fallback: string
+  message: string
+  time: string
+  read: boolean
+}
