@@ -3,7 +3,7 @@ import { Bell } from 'lucide-react'
 import axios from 'axios'
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import AppNotificationItem from '@/components/app-notification-item'
+import AppNotificationItem from '@/components/notification/app-notification-item'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -29,13 +29,14 @@ export default function AppNotification() {
   }
 
   function markAllAsRead() {
-    setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })))
+    axios.patch(route('notifications.mark-all-as-read')).then(() => {
+      setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })))
+    })
   }
 
   useEffect(() => {
     axios.get(route('notifications.index')).then((response) => {
       setNotifications(response.data)
-      console.log(response.data)
     })
   }, [])
 

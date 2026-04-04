@@ -1,5 +1,5 @@
+import AppNotification from '@/components/notification/app-notification'
 import { type BreadcrumbItem as BreadcrumbItemType } from '@/types'
-import AppNotification from '@/components/app-notification'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 
