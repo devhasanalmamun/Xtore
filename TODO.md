@@ -59,3 +59,5 @@
   \*/
 
 #### TODO: 3 (Polymorphic attachments table Replaces attachments handling for whole site)
+
+#### TODO: 4 (Use Zustand for global notification store as all request fetching notifications)

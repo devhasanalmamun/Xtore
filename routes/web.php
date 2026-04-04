@@ -10,6 +10,7 @@ use App\Http\Controllers\{
     Landing\LandingCategoryController,
     Landing\LandingContactPageController,
     Landing\LandingFlashSaleController,
+    NotificationController,
     SupportTicketMessageController,
 };
 use App\Http\Controllers\Landing\LandingAboutUsController;
@@ -23,10 +24,9 @@ Route::get('/contact-us', LandingContactPageController::class)->name('contact-us
 Route::get('/about-us', LandingAboutUsController::class)->name('about-us.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('notifications', NotificationController::class)->only('index', 'update');
     Route::get('determine-dashboard', DetermineDashboardController::class)->name('determine-dashboard');
-
     Route::post('/support-tickets/{ticket}/messages', [SupportTicketMessageController::class, 'store'])->name('support-tickets.messages.store');
-
     Route::post('/editor-media', EditorMediaController::class)->name('editor-media.store');
     Route::post('/upload/product-image', FileUploadController::class)->name('upload.product-image');
 });

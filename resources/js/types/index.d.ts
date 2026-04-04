@@ -69,9 +69,11 @@ export interface User {
 
 export interface Notification {
   id: number
-  avatar: string
-  fallback: string
-  message: string
-  time: string
-  read: boolean
+  avatar?: string
+  fallback?: string
+  title: string
+  url: string
+  is_read: boolean
+  created_by: string
+  created_at: string
 }

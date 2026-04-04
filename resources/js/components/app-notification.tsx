@@ -1,91 +1,48 @@
+import { useEffect, useState } from 'react'
 import { Bell } from 'lucide-react'
-import { useState } from 'react'
+import axios from 'axios'
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import AppNotificationItem from '@/components/app-notification-item'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Notification } from '@/types'
-import { cn } from '@/lib/utils'
-
-const MOCK_NOTIFICATIONS: Notification[] = [
-  {
-    id: 1,
-    avatar: 'https://github.com/shadcn.png',
-    fallback: 'A',
-    message: 'New support ticket created',
-    time: '12:00',
-    read: false,
-  },
-  {
-    id: 2,
-    avatar: 'https://github.com/shadcn.png',
-    fallback: 'B',
-    message: 'New support ticket created',
-    time: '12:00',
-    read: false,
-  },
-  {
-    id: 3,
-    avatar: 'https://github.com/shadcn.png',
-    fallback: 'C',
-    message: 'New support ticket created',
-    time: '12:00',
-    read: false,
-  },
-  {
-    id: 4,
-    avatar: 'https://github.com/shadcn.png',
-    fallback: 'D',
-    message: 'New support ticket created',
-    time: '12:00',
-    read: false,
-  },
-  {
-    id: 5,
-    avatar: 'https://github.com/shadcn.png',
-    fallback: 'E',
-    message: 'New support ticket created',
-    time: '12:00',
-    read: false,
-  },
-  {
-    id: 6,
-    avatar: 'https://github.com/shadcn.png',
-    fallback: 'E',
-    message: 'New support ticket created',
-    time: '12:00',
-    read: true,
-  },
-  {
-    id: 7,
-    avatar: 'https://github.com/shadcn.png',
-    fallback: 'E',
-    message: 'New support ticket created',
-    time: '12:00',
-    read: true,
-  },
-]
 
 export default function AppNotification() {
-  const [notifications, setNotifications] = useState<Notification[]>(MOCK_NOTIFICATIONS)
+  const [notifications, setNotifications] = useState<Notification[]>([])
   const [open, setOpen] = useState(false)
 
-  const unreadCount = notifications.filter((n) => !n.read).length
+  const unreadCount = notifications.filter((n) => !n.is_read).length
 
-  const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })))
+  function markAsRead(notification: Notification) {
+    axios.patch(route('notifications.update', notification.id)).then(() => {
+      setNotifications((prev) =>
+        prev.map((item) => {
+          if (item.id === notification.id) {
+            item.is_read = true
+          }
+          return item
+        }),
+      )
+    })
   }
 
-  const markAsRead = (id: number) => {
-    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)))
+  function markAllAsRead() {
+    setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })))
   }
+
+  useEffect(() => {
+    axios.get(route('notifications.index')).then((response) => {
+      setNotifications(response.data)
+      console.log(response.data)
+    })
+  }, [])
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-full" aria-label="notifications">
+        <Button variant="ghost" size="icon" className="relative h-10 w-10 rounded-full" aria-label="notifications">
           <Bell className="h-5 w-5 text-muted-foreground" />
           {unreadCount > 0 && (
             <Badge className="absolute top-px -right-0.5 flex items-center justify-center rounded-full bg-primary px-1 py-0 text-[9px] font-bold text-white">
@@ -122,37 +79,7 @@ export default function AppNotification() {
             </div>
           ) : (
             notifications.map((notification) => (
-              <div
-                key={notification.id}
-                onClick={() => markAsRead(notification.id)}
-                className={cn(
-                  'flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-muted/60',
-                  !notification.read && 'bg-primary/10 hover:bg-primary/20',
-                )}
-              >
-                <div className="relative mt-0.5 shrink-0">
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage src={notification.avatar} />
-                    <AvatarFallback className="bg-muted text-xs font-semibold">{notification.fallback}</AvatarFallback>
-                  </Avatar>
-                </div>
-
-                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <p className={cn('text-sm leading-snug text-foreground', !notification.read && 'font-medium')}>
-                    {notification.message}
-                  </p>
-                  <span
-                    className={cn(
-                      'text-xs',
-                      notification.read ? 'text-muted-foreground' : 'font-semibold text-primary/80',
-                    )}
-                  >
-                    {notification.time}
-                  </span>
-                </div>
-
-                {!notification.read && <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-primary/80" />}
-              </div>
+              <AppNotificationItem key={notification.id} notification={notification} markAsRead={markAsRead} />
             ))
           )}
         </div>
