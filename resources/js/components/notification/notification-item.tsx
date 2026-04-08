@@ -2,9 +2,9 @@ import { Avatar } from '@radix-ui/react-avatar'
 import { router } from '@inertiajs/react'
 
 import { AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import useNotifications from '@/stores/useNotifications'
 import { INotification } from '@/types'
 import { cn } from '@/lib/utils'
-import useNotifications from '@/stores/useNotifications'
 
 interface IProps {
   notification: INotification

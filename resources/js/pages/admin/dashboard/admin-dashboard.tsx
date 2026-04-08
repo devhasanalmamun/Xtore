@@ -82,6 +82,7 @@ export default function AdminDashboard() {
                 <EmptyState title="No notifications found" description="No notifications found for this section" />
               )}
             </div>
+
             {notifications.length > 10 && (
               <div className="p-1.5">
                 <Button variant="ghost" className="w-full text-sm font-semibold text-primary hover:text-primary">
