@@ -67,7 +67,7 @@ export interface User {
   [key: string]: unknown // This allows for additional properties...
 }
 
-export interface Notification {
+export interface INotification {
   id: number
   avatar?: string
   fallback?: string

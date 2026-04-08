@@ -1,44 +1,20 @@
-import { useEffect, useState } from 'react'
+import { router } from '@inertiajs/react'
 import { Bell } from 'lucide-react'
-import axios from 'axios'
+import { useState } from 'react'
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import AppNotificationItem from '@/components/notification/app-notification-item'
+import NotificationItem from '@/components/notification/notification-item'
+import useNotifications from '@/stores/useNotifications'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Notification } from '@/types'
 
 export default function AppNotification() {
-  const [notifications, setNotifications] = useState<Notification[]>([])
   const [open, setOpen] = useState(false)
 
-  const unreadCount = notifications.filter((n) => !n.is_read).length
-
-  function markAsRead(notification: Notification) {
-    axios.patch(route('notifications.update', notification.id)).then(() => {
-      setNotifications((prev) =>
-        prev.map((item) => {
-          if (item.id === notification.id) {
-            item.is_read = true
-          }
-          return item
-        }),
-      )
-    })
-  }
-
-  function markAllAsRead() {
-    axios.patch(route('notifications.mark-all-as-read')).then(() => {
-      setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })))
-    })
-  }
-
-  useEffect(() => {
-    axios.get(route('notifications.index')).then((response) => {
-      setNotifications(response.data)
-    })
-  }, [])
+  const notifications = useNotifications((state) => state.notifications)
+  const unreadCount = useNotifications((state) => state.unreadCount)
+  const markAllAsRead = useNotifications((state) => state.markAllAsRead)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -79,9 +55,9 @@ export default function AppNotification() {
               <p className="text-sm">No notifications yet</p>
             </div>
           ) : (
-            notifications.map((notification) => (
-              <AppNotificationItem key={notification.id} notification={notification} markAsRead={markAsRead} />
-            ))
+            notifications
+              .slice(0, 10)
+              .map((notification) => <NotificationItem key={notification.id} notification={notification} />)
           )}
         </div>
 
@@ -89,8 +65,12 @@ export default function AppNotification() {
 
         {/* Footer */}
         <div className="p-2">
-          <Button variant="ghost" className="w-full text-sm font-medium text-primary hover:text-primary">
-            See previous notifications
+          <Button
+            onClick={() => router.get(route('admin.dashboard.index'))}
+            variant="ghost"
+            className="w-full text-sm font-medium text-primary hover:text-primary"
+          >
+            See all notifications
           </Button>
         </div>
       </PopoverContent>

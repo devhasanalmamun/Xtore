@@ -111,11 +111,12 @@
     "tailwindcss": "^4.0.0",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.7.2",
-    "uploadthing": "^7.7.2",
+    "uploadthing": "^7.7.4",
     "use-file-picker": "^2.1.2",
     "vaul": "^1.1.2",
     "vite": "^7.0.4",
-    "zod": "^4.1.5"
+    "zod": "^4.1.5",
+    "zustand": "^5.0.12"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.9.5",

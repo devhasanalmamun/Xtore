@@ -2,19 +2,21 @@ import { Avatar } from '@radix-ui/react-avatar'
 import { router } from '@inertiajs/react'
 
 import { AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Notification } from '@/types'
+import { INotification } from '@/types'
 import { cn } from '@/lib/utils'
+import useNotifications from '@/stores/useNotifications'
 
 interface IProps {
-  notification: Notification
-  markAsRead: (notification: Notification) => void
+  notification: INotification
 }
 
-export default function AppNotificationItem(props: IProps) {
+export default function NotificationItem(props: IProps) {
+  const markAsRead = useNotifications((state) => state.markAsRead)
+
   function handleOpenUrl() {
     if (!props.notification.url) return
 
-    props.markAsRead(props.notification)
+    markAsRead(props.notification)
     router.get(props.notification.url)
   }
 

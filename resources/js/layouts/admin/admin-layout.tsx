@@ -4,6 +4,7 @@ import { AppSidebarHeader } from '@/components/app-sidebar-header'
 import AdminSidebar from '@/layouts/admin/admin-sidebar'
 import { AppContent } from '@/components/app-content'
 import { AppShell } from '@/components/app-shell'
+import BaseLayout from '@/layouts/base-layout'
 import { BreadcrumbItem } from '@/types'
 
 interface AppLayoutProps {
@@ -13,13 +14,15 @@ interface AppLayoutProps {
 
 export default function AdminLayout(props: AppLayoutProps) {
   return (
-    <AppShell variant="sidebar">
-      <AdminSidebar />
+    <BaseLayout>
+      <AppShell variant="sidebar">
+        <AdminSidebar />
 
-      <AppContent variant="sidebar">
-        <AppSidebarHeader breadcrumbs={props.breadcrumbs} />
-        {props.children}
-      </AppContent>
-    </AppShell>
+        <AppContent variant="sidebar">
+          <AppSidebarHeader breadcrumbs={props.breadcrumbs} />
+          {props.children}
+        </AppContent>
+      </AppShell>
+    </BaseLayout>
   )
 }
