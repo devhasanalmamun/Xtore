@@ -49,7 +49,7 @@ class SupportTicketCreatedNotification extends Notification implements ShouldQue
 
     public function toArray(object $notifiable): array
     {
-        $ticket = $this->ticket->loadMissing(['category:id,name', 'createdBy:id,first_name,last_name']);
+        $ticket = $this->ticket->loadMissing(['category:id,name', 'createdBy:id,first_name,last_name,image']);
 
         return [
             'ticket_id' => $ticket->id,
@@ -58,6 +58,7 @@ class SupportTicketCreatedNotification extends Notification implements ShouldQue
             'type' => 'support_ticket_created',
             'category' => $ticket->category->name,
             'subject' => $ticket->subject,
+            'image' => $ticket->createdBy->image,
             'created_by' => $ticket->createdBy->first_name.' '.$ticket->createdBy->last_name,
         ];
     }

@@ -29,9 +29,9 @@ export default function NotificationItem(props: IProps) {
       )}
     >
       <div className="relative mt-0.5 shrink-0">
-        <Avatar className="h-10 w-10">
-          <AvatarImage src={props.notification.avatar} />
-          <AvatarFallback className="h-10 w-10 overflow-hidden bg-muted text-xs font-semibold">
+        <Avatar>
+          <AvatarImage src={props.notification.image} className="h-10 w-10 rounded-full object-cover" />
+          <AvatarFallback className="h-10 w-10 overflow-hidden text-xs font-semibold">
             {props.notification.created_by}
           </AvatarFallback>
         </Avatar>

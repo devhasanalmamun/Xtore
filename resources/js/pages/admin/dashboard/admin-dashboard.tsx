@@ -71,13 +71,9 @@ export default function AdminDashboard() {
               {isLoading ? (
                 <DashboardNotificationsSkeleton />
               ) : notifications.length > 0 ? (
-                notifications.map((notification) => {
-                  return (
-                    <div key={notification.id}>
-                      <NotificationItem notification={notification} />
-                    </div>
-                  )
-                })
+                notifications.map((notification) => (
+                  <NotificationItem key={notification.id} notification={notification} />
+                ))
               ) : (
                 <EmptyState title="No notifications found" description="No notifications found for this section" />
               )}

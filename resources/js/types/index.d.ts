@@ -73,6 +73,7 @@ export interface INotification {
   fallback?: string
   title: string
   url: string
+  image: string
   is_read: boolean
   created_by: string
   created_at: string
