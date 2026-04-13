@@ -77,4 +77,5 @@ export interface INotification {
   is_read: boolean
   created_by: string
   created_at: string
+  type: string
 }

@@ -55,7 +55,6 @@ class SupportTicketCreatedNotification extends Notification implements ShouldQue
             'ticket_id' => $ticket->id,
             'title' => "New support ticket #{$ticket->id} created by {$ticket->createdBy->first_name} {$ticket->createdBy->last_name}",
             'url' => route('admin.support-tickets.show', $ticket->id),
-            'type' => 'support_ticket_created',
             'category' => $ticket->category->name,
             'subject' => $ticket->subject,
             'image' => $ticket->createdBy->image,

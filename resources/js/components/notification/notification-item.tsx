@@ -1,6 +1,7 @@
 import { Avatar } from '@radix-ui/react-avatar'
 import { router } from '@inertiajs/react'
 
+import notificationConfig from '@/components/notification/notification-config'
 import { AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import useNotifications from '@/stores/useNotifications'
 import { INotification } from '@/types'
@@ -12,6 +13,9 @@ interface IProps {
 
 export default function NotificationItem(props: IProps) {
   const markAsRead = useNotifications((state) => state.markAsRead)
+
+  const config = notificationConfig[props.notification.type] || notificationConfig.default
+  const Icon = config.icon
 
   function handleOpenUrl() {
     if (!props.notification.url) return
@@ -35,6 +39,9 @@ export default function NotificationItem(props: IProps) {
             {props.notification.created_by}
           </AvatarFallback>
         </Avatar>
+        <div className="absolute -right-1 -bottom-1 rounded-full bg-gray-200 p-0.5 ring-1 ring-white ring-offset-1">
+          <Icon style={{ color: config.color }} className="size-4" />
+        </div>
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
