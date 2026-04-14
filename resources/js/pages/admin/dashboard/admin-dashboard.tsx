@@ -1,6 +1,4 @@
 import {
-  ArrowDownRight,
-  ArrowUpRight,
   Bell,
   CheckCheck,
   ChevronRight,
@@ -18,8 +16,8 @@ import {
 import { Head } from '@inertiajs/react'
 
 import DashboardNotificationsSkeleton from '@/components/skeletons/dashboard-notifications-skeleton'
+import CardDashboardPrimaryStatus from '@/components/card/card-dashboard-primary-status'
 import NotificationItem from '@/components/notification/notification-item'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern'
 import useNotifications from '@/stores/useNotifications'
 import AdminLayout from '@/layouts/admin/admin-layout'
@@ -171,31 +169,18 @@ export default function AdminDashboard() {
         {/* ── Stat Cards ── */}
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {statCards.map((card) => {
-            const Icon = card.icon
-            const isUp = card.trend === 'up'
             return (
-              <Card key={card.title} className="gap-3 py-5">
-                <CardHeader className="flex-row items-center justify-between gap-0 pb-0">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">{card.title}</CardTitle>
-                  <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${card.bg}`}>
-                    <Icon className={`h-4 w-4 ${card.color}`} />
-                  </span>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-2xl font-bold tracking-tight text-foreground">{card.value}</p>
-                  <div className="mt-1 flex items-center gap-1.5">
-                    {isUp ? (
-                      <ArrowUpRight className="h-3.5 w-3.5 text-emerald-500" />
-                    ) : (
-                      <ArrowDownRight className="h-3.5 w-3.5 text-red-500" />
-                    )}
-                    <span className={`text-xs font-semibold ${isUp ? 'text-emerald-500' : 'text-red-500'}`}>
-                      {card.change}
-                    </span>
-                    <span className="text-xs text-muted-foreground">{card.period}</span>
-                  </div>
-                </CardContent>
-              </Card>
+              <CardDashboardPrimaryStatus
+                key={card.title}
+                title={card.title}
+                value={card.value}
+                change={card.change}
+                period={card.period}
+                color={card.color}
+                bg={card.bg}
+                icon={card.icon}
+                trend={card.trend as 'up' | 'down'}
+              />
             )
           })}
         </div>
