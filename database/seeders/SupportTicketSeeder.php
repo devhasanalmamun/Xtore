@@ -14,7 +14,7 @@ class SupportTicketSeeder extends Seeder
     {
         $tickets = [
             [
-                'created_by' => 2, // Vendor
+                'created_by' => 3, // Vendor
                 'category_id' => 1, // Support Ticket Category ID --> Technical Support
                 'subject' => 'Product not working as expected ID #123456',
                 'description' => 'My product is not working as expected',
@@ -28,7 +28,7 @@ class SupportTicketSeeder extends Seeder
                 'status' => SupportTicketStatusEnum::OPEN->value,
             ],
             [
-                'created_by' => 2, // Vendor
+                'created_by' => 3, // Vendor
                 'category_id' => 3, // Support Ticket Category ID --> Account Access Problems
                 'subject' => 'Account access not received Email: test@example.com',
                 'description' => 'I have not received my account access yet',

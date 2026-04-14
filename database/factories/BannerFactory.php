@@ -18,8 +18,8 @@ class BannerFactory extends Factory
             'section' => $this->faker->randomElement(BannerPlacementSectionsEnum::cases())->value,
             'image' => 'https://placehold.co/1200x600?text=Banner',
             'active' => $this->faker->boolean(90),
-            'created_by' => 1,
-            'updated_by' => 1,
+            'created_by' => 5,
+            'updated_by' => 5,
         ];
     }
 }

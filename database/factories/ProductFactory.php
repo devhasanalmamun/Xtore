@@ -17,8 +17,8 @@ class ProductFactory extends Factory
         return [
             'department_id' => $this->faker->numberBetween(2, 10),
             'category_id' => $this->faker->numberBetween(2, 6),
-            'created_by' => 2,
-            'updated_by' => 2,
+            'created_by' => 3,
+            'updated_by' => 3,
             'title' => ucfirst($name),
             'slug' => Str::slug($name),
             'description' => $this->faker->sentence(10),
