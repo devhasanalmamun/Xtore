@@ -3,22 +3,20 @@ import {
   CheckCheck,
   ChevronRight,
   Clock,
-  DollarSign,
   Package,
   ShoppingCart,
   Star,
   Store,
   Ticket,
   TrendingUp,
-  Users,
   Wallet,
 } from 'lucide-react'
 import { Head } from '@inertiajs/react'
 
 import DashboardNotificationsSkeleton from '@/components/skeletons/dashboard-notifications-skeleton'
-import CardDashboardPrimaryStatus from '@/components/card/card-dashboard-primary-status'
 import NotificationItem from '@/components/notification/notification-item'
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern'
+import DashboardPrimaryStats from './partials/dashboard-primary-stats'
 import useNotifications from '@/stores/useNotifications'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { Separator } from '@/components/ui/separator'
@@ -31,49 +29,6 @@ const breadcrumbs: BreadcrumbItem[] = [
   {
     title: 'Dashboard',
     routeName: 'admin.dashboard',
-  },
-]
-
-const statCards = [
-  {
-    title: 'Total Revenue',
-    value: '$124,563.00',
-    change: '+12.5%',
-    trend: 'up',
-    period: 'vs last month',
-    icon: DollarSign,
-    color: 'text-emerald-600',
-    bg: 'bg-emerald-50 dark:bg-emerald-950/30',
-  },
-  {
-    title: 'Total Orders',
-    value: '3,842',
-    change: '+8.2%',
-    trend: 'up',
-    period: 'vs last month',
-    icon: ShoppingCart,
-    color: 'text-sky-600',
-    bg: 'bg-sky-50 dark:bg-sky-950/30',
-  },
-  {
-    title: 'Active Vendors',
-    value: '218',
-    change: '+4.1%',
-    trend: 'up',
-    period: 'vs last month',
-    icon: Store,
-    color: 'text-amber-600',
-    bg: 'bg-amber-50 dark:bg-amber-950/30',
-  },
-  {
-    title: 'Total Customers',
-    value: '15,290',
-    change: '-1.3%',
-    trend: 'down',
-    period: 'vs last month',
-    icon: Users,
-    color: 'text-rose-600',
-    bg: 'bg-rose-50 dark:bg-rose-950/30',
   },
 ]
 
@@ -155,7 +110,28 @@ const statusStyles: Record<string, string> = {
   'Under Review': 'bg-sky-100 text-sky-700 dark:bg-sky-950/50 dark:text-sky-400',
 }
 
-export default function AdminDashboard() {
+interface IProps {
+  primary_stats: {
+    revenue: {
+      total_revenue: number
+      revenue_growth_last_month: number
+    }
+    orders: {
+      total_orders: number
+      orders_growth_last_month: number
+    }
+    vendors: {
+      active_vendors: number
+      vendors_growth_last_month: number
+    }
+    customers: {
+      total_customers: number
+      customers_growth_last_month: number
+    }
+  }
+}
+
+export default function AdminDashboard(props: IProps) {
   const notifications = useNotifications((state) => state.notifications)
   const isLoading = useNotifications((state) => state.isLoading)
   const unreadCount = useNotifications((state) => state.unreadCount)
@@ -166,24 +142,7 @@ export default function AdminDashboard() {
       <Head title="Dashboard" />
 
       <div className="flex h-full flex-1 flex-col gap-6 overflow-x-hidden p-4 md:p-6">
-        {/* ── Stat Cards ── */}
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {statCards.map((card) => {
-            return (
-              <CardDashboardPrimaryStatus
-                key={card.title}
-                title={card.title}
-                value={card.value}
-                change={card.change}
-                period={card.period}
-                color={card.color}
-                bg={card.bg}
-                icon={card.icon}
-                trend={card.trend as 'up' | 'down'}
-              />
-            )
-          })}
-        </div>
+        <DashboardPrimaryStats primary_stats={props.primary_stats} />
 
         {/* ── Secondary Stats ── */}
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

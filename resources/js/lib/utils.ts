@@ -61,4 +61,8 @@ function isThisMessageFromCurrentUser(message: ISupportTicketMessage, auth_user:
   return message.sender.id === auth_user.id
 }
 
-export { limitWords, statusBadgeVariant, isThisMessageFromCurrentUser }
+function formateCommaSeparatedNumber(number: number) {
+  return number.toLocaleString('en-US')
+}
+
+export { limitWords, statusBadgeVariant, isThisMessageFromCurrentUser, formateCommaSeparatedNumber }
