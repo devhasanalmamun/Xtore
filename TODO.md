@@ -45,7 +45,6 @@
 -
 - Admin-configured (set from admin panel):
 - ***
-- Ticket category (e.g. technical support, billing, account, etc.)
 - Ticket status (e.g. open, closed, pending, etc.)
 - Priority (e.g. low, medium, high, etc.)
 -
@@ -59,5 +58,3 @@
   \*/
 
 #### TODO: 3 (Polymorphic attachments table Replaces attachments handling for whole site)
-
-#### TODO: 4 (Use Zustand for global notification store as all request fetching notifications)
