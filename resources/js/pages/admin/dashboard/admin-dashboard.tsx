@@ -1,22 +1,11 @@
-import {
-  Bell,
-  CheckCheck,
-  ChevronRight,
-  Clock,
-  Package,
-  ShoppingCart,
-  Star,
-  Store,
-  Ticket,
-  TrendingUp,
-  Wallet,
-} from 'lucide-react'
+import { Bell, CheckCheck, ChevronRight, ShoppingCart, Star, Store } from 'lucide-react'
 import { Head } from '@inertiajs/react'
 
+import AdminDashboardSecondaryStats from '@/pages/admin/dashboard/partials/admin-dashboard-secondary-stats'
+import AdminDashboardPrimaryStats from '@/pages/admin/dashboard/partials/admin-dashboard-primary-stats'
+import AdminDashboardRevenueChart from '@/pages/admin/dashboard/partials/admin-dashboard-revenue-chart'
 import DashboardNotificationsSkeleton from '@/components/skeletons/dashboard-notifications-skeleton'
 import NotificationItem from '@/components/notification/notification-item'
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern'
-import DashboardPrimaryStats from './partials/dashboard-primary-stats'
 import useNotifications from '@/stores/useNotifications'
 import AdminLayout from '@/layouts/admin/admin-layout'
 import { Separator } from '@/components/ui/separator'
@@ -30,13 +19,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     title: 'Dashboard',
     routeName: 'admin.dashboard',
   },
-]
-
-const secondaryStats = [
-  { label: 'Pending Vendor Approvals', value: '14', icon: Clock, color: 'text-amber-500' },
-  { label: 'Active Products', value: '9,471', icon: Package, color: 'text-sky-500' },
-  { label: 'Open Support Tickets', value: '37', icon: Ticket, color: 'text-rose-500' },
-  { label: 'Pending Withdrawals', value: '$8,240', icon: Wallet, color: 'text-emerald-500' },
 ]
 
 const recentOrders = [
@@ -142,58 +124,12 @@ export default function AdminDashboard(props: IProps) {
       <Head title="Dashboard" />
 
       <div className="flex h-full flex-1 flex-col gap-6 overflow-x-hidden p-4 md:p-6">
-        <DashboardPrimaryStats primary_stats={props.primary_stats} />
-
-        {/* ── Secondary Stats ── */}
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {secondaryStats.map((stat) => {
-            const Icon = stat.icon
-            return (
-              <div
-                key={stat.label}
-                className="flex items-center gap-4 rounded-xl border border-sidebar-border/70 bg-card px-4 py-3.5 dark:border-sidebar-border"
-              >
-                <Icon className={`h-5 w-5 shrink-0 ${stat.color}`} />
-                <div className="min-w-0">
-                  <p className="truncate text-xs text-muted-foreground">{stat.label}</p>
-                  <p className="text-lg font-bold text-foreground">{stat.value}</p>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+        <AdminDashboardPrimaryStats primary_stats={props.primary_stats} />
+        <AdminDashboardSecondaryStats />
 
         {/* ── Revenue Chart + Order Stats ── */}
         <div className="grid gap-4 lg:grid-cols-3">
-          {/* Revenue Chart Placeholder */}
-          <div className="flex flex-col overflow-hidden rounded-xl border border-sidebar-border/70 lg:col-span-2 dark:border-sidebar-border">
-            <div className="flex items-center justify-between px-5 py-4">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                <h3 className="text-sm font-semibold text-foreground">Revenue Overview</h3>
-              </div>
-              <div className="flex gap-1.5">
-                {['7D', '30D', '90D', '1Y'].map((range, i) => (
-                  <button
-                    key={range}
-                    className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
-                      i === 1 ? 'bg-foreground text-background' : 'text-muted-foreground hover:bg-muted'
-                    }`}
-                  >
-                    {range}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <Separator />
-            <div className="relative min-h-56 flex-1 overflow-hidden">
-              <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                <TrendingUp className="h-8 w-8 text-muted-foreground/40" />
-                <p className="text-sm text-muted-foreground/60">Revenue chart will render here</p>
-              </div>
-            </div>
-          </div>
+          <AdminDashboardRevenueChart />
 
           {/* Order Stats Placeholder */}
           <div className="flex flex-col overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">

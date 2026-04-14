@@ -1,6 +1,6 @@
-import CardDashboardPrimaryStatus from '@/components/card/card-dashboard-primary-status'
 import { DollarSign, ShoppingCart, Store, Users } from 'lucide-react'
-import React from 'react'
+
+import CardDashboardPrimaryStatus from '@/components/card/card-dashboard-primary-status'
 
 const statCards = [
   {
@@ -58,7 +58,7 @@ interface IProps {
   }
 }
 
-export default function DashboardPrimaryStats(props: IProps) {
+export default function AdminDashboardPrimaryStats(props: IProps) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {statCards.map((card) => (
