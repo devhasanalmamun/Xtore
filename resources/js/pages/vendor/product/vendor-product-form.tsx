@@ -228,7 +228,8 @@ export default function VendorProductForm(props: IProps) {
         <Label htmlFor="product_images">Product Images (5 image max)</Label>
         <MultiImageUploader
           id={props.data.id}
-          product_images={props.data.product_images}
+          destination={props.data.id ? `/products/${props.data.id}/images` : '/temp'}
+          images={props.data.product_images}
           onChange={(images) => props.onDataChange('product_images', images)}
         />
         <InputError message={props.errors.product_images} />

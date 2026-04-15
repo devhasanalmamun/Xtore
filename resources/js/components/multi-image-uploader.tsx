@@ -9,7 +9,8 @@ import { cn } from '@/lib/utils'
 
 interface IProps {
   id?: string
-  product_images: string[]
+  destination: string
+  images: string[]
   onChange: (images: string[]) => void
 }
 
@@ -23,7 +24,7 @@ export default function MultiImageUploader(props: IProps) {
 
     const files = Array.from(e.target.files)
 
-    if (props.product_images.length + files.length > 5) {
+    if (props.images.length + files.length > 5) {
       setError("You can't add more than 5 image")
       return
     }
@@ -39,7 +40,7 @@ export default function MultiImageUploader(props: IProps) {
 
         return axios.post(route('upload.product-image'), formData, {
           headers: {
-            'X-File-Path': props.id ? `/products/${props.id}/images` : '/temp',
+            'X-File-Path': props.destination,
           },
           onUploadProgress: (event) => {
             if (event.total) {
@@ -54,7 +55,7 @@ export default function MultiImageUploader(props: IProps) {
       const results = await Promise.all(uploadPromises)
       const uploadedImages = results.map((res) => res.data)
 
-      props.onChange([...props.product_images, ...uploadedImages])
+      props.onChange([...props.images, ...uploadedImages])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error(error)
@@ -69,7 +70,7 @@ export default function MultiImageUploader(props: IProps) {
   }
 
   async function handleFileCancel(index: number) {
-    const updatedImages = props.product_images.filter((_, i) => i !== index)
+    const updatedImages = props.images.filter((_, i) => i !== index)
     props.onChange(updatedImages)
   }
 
@@ -79,7 +80,7 @@ export default function MultiImageUploader(props: IProps) {
     }, 50)
 
     return () => clearTimeout(timer)
-  }, [props.product_images.length])
+  }, [props.images.length])
 
   return (
     <>
@@ -90,7 +91,7 @@ export default function MultiImageUploader(props: IProps) {
         )}
       >
         <div className="flex gap-2 overflow-x-auto">
-          {props.product_images.map((image, index) => (
+          {props.images.map((image, index) => (
             <div key={index} className="relative h-38 w-33 shrink-0 overflow-hidden rounded border">
               <img src={image} alt={`preview-${index}`} className="h-full w-full object-cover" />
               <Button
@@ -104,7 +105,7 @@ export default function MultiImageUploader(props: IProps) {
             </div>
           ))}
 
-          {!(props.product_images.length >= 5) && (
+          {!(props.images.length >= 5) && (
             <div
               className="flex h-38 w-33 shrink-0 cursor-pointer flex-col items-center justify-center space-y-1 rounded border p-1"
               onClick={() => imageRef.current?.click()}
@@ -119,7 +120,7 @@ export default function MultiImageUploader(props: IProps) {
           className="hidden"
           ref={imageRef}
           type="file"
-          id="product_images"
+          id="images"
           accept="image/*"
           multiple
           onChange={handleFileChange}
