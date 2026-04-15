@@ -14,7 +14,7 @@ interface IVendorSupportTicketCreate {
   subject: string
   category: string
   description: string
-  attachment: null
+  attachments?: string[]
 }
 
 export { IVendorSupportTicketIndex, IVendorSupportTicketCreate }

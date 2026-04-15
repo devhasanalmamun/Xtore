@@ -1,6 +1,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { IVendorSupportTicketCreate } from '@/types/vendor-support-ticket'
 import { IAdminSupportTicketCategory } from '@/types/admin-support-ticket'
+import MultiImageUploader from '@/components/multi-image-uploader'
 import InputError from '@/components/ui/input-error'
 import Textarea from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
@@ -10,7 +11,7 @@ interface IProps {
   data: IVendorSupportTicketCreate
   categories: IAdminSupportTicketCategory[]
   setData: (key: keyof IVendorSupportTicketCreate, value: string | number | undefined | string[]) => void
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  handleSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void
   errors: Record<string, string>
 }
 
@@ -62,8 +63,11 @@ export default function VendorSupportTicketForm(props: IProps) {
       </div>
 
       <div>
-        <Label htmlFor="attachment">Attachment</Label>
-        <Input id="attachment" name="attachment" type="file" />
+        <Label htmlFor="attachment">Images</Label>
+        <MultiImageUploader
+          product_images={props.data.attachments || []}
+          onChange={(attachments) => props.setData('attachments', attachments)}
+        />
         {props.errors.attachment && <InputError message={props.errors.attachment} />}
       </div>
     </form>

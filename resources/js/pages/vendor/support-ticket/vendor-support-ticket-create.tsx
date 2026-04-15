@@ -27,10 +27,10 @@ export default function VendorSupportTicketCreate(props: IProps) {
     subject: '',
     description: '',
     category: '',
-    attachment: null,
+    attachments: [],
   })
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault()
 
     post(route('vendor.support-tickets.store'), {
