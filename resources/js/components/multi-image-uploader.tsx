@@ -33,12 +33,18 @@ export default function MultiImageUploader(props: IProps) {
     let totalLoaded = 0
     const totalSize = files.reduce((acc, f) => acc + f.size, 0)
 
+    const controllers: AbortController[] = []
+
     try {
       const uploadPromises = files.map((file) => {
+        const controller = new AbortController()
+        controllers.push(controller)
+
         const formData = new FormData()
         formData.append('file', file)
 
         return axios.post(route('upload.product-image'), formData, {
+          signal: controller.signal,
           headers: {
             'X-File-Path': props.destination,
           },
@@ -58,7 +64,7 @@ export default function MultiImageUploader(props: IProps) {
       props.onChange([...props.images, ...uploadedImages])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error(error)
+      controllers.forEach((controller) => controller.abort())
       setProgress(0)
 
       if (error.response?.status === 422 || error.response?.status === 413) {
@@ -66,6 +72,8 @@ export default function MultiImageUploader(props: IProps) {
       } else {
         setError('Failed to upload images. Please try again.')
       }
+
+      console.error(error)
     }
   }
 
