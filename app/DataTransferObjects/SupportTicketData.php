@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
-use Spatie\LaravelData\Attributes\Validation\{ArrayType, IntegerType, Max, Min, Required, StringType};
+use Spatie\LaravelData\Attributes\Validation\{ArrayType, IntegerType, Max, Min, Required};
+use Spatie\LaravelData\Optional;
 use Spatie\LaravelData\Data;
 
 final class SupportTicketData extends Data
@@ -19,8 +20,8 @@ final class SupportTicketData extends Data
         #[Required, IntegerType]
         public readonly int $category,
 
-        #[ArrayType(StringType::class)]
-        public readonly array $attachments = [],
+        #[ArrayType]
+        public readonly array|Optional $attachments = [],
     ) {}
 
 }

@@ -80,7 +80,7 @@ export default function VendorSupportTicketShow(props: IProps) {
             <SupportTicketShowInformation
               subject={props.support_ticket.subject}
               description={props.support_ticket.description}
-              attachment="https://via.placeholder.com/150"
+              attachments={props.support_ticket.attachments}
             />
           </div>
 

@@ -1,4 +1,4 @@
-import { ClipboardListIcon, PaperclipIcon } from 'lucide-react'
+import { ClipboardListIcon } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator'
 interface IProps {
   subject: string
   description: string
-  attachment: string
+  attachments: string[]
 }
 
 export default function SupportTicketShowInformation(props: IProps) {
@@ -31,20 +31,21 @@ export default function SupportTicketShowInformation(props: IProps) {
           <p className="mt-1 text-sm leading-relaxed text-foreground/80">{props.description}</p>
         </div>
 
-        {props.attachment && (
+        {props.attachments.length > 0 && (
           <>
             <Separator />
             <div>
-              <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Attachment</p>
-              <a
-                href={props.attachment}
-                className="mt-1.5 inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <PaperclipIcon className="h-3.5 w-3.5" />
-                View Attachment
-              </a>
+              <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Attachments</p>
+              <div className="mt-1.5 flex gap-2 overflow-x-auto">
+                {props.attachments.map((attachment, i) => (
+                  <div key={i}>
+                    <img
+                      src={attachment}
+                      className="inline-flex h-24 w-48 items-center gap-1.5 rounded-md object-cover text-sm text-primary hover:underline"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </>
         )}

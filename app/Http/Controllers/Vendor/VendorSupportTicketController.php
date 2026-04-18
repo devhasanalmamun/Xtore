@@ -13,6 +13,7 @@ use App\Http\Resources\Vendor\VendorSupportTicketResource;
 use App\Models\{SupportTicket, SupportTicketCategory, User};
 use App\Notifications\SupportTicketCreatedNotification;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Notification};
 use Inertia\{Inertia, Response};
 

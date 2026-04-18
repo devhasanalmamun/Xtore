@@ -69,7 +69,7 @@ export default function VendorSupportTicketForm(props: IProps) {
           images={props.data.attachments || []}
           onChange={(attachments) => props.setData('attachments', attachments)}
         />
-        {props.errors.attachment && <InputError message={props.errors.attachment} />}
+        {props.errors.attachments && <InputError message={props.errors.attachments} />}
       </div>
     </form>
   )

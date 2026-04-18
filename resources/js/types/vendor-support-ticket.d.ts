@@ -5,6 +5,7 @@ interface IVendorSupportTicketIndex {
   }
   subject: string
   description: string
+  attachments: string[]
   status: string
   created_at: string
   updated_at: string
