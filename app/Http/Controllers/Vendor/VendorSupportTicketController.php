@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\DataTransferObjects\SupportTicketData;
 use App\Enums\UserRoleEnum;
+use App\Helpers\FileMover;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\AdminSupportTicketCategoryResource;
 use App\Http\Resources\SupportTicketMessageResource;
@@ -56,8 +57,15 @@ class VendorSupportTicketController extends Controller
 
         $ticket = SupportTicket::create([
             ...$transformedData,
+            'images' => [],
             'category_id' => $transformedData['category'],
             'created_by' => Auth::id(),
+        ]);
+
+        $images = FileMover::moveFiles($data->images, "/support-tickets/$ticket->id/images/");
+
+        $ticket->update([
+            'images' => $images,
         ]);
 
         $admins = User::where('role', UserRoleEnum::ADMIN)->get();
