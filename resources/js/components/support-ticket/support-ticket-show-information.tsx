@@ -1,7 +1,8 @@
-import { ClipboardListIcon } from 'lucide-react'
+import { ClipboardListIcon, ZoomInIcon } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { Button } from '@/components/ui/button'
 
 interface IProps {
   subject: string
@@ -31,23 +32,25 @@ export default function SupportTicketShowInformation(props: IProps) {
           <p className="mt-1 text-sm leading-relaxed text-foreground/80">{props.description}</p>
         </div>
 
+        <Separator />
+
         {props.attachments.length > 0 && (
-          <>
-            <Separator />
-            <div>
-              <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Attachments</p>
-              <div className="mt-1.5 flex gap-2 overflow-x-auto">
-                {props.attachments.map((attachment, i) => (
-                  <div key={i}>
-                    <img
-                      src={attachment}
-                      className="inline-flex h-24 w-48 items-center gap-1.5 rounded-md object-cover text-sm text-primary hover:underline"
-                    />
-                  </div>
-                ))}
-              </div>
+          <div>
+            <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Attachments</p>
+            <div className="mt-1.5 flex gap-2 overflow-x-auto">
+              {props.attachments.map((attachment, i) => (
+                <div key={i} className="group relative">
+                  <img
+                    src={attachment}
+                    className="inline-flex h-24 w-48 items-center gap-1.5 rounded-md object-cover text-sm text-primary hover:underline"
+                  />
+                  <Button className="absolute top-2 right-2 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                    <ZoomInIcon />
+                  </Button>
+                </div>
+              ))}
             </div>
-          </>
+          </div>
         )}
       </CardContent>
     </Card>
