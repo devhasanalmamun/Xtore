@@ -1,4 +1,5 @@
-import { ClipboardListIcon, ZoomInIcon } from 'lucide-react'
+import { ClipboardListIcon, XIcon, ZoomInIcon } from 'lucide-react'
+import { useState } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
@@ -11,6 +12,8 @@ interface IProps {
 }
 
 export default function SupportTicketShowInformation(props: IProps) {
+  const [previewImage, setPreviewImage] = useState<string | null>(null)
+
   return (
     <Card>
       <CardHeader>
@@ -39,20 +42,50 @@ export default function SupportTicketShowInformation(props: IProps) {
             <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Attachments</p>
             <div className="mt-1.5 flex gap-2 overflow-x-auto">
               {props.attachments.map((attachment, i) => (
-                <div key={i} className="group relative">
+                <div
+                  key={i}
+                  onClick={() => setPreviewImage(attachment)}
+                  className="group relative h-24 w-48 cursor-pointer overflow-hidden rounded-md"
+                >
                   <img
                     src={attachment}
-                    className="inline-flex h-24 w-48 items-center gap-1.5 rounded-md object-cover text-sm text-primary hover:underline"
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
-                  <Button className="absolute top-2 right-2 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                    <ZoomInIcon />
-                  </Button>
+
+                  <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                    <ZoomInIcon className="size-6 text-white" />
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         )}
       </CardContent>
+
+      {previewImage && <PreviewImage image={previewImage} setPreviewImage={setPreviewImage} />}
     </Card>
+  )
+}
+
+interface IPreviewImageProps {
+  image: string
+  setPreviewImage: (image: string | null) => void
+}
+
+function PreviewImage(props: IPreviewImageProps) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      onClick={() => props.setPreviewImage(null)}
+    >
+      <Button className="absolute top-6 right-6 h-10 w-10 rounded-full" onClick={() => props.setPreviewImage(null)}>
+        <XIcon className="size-5" />
+      </Button>
+      <img
+        src={props.image}
+        className="max-h-[80vh] max-w-[80vw] rounded-lg object-contain shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      />
+    </div>
   )
 }
