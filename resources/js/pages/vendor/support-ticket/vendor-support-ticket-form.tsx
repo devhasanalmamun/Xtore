@@ -66,10 +66,10 @@ export default function VendorSupportTicketForm(props: IProps) {
         <Label htmlFor="attachment">Images</Label>
         <MultiImageUploader
           destination="/temp"
-          images={props.data.attachments || []}
-          onChange={(attachments) => props.setData('attachments', attachments)}
+          images={props.data.images || []}
+          onChange={(images) => props.setData('images', images)}
         />
-        {props.errors.attachments && <InputError message={props.errors.attachments} />}
+        {props.errors.images && <InputError message={props.errors.images} />}
       </div>
     </form>
   )

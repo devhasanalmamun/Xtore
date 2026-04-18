@@ -98,7 +98,7 @@ export default function AdminSupportTicketShow(props: IProps) {
             <SupportTicketShowInformation
               subject={props.support_ticket.subject}
               description={props.support_ticket.description}
-              attachment={props.support_ticket.attachment ?? ''}
+              images={props.support_ticket.images ?? []}
             />
 
             <ConversationThread handleSendReply={handleSendReply} messages={messages} auth_user={props.auth.user} />

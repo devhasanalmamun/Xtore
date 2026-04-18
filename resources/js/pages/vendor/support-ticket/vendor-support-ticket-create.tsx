@@ -27,7 +27,7 @@ export default function VendorSupportTicketCreate(props: IProps) {
     subject: '',
     description: '',
     category: '',
-    attachments: [],
+    images: [],
   })
 
   function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {

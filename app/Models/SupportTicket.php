@@ -16,13 +16,13 @@ class SupportTicket extends Model
         'category_id',
         'subject',
         'description',
-        'attachments',
+        'images',
         'status',
     ];
 
     protected $casts = [
         'status' => SupportTicketStatusEnum::class,
-        'attachments' => 'array',
+        'images' => 'array',
     ];
 
     public function createdBy(): BelongsTo

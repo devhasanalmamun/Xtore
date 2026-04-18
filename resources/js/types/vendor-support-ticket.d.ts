@@ -5,7 +5,7 @@ interface IVendorSupportTicketIndex {
   }
   subject: string
   description: string
-  attachments: string[]
+  images?: string[]
   status: string
   created_at: string
   updated_at: string
@@ -15,7 +15,7 @@ interface IVendorSupportTicketCreate {
   subject: string
   category: string
   description: string
-  attachments?: string[]
+  images?: string[]
 }
 
 export { IVendorSupportTicketIndex, IVendorSupportTicketCreate }

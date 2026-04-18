@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('subject');
             $table->longText('description');
-            $table->json('attachments')->nullable();
+            $table->json('images')->nullable();
             $table->string('status')->default(SupportTicketStatusEnum::OPEN->value);
 
             $table->timestamps();

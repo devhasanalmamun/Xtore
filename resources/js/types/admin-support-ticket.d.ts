@@ -20,7 +20,7 @@ interface IAdminSupportTicket {
   }
   subject: string
   description: string
-  attachment?: string
+  images?: string[]
   status: string
   created_at: string
   updated_at: string

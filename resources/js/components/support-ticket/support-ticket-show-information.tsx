@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 interface IProps {
   subject: string
   description: string
-  attachments: string[]
+  images?: string[]
 }
 
 export default function SupportTicketShowInformation(props: IProps) {
@@ -35,30 +35,31 @@ export default function SupportTicketShowInformation(props: IProps) {
           <p className="mt-1 text-sm leading-relaxed text-foreground/80">{props.description}</p>
         </div>
 
-        <Separator />
+        {props.images && props.images.length > 0 && (
+          <>
+            <Separator />
+            <div>
+              <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Attachments</p>
+              <div className="mt-1.5 flex gap-2 overflow-x-auto">
+                {props.images.map((image, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setPreviewImage(image)}
+                    className="group relative h-24 w-48 cursor-pointer overflow-hidden rounded-md"
+                  >
+                    <img
+                      src={image}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
 
-        {props.attachments.length > 0 && (
-          <div>
-            <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">Attachments</p>
-            <div className="mt-1.5 flex gap-2 overflow-x-auto">
-              {props.attachments.map((attachment, i) => (
-                <div
-                  key={i}
-                  onClick={() => setPreviewImage(attachment)}
-                  className="group relative h-24 w-48 cursor-pointer overflow-hidden rounded-md"
-                >
-                  <img
-                    src={attachment}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-
-                  <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                    <ZoomInIcon className="size-6 text-white" />
+                    <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                      <ZoomInIcon className="size-6 text-white" />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          </>
         )}
       </CardContent>
 

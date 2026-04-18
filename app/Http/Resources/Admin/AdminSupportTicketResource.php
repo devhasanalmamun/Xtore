@@ -23,7 +23,7 @@ class AdminSupportTicketResource extends JsonResource
             'assigned_to' => null,
             'subject' => $this->subject,
             'description' => $this->description,
-            'attachment' => $this->attachment,
+            'images' => $this->images,
             'status' => $this->status->value,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
